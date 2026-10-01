@@ -72,7 +72,7 @@ function AppContent() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Gryphon-Cyber-Website">
       <AppContent />
     </BrowserRouter>
   );
