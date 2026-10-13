@@ -11,7 +11,7 @@ import RequestTraining from "./pages/RequestTraining";
 
 function App() {
   return (
-    <BrowserRouter basename="/Gryphon-Cyber-Website">
+    <BrowserRouter>
       <Routes>
         {/* Home */}
         <Route path="/" element={<Home />} />
