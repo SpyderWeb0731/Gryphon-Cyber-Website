@@ -35373,3 +35373,89 @@ header.navbar .logo-link:hover .navbar-logo {
   }
 
 }
+/* =========================================================
+   GRYPHON — FINAL MOBILE WHITE BLOCK KILL SWITCH
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  /* Hide any accidental empty element inside mobile menu */
+  .mobile-nav-menu > div:empty,
+  .mobile-nav-menu > a:empty,
+  .mobile-nav-menu > button:empty,
+  .mobile-nav-panel > div:empty,
+  .mobile-nav-panel > a:empty,
+  .mobile-nav-panel > button:empty {
+    display: none !important;
+  }
+
+  /* Any mobile demo element */
+  .mobile-nav-menu .mobile-demo,
+  .mobile-nav-menu .mobile-demo-button,
+  .mobile-nav-menu .mobile-demo-link,
+  .mobile-nav-panel .mobile-demo,
+  .mobile-nav-panel .mobile-demo-button,
+  .mobile-nav-panel .mobile-demo-link {
+    background: #06111c !important;
+    background-image: none !important;
+    color: #dce8f2 !important;
+    border: 1px solid rgba(0, 217, 255, 0.55) !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Fix blank white links/buttons */
+  .mobile-nav-menu a,
+  .mobile-nav-menu button,
+  .mobile-nav-panel a,
+  .mobile-nav-panel button {
+    background-color: transparent !important;
+  }
+
+  /* Specifically prevent white background */
+  .mobile-nav-menu a:not(:hover),
+  .mobile-nav-menu button:not(:hover),
+  .mobile-nav-panel a:not(:hover),
+  .mobile-nav-panel button:not(:hover) {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  /* Mobile menu itself stays dark */
+  .mobile-nav-menu,
+  .mobile-nav-panel {
+    background:
+      linear-gradient(
+        145deg,
+        #06111c 0%,
+        #02060d 100%
+      ) !important;
+  }
+}
+
+/* Leadership portraits: keep images static and remove inner globe effects */
+.about-leader-card .leader-avatar-core,
+.about-leader-card .leader-photo-core {
+  animation: none !important;
+  transform: none !important;
+  background-image: none !important;
+  background: #ffffff !important;
+  overflow: hidden;
+}
+
+/* Keep the actual portrait clear and stationary */
+.about-leader-card .leader-photo-core img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Preserve the existing outer rotating rings and orbit */
+.about-leader-card .leader-avatar-ring,
+.about-leader-card .leader-avatar-orbit {
+  /* Existing animations remain unchanged */
+}

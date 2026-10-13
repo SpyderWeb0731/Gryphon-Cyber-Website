@@ -1,0 +1,262 @@
+/* Reusable Gryphon Cyber footer */
+.gryphon-footer {
+  width: 100%;
+  color: #fff;
+  background: #040b16;
+  border-top: 1px solid rgba(34, 211, 238, 0.14);
+  overflow: hidden;
+}
+
+.gryphon-footer,
+.gryphon-footer * {
+  box-sizing: border-box;
+}
+
+.gryphon-footer__main {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 68px 0 52px;
+  display: grid;
+  grid-template-columns:
+    minmax(220px, 1.6fr)
+    minmax(110px, 0.8fr)
+    minmax(130px, 0.9fr)
+    minmax(260px, 1.55fr);
+  gap: clamp(24px, 4vw, 58px);
+}
+
+.gryphon-footer__brand,
+.gryphon-footer__column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.gryphon-footer__logo-link {
+  display: inline-flex;
+  margin-bottom: 18px;
+}
+
+.gryphon-footer__logo {
+  display: block;
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+}
+
+.gryphon-footer__brand p {
+  max-width: 330px;
+  margin: 0;
+  color: #91a8c2;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.gryphon-footer__column h2 {
+  margin: 4px 0 20px;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.gryphon-footer__column a {
+  max-width: 100%;
+  margin-bottom: 13px;
+  color: #91a8c2;
+  font-size: 14px;
+  line-height: 1.65;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.2s ease;
+}
+
+.gryphon-footer__column a:hover,
+.gryphon-footer__column a:focus-visible {
+  color: #22d3ee;
+}
+
+/* Social links: icon and readable name, no overlapping circles */
+.gryphon-footer__socials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.gryphon-footer__socials .gryphon-footer__social-link {
+  width: auto;
+  height: auto;
+  min-height: 38px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 12px;
+  margin: 0;
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  border-radius: 8px;
+  background: transparent;
+  color: #b8c9dc;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.gryphon-footer__social-link svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.gryphon-footer__socials .gryphon-footer__social-link:hover,
+.gryphon-footer__socials .gryphon-footer__social-link:focus-visible {
+  color: #fff;
+  background: rgba(34, 211, 238, 0.12);
+  border-color: #22d3ee;
+}
+
+.gryphon-footer__office h2 {
+  margin-bottom: 12px;
+}
+
+.gryphon-footer__office .gryphon-footer__map-link {
+  color: #22d3ee;
+  font-size: 12px;
+  margin-top: -6px;
+  margin-bottom: 24px;
+}
+
+.gryphon-footer__office .gryphon-footer__second-office {
+  margin-top: 3px;
+}
+
+.gryphon-footer__bottom {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 22px 0 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-top: 1px solid rgba(145, 168, 194, 0.14);
+  color: #7188a3;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 1000px) {
+  .gryphon-footer__main {
+    grid-template-columns:
+      minmax(180px, 1.3fr)
+      minmax(110px, 0.8fr)
+      minmax(120px, 0.8fr);
+    gap: 34px;
+  }
+
+  .gryphon-footer__office {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+    align-items: start;
+  }
+
+  .gryphon-footer__office h2,
+  .gryphon-footer__office > a {
+    grid-column: auto;
+  }
+
+  .gryphon-footer__office .gryphon-footer__second-office {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 640px) {
+  .gryphon-footer__main {
+    width: min(calc(100% - 36px), 480px);
+    padding: 44px 0 30px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px 22px;
+  }
+
+  .gryphon-footer__brand {
+    grid-column: 1 / -1;
+  }
+
+  .gryphon-footer__brand p {
+    max-width: 100%;
+  }
+
+  .gryphon-footer__office {
+    grid-column: 1 / -1;
+    display: flex;
+  }
+
+  .gryphon-footer__column h2 {
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+
+  .gryphon-footer__column a {
+    font-size: 13px;
+  }
+
+  .gryphon-footer__bottom {
+    width: min(calc(100% - 36px), 480px);
+    padding: 18px 0 22px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 360px) {
+  .gryphon-footer__main {
+    grid-template-columns: 1fr;
+  }
+
+  .gryphon-footer__brand,
+  .gryphon-footer__office {
+    grid-column: auto;
+  }
+}
+
+/* FIX: Remove horizontal boxes/lines under footer columns */
+.gryphon-footer .gryphon-footer__column {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Remove lines created by pseudo-elements */
+.gryphon-footer .gryphon-footer__column::before,
+.gryphon-footer .gryphon-footer__column::after {
+  content: none !important;
+  display: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Prevent nested column links from creating boxes */
+.gryphon-footer .gryphon-footer__column a {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Keep social media buttons styled normally */
+.gryphon-footer .gryphon-footer__social-link {
+  background: transparent;
+}
