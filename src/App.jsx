@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -11,7 +11,7 @@ import RequestTraining from "./pages/RequestTraining";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         {/* Home */}
         <Route path="/" element={<Home />} />
@@ -32,7 +32,7 @@ function App() {
           element={<RequestTraining />}
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
