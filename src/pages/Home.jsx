@@ -520,7 +520,7 @@ function Home() {
 
               <a
 
-                href="/solutions"
+                href="#/solutions"
 
                 className="primary-button"
 
@@ -534,7 +534,7 @@ function Home() {
 
               <a
 
-                href="/about"
+                href="#/about"
 
                 className="secondary-button"
 

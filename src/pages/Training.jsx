@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import gryphonLogo from "../assets/gryphon-logo.png";
 
 import "../App.css";
 
@@ -211,7 +212,11 @@ function Training() {
 
           <Link to="/" className="logo-link">
 
-            <span className="navbar-brand-text">GRYPHON</span>
+            <img
+  src={gryphonLogo}
+  alt="Gryphon Cyber Private Limited"
+  className="navbar-logo"
+/>
 
           </Link>
 
