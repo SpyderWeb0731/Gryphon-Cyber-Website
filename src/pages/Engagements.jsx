@@ -5,35 +5,26 @@ import Footer from "../components/Footer";
 import "./Engagements.css";
 import "../App.css";
 
-/*
-  ==========================================================
-  GRYPHON CYBER — ENGAGEMENTS PAGE
-  ==========================================================
+const BASE = import.meta.env.BASE_URL || "/";
 
-  Place your images inside:
-
-  public/engagements/police/
-  public/engagements/leadership/
-  public/engagements/events/
-
-  The image paths below match the current files.
-*/
+const asset = (path) =>
+  `${BASE}${path.replace(/^\/+/, "")}`;
 
 const policeImages = [
   {
-    src: "/engagements/police/police-training-01.jpeg",
+    src: asset("engagements/police/police-training-01.jpeg"),
     title: "Cybersecurity Training",
     description:
       "Cybersecurity awareness and technology-focused training for law enforcement personnel.",
   },
   {
-    src: "/engagements/police/police-training-02.jpeg",
+    src: asset("engagements/police/police-training-02.jpeg"),
     title: "Law Enforcement Engagement",
     description:
       "Practical engagement with frontline security and law enforcement teams.",
   },
   {
-    src: "/engagements/police/police-training-03.jpeg",
+    src: asset("engagements/police/police-training-03.jpeg"),
     title: "Knowledge & Awareness",
     description:
       "Sharing knowledge around emerging cyber threats and digital investigations.",
@@ -42,25 +33,25 @@ const policeImages = [
 
 const leadershipImages = [
   {
-    src: "/engagements/leadership/leadership-01.jpeg",
+    src: asset("engagements/leadership/leadership-01.jpeg"),
     title: "Cybersecurity Seminar",
     description:
       "Gryphon Cyber leadership participating in cybersecurity discussions and seminars.",
   },
   {
-    src: "/engagements/leadership/leadership-02.jpeg",
+    src: asset("engagements/leadership/leadership-02.jpeg"),
     title: "Industry Engagement",
     description:
       "Connecting with cybersecurity professionals and industry stakeholders.",
   },
   {
-    src: "/engagements/leadership/leadership-03.jpeg",
+    src: asset("engagements/leadership/leadership-03.jpeg"),
     title: "Strategic Discussions",
     description:
       "Leadership engagement around emerging security challenges and technologies.",
   },
   {
-    src: "/engagements/leadership/leadership-04.jpeg",
+    src: asset("engagements/leadership/leadership-04.jpeg"),
     title: "Cybersecurity Community",
     description:
       "Participating in forums that shape the future of cybersecurity.",
@@ -69,25 +60,24 @@ const leadershipImages = [
 
 const eventImages = [
   {
-    src: "/engagements/events/event-01.png",
+    src: asset("engagements/events/event-01.png"),
     title: "Industry Forum",
     description:
       "Participation in technology and cybersecurity forums.",
   },
   {
-    src: "/engagements/events/event-02.jpeg",
+    src: asset("engagements/events/event-02.jpeg"),
     title: "Professional Collaboration",
     description:
       "Building meaningful relationships across the security ecosystem.",
   },
   {
-    src: "/engagements/events/event-03.jpeg",
+    src: asset("engagements/events/event-03.jpeg"),
     title: "Cybersecurity Engagement",
     description:
       "Gryphon Cyber participating in cybersecurity and technology-focused engagements.",
   },
 ];
-
 
 function ImageCard({ image, index, onOpen }) {
   return (
@@ -96,6 +86,15 @@ function ImageCard({ image, index, onOpen }) {
         index === 0 ? "engagement-featured-card" : ""
       }`}
       onClick={() => onOpen(image)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onOpen(image);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${image.title}`}
     >
       <div className="engagement-image-wrapper">
         <img
@@ -104,18 +103,18 @@ function ImageCard({ image, index, onOpen }) {
           loading="lazy"
           onError={(event) => {
             event.currentTarget.style.display = "none";
-            event.currentTarget.parentElement.classList.add(
+            event.currentTarget.parentElement?.classList.add(
               "engagement-image-missing"
             );
           }}
         />
 
-        <div className="engagement-image-placeholder">
+        <div className="engagement-image-placeholder" aria-hidden="true">
           <span className="placeholder-icon">GC</span>
           <span>Add Engagement Image</span>
         </div>
 
-        <div className="engagement-image-overlay">
+        <div className="engagement-image-overlay" aria-hidden="true">
           <span className="view-image">
             View Image <span>↗</span>
           </span>
@@ -136,7 +135,6 @@ function ImageCard({ image, index, onOpen }) {
   );
 }
 
-
 function EngagementSection({
   eyebrow,
   title,
@@ -154,7 +152,6 @@ function EngagementSection({
         </div>
 
         <h2>{title}</h2>
-
         <p>{description}</p>
       </div>
 
@@ -172,7 +169,6 @@ function EngagementSection({
   );
 }
 
-
 export default function Engagements() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -180,6 +176,7 @@ export default function Engagements() {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
+        setSelectedImage(null);
         setMobileMenuOpen(false);
       }
     };
@@ -199,41 +196,63 @@ export default function Engagements() {
     };
   }, []);
 
-  const closeModal = () => {
-    setSelectedImage(null);
-  };
+  useEffect(() => {
+    document.body.classList.toggle(
+      "engagements-menu-open",
+      mobileMenuOpen
+    );
+
+    return () => {
+      document.body.classList.remove("engagements-menu-open");
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    if (!selectedImage) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedImage]);
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+  const closeModal = () => setSelectedImage(null);
 
   return (
     <div className="engagements-page">
-
-      {/* =====================================================
-          NAVBAR
-      ===================================================== */}
-
-      <header
-        className="navbar gryphon-standard-navbar engagements-navbar"
-        style={{ position: "relative", zIndex: 100000 }}
-      >
+      <header className="navbar gryphon-standard-navbar engagements-navbar">
         <div className="nav-container engagements-nav-container">
           <Link
             to="/"
             className="logo-link"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={closeMobileMenu}
+            aria-label="Gryphon Cyber home"
           >
             <NavbarBrand />
           </Link>
 
-          <nav className="nav-links engagements-desktop-nav" aria-label="Main navigation">
+          <nav
+            className="nav-links engagements-desktop-nav"
+            aria-label="Main navigation"
+          >
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
             <Link to="/services">Services</Link>
             <Link to="/solutions">Solutions</Link>
-            <Link to="/engagements" className="active">Engagements</Link>
+            <Link to="/engagements" className="active">
+              Engagements
+            </Link>
             <Link to="/training">Training</Link>
             <Link to="/contact">Contact</Link>
           </nav>
 
-          <Link to="/contact" className="talk-button engagements-desktop-talk">
+          <Link
+            to="/contact"
+            className="talk-button engagements-desktop-talk"
+          >
             Talk to Us
             <span>→</span>
           </Link>
@@ -244,7 +263,9 @@ export default function Engagements() {
               mobileMenuOpen ? "open" : ""
             }`}
             aria-label={
-              mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
+              mobileMenuOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
             }
             aria-expanded={mobileMenuOpen}
             aria-controls="engagements-mobile-menu"
@@ -256,52 +277,44 @@ export default function Engagements() {
           </button>
         </div>
 
-        <div
-          id="engagements-mobile-menu"
-          className={`engagements-mobile-menu ${
-            mobileMenuOpen ? "open" : ""
-          }`}
-          aria-hidden={!mobileMenuOpen}
-        >
-          <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-          <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
-          <Link to="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
-          <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
-          <Link
-            to="/engagements"
-            className="mobile-active"
-            onClick={() => setMobileMenuOpen(false)}
+        {mobileMenuOpen && (
+          <div
+            id="engagements-mobile-menu"
+            className="engagements-mobile-menu"
+            aria-hidden="false"
           >
-            Engagements
-          </Link>
-          <Link to="/training" onClick={() => setMobileMenuOpen(false)}>Training</Link>
-          <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
-          <Link
-            to="/contact"
-            className="engagements-mobile-talk"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Talk to Us
-            <span>→</span>
-          </Link>
-        </div>
+            <Link to="/" onClick={closeMobileMenu}>Home</Link>
+            <Link to="/about" onClick={closeMobileMenu}>About</Link>
+            <Link to="/services" onClick={closeMobileMenu}>Services</Link>
+            <Link to="/solutions" onClick={closeMobileMenu}>Solutions</Link>
+            <Link
+              to="/engagements"
+              className="mobile-active"
+              onClick={closeMobileMenu}
+            >
+              Engagements
+            </Link>
+            <Link to="/training" onClick={closeMobileMenu}>Training</Link>
+            <Link to="/contact" onClick={closeMobileMenu}>Contact</Link>
+            <Link
+              to="/contact"
+              className="engagements-mobile-talk"
+              onClick={closeMobileMenu}
+            >
+              Talk to Us
+              <span>→</span>
+            </Link>
+          </div>
+        )}
       </header>
 
-      {/* =====================================================
-          HERO
-      ===================================================== */}
-
       <main>
-
         <section className="engagements-hero">
-
           <div className="engagements-hero-grid" />
-
           <div className="engagements-hero-glow glow-one" />
           <div className="engagements-hero-glow glow-two" />
 
           <div className="engagements-hero-content">
-
             <div className="engagements-eyebrow">
               <span className="eyebrow-dot" />
               REAL-WORLD CYBERSECURITY ENGAGEMENTS
@@ -322,48 +335,30 @@ export default function Engagements() {
             </p>
 
             <div className="engagements-hero-stats">
-
               <div className="hero-stat">
                 <strong>01</strong>
                 <span>Field Training</span>
               </div>
-
               <div className="hero-stat">
                 <strong>02</strong>
                 <span>Industry Engagement</span>
               </div>
-
               <div className="hero-stat">
                 <strong>03</strong>
                 <span>Leadership</span>
               </div>
-
             </div>
-
           </div>
-
         </section>
 
-
-        {/* ===================================================
-            INTRODUCTION
-        =================================================== */}
-
         <section className="engagements-intro">
-
           <div className="intro-line" />
-
           <div className="intro-content">
-
-            <span className="section-label">
-              GRYPHON CYBER IN ACTION
-            </span>
-
+            <span className="section-label">GRYPHON CYBER IN ACTION</span>
             <h2>
               Turning Knowledge Into
               <span> Real-World Impact.</span>
             </h2>
-
             <p>
               Our engagement extends beyond the digital environment.
               Through training programs, cybersecurity seminars,
@@ -371,15 +366,8 @@ export default function Engagements() {
               Cyber works with people and organizations at the forefront
               of today's security challenges.
             </p>
-
           </div>
-
         </section>
-
-
-        {/* ===================================================
-            POLICE TRAINING
-        =================================================== */}
 
         <EngagementSection
           eyebrow="LAW ENFORCEMENT"
@@ -390,11 +378,6 @@ export default function Engagements() {
           onOpen={setSelectedImage}
         />
 
-
-        {/* ===================================================
-            LEADERSHIP
-        =================================================== */}
-
         <EngagementSection
           eyebrow="LEADERSHIP & INDUSTRY"
           title="Leadership in the Cybersecurity Community"
@@ -403,11 +386,6 @@ export default function Engagements() {
           sectionClass="leadership-section"
           onOpen={setSelectedImage}
         />
-
-
-        {/* ===================================================
-            EVENTS
-        =================================================== */}
 
         <EngagementSection
           eyebrow="EVENTS & COLLABORATION"
@@ -418,57 +396,34 @@ export default function Engagements() {
           onOpen={setSelectedImage}
         />
 
-
-        {/* ===================================================
-            CTA
-        =================================================== */}
-
         <section className="engagements-cta">
-
           <div className="cta-grid" />
-
           <div className="cta-content">
-
-            <span className="section-label">
-              THE NEXT ENGAGEMENT
-            </span>
-
+            <span className="section-label">THE NEXT ENGAGEMENT</span>
             <h2>
               Building a More
               <span> Resilient Digital Environment.</span>
             </h2>
-
             <p>
               Explore how Gryphon Cyber can support your organization's
               cybersecurity, intelligence and operational requirements.
             </p>
-
             <Link to="/contact" className="engagement-cta-button">
               <span>Talk to Gryphon Cyber</span>
               <strong>→</strong>
             </Link>
-
           </div>
-
         </section>
-
       </main>
 
-
-      {/* =====================================================
-          FOOTER
-      ===================================================== */}
-
       <Footer />
-
-
-      {/* =====================================================
-          IMAGE LIGHTBOX
-      ===================================================== */}
 
       {selectedImage && (
         <div
           className="engagement-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={selectedImage.title}
           onClick={closeModal}
         >
           <button
@@ -484,21 +439,14 @@ export default function Engagements() {
             className="lightbox-content"
             onClick={(event) => event.stopPropagation()}
           >
-
-            <img
-              src={selectedImage.src}
-              alt={selectedImage.title}
-            />
-
+            <img src={selectedImage.src} alt={selectedImage.title} />
             <div className="lightbox-caption">
               <span>{selectedImage.title}</span>
               <p>{selectedImage.description}</p>
             </div>
-
           </div>
         </div>
       )}
-
     </div>
   );
 }
