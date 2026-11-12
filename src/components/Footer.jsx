@@ -91,28 +91,15 @@ function Footer() {
             Unit No. 220, 2nd Floor, Gryphon Cyber Pvt Ltd, T V Industrial
             Estate, Hind Cycle Marg, Worli, Mumbai, Maharashtra 400030
           </a>
-          <a
-            className="gryphon-footer__map-link"
-            href={MUMBAI_MAP}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View on Google Maps <span aria-hidden="true">↗</span>
-          </a>
+        
+           
 
           <h2 className="gryphon-footer__second-office">Delhi Office</h2>
           <a href={DELHI_MAP} target="_blank" rel="noopener noreferrer">
             H-1, Upasana Building, J-1, Hailey Rd, Hamdard Nagar, Vakil Lane,
             Mandi House, New Delhi, Delhi 110001
           </a>
-          <a
-            className="gryphon-footer__map-link"
-            href={DELHI_MAP}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View on Google Maps <span aria-hidden="true">↗</span>
-          </a>
+          
         </div>
       </div>
 

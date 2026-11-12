@@ -21,3 +21,104 @@ body {
   width: 100%;
   max-width: none;
 }
+/* ==========================================================
+   GRYPHON CYBER — GLOBAL PAGE TRANSITION
+========================================================== */
+
+.gryphon-page-transition {
+  width: 100%;
+  min-height: 100vh;
+
+  animation: gryphonPageEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+
+  will-change: opacity, transform, filter;
+}
+
+
+/* Page entrance */
+
+@keyframes gryphonPageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: brightness(0.65);
+  }
+
+  45% {
+    opacity: 0.75;
+    transform: translateY(7px);
+    filter: brightness(0.85);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+}
+
+
+/* ==========================================================
+   OPTIONAL CYBER GLOW
+========================================================== */
+
+.gryphon-page-transition::before {
+  content: "";
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  z-index: 99999;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00d9ff,
+    #0878f9,
+    #00d9ff,
+    transparent
+  );
+
+  opacity: 0;
+
+  animation: gryphonTransitionLine 0.55s ease both;
+}
+
+
+@keyframes gryphonTransitionLine {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+}
+
+
+/* ==========================================================
+   ACCESSIBILITY
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .gryphon-page-transition,
+  .gryphon-page-transition::before {
+    animation: none;
+  }
+}

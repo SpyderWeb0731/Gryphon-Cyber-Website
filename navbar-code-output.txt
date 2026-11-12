@@ -1,0 +1,1224 @@
+﻿========== Solutions.jsx ==========
+250: 
+251:     <div className="app">
+252: 
+253:       {/* =================================================
+254: 
+255:           NAVBAR
+256: 
+257:       ================================================= */}
+258: 
+259:       <header className="navbar">
+260: 
+261:         <div className="nav-container">
+262: 
+263:           <Link
+264: 
+265:             to="/"
+266: 
+267:             className="logo-link"
+268: 
+269:             onClick={() => setMobileMenuOpen(false)}
+270: 
+271:           >
+272: 
+273:             <img
+274: 
+275:               src={gryphonLogo}
+276: 
+277:               alt="Gryphon Cyber"
+278: 
+279:               className="navbar-logo"
+280: 
+281:             />
+282: 
+283:           </Link>
+284: 
+285:           {!isMobile && (
+286: 
+287:             <>
+288: 
+289:               {/* DESKTOP NAVIGATION */}
+290: 
+291:               <nav className="nav-links">
+292: 
+293:                 <Link to="/">Home</Link>
+294: 
+295:                 <Link to="/about">About</Link>
+296: 
+297:                 <Link to="/services">Services</Link>
+298: 
+299:                 <Link to="/solutions" className="active">
+300: 
+301:                   Solutions
+302: 
+303:                 </Link>
+304: 
+305:                 <Link to="/training">Training</Link>
+306: 
+307:                 <Link to="/contact">Contact</Link>
+308: 
+309:               </nav>
+310: 
+311:               {/* DESKTOP TALK BUTTON */}
+312: 
+313:               <Link to="/contact" className="talk-button">
+314: 
+315:                 Talk to Us
+316: 
+317:                 <span>â†’</span>
+318: 
+319:               </Link>
+320: 
+321:             </>
+322: 
+323:           )}
+324: 
+325:           {/* MOBILE HAMBURGER */}
+326: 
+327:           {isMobile && (
+328: 
+329:             <button
+330: 
+331:               type="button"
+332: 
+333:               className={`solutions-mobile-toggle ${
+334: 
+335:                 mobileMenuOpen ? "open" : ""
+336: 
+337:               }`}
+338: 
+339:               aria-label={
+340: 
+341:                 mobileMenuOpen
+342: 
+343:                   ? "Close navigation menu"
+344: 
+345:                   : "Open navigation menu"
+346: 
+347:               }
+348: 
+349:               aria-expanded={mobileMenuOpen}
+350: 
+351:               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+352: 
+353:             >
+354: 
+355:               <span></span>
+356: 
+357:               <span></span>
+358: 
+359:               <span></span>
+360: 
+361:             </button>
+362: 
+363:           )}
+364: 
+365:         </div>
+366: 
+367:         {/* MOBILE NAVIGATION */}
+368: 
+369:         {isMobile && mobileMenuOpen && (
+370: 
+371:           <div className="solutions-mobile-menu">
+372: 
+373:             <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+374: 
+375:               Home
+376: 
+377:             </Link>
+378: 
+379:             <Link to="/about" onClick={() => setMobileMenuOpen(false)}>
+380: 
+381:               About
+382: 
+383:             </Link>
+384: 
+385:             <Link to="/services" onClick={() => setMobileMenuOpen(false)}>
+386: 
+387:               Services
+388: 
+389:             </Link>
+390: 
+391:             <Link
+392: 
+393:               to="/solutions"
+394: 
+395:               className="mobile-active"
+396: 
+397:               onClick={() => setMobileMenuOpen(false)}
+398: 
+399:             >
+400: 
+401:               Solutions
+402: 
+403:             </Link>
+404: 
+405:             <Link to="/training" onClick={() => setMobileMenuOpen(false)}>
+406: 
+407:               Training
+408: 
+409:             </Link>
+410: 
+411:             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+412: 
+413:               Contact
+414: 
+415:             </Link>
+416: 
+417:             <Link
+418: 
+419:               to="/contact"
+420: 
+421:               className="solutions-mobile-talk"
+422: 
+423:               onClick={() => setMobileMenuOpen(false)}
+424: 
+425:             >
+426: 
+427:               Talk to Us
+428: 
+429:               <span>â†’</span>
+430: 
+431:             </Link>
+432: 
+433:           </div>
+434: 
+435:         )}
+436: 
+437:         {/* MOBILE NAVIGATION STYLES */}
+438: 
+439:         <style>{`
+440: 
+
+========== Home.jsx ==========
+65:   return (
+66: 
+67:     <div className="app">
+68: 
+69:       {/* =====================================================
+70: 
+71:           NAVBAR
+72: 
+73:       ===================================================== */}
+74: 
+75:       <header className="navbar">
+76: 
+77:         <div className="nav-container">
+78: 
+79:           <Link
+80: 
+81:             to="/"
+82: 
+83:             className="logo-link"
+84: 
+85:             onClick={() => setMobileMenuOpen(false)}
+86: 
+87:           >
+88: 
+89:             <img
+90: 
+91:               src={gryphonLogo}
+92: 
+93:               alt="Gryphon Cyber logo"
+94: 
+95:               className="navbar-logo"
+96: 
+97:             />
+98: 
+99:             <span className="navbar-company-name">
+100: 
+101:               <span className="navbar-company-main">GRYPHON CYBER</span>
+102: 
+103:               <span className="navbar-company-sub">PRIVATE LIMITED</span>
+104: 
+105:             </span>
+106: 
+107:           </Link>
+108: 
+109:           {/* DESKTOP NAVIGATION â€” existing version */}
+110: 
+111:           <nav className="nav-links">
+112: 
+113:             <Link to="/" className="active">Home</Link>
+114: 
+115:             <Link to="/about">About</Link>
+116: 
+117:             <Link to="/services">Services</Link>
+118: 
+119:             <Link to="/solutions">Solutions</Link>
+120: 
+121:             <Link to="/training">Training</Link>
+122: 
+123:             <Link to="/contact">Contact</Link>
+124: 
+125:           </nav>
+126: 
+127:           <Link to="/book-demo" className="demo-button">
+128: 
+129:             Book a Demo
+130: 
+131:             <span>â†’</span>
+132: 
+133:           </Link>
+134: 
+135:           {/* MOBILE HAMBURGER */}
+136: 
+137:           <button
+138: 
+139:             type="button"
+140: 
+141:             className={`mobile-menu-toggle ${mobileMenuOpen ? "open" : ""}`}
+142: 
+143:             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+144: 
+145:             aria-expanded={mobileMenuOpen}
+146: 
+147:             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+148: 
+149:           >
+150: 
+151:             <span></span>
+152: 
+153:             <span></span>
+154: 
+155:             <span></span>
+156: 
+157:           </button>
+158: 
+159:         </div>
+160: 
+161:         {/* MOBILE NAVIGATION */}
+162: 
+163:         <div className={`mobile-nav-menu ${mobileMenuOpen ? "show" : ""}`}>
+164: 
+165:           <Link
+166: 
+167:             to="/"
+168: 
+169:             className="mobile-active"
+170: 
+171:             onClick={() => setMobileMenuOpen(false)}
+172: 
+173:           >
+174: 
+175:             Home
+176: 
+177:           </Link>
+178: 
+179:           <Link to="/about" onClick={() => setMobileMenuOpen(false)}>
+180: 
+181:             About
+182: 
+183:           </Link>
+184: 
+185:           <Link to="/services" onClick={() => setMobileMenuOpen(false)}>
+186: 
+187:             Services
+188: 
+189:           </Link>
+190: 
+191:           <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>
+192: 
+193:             Solutions
+194: 
+195:           </Link>
+196: 
+197:           <Link to="/training" onClick={() => setMobileMenuOpen(false)}>
+198: 
+199:             Training
+200: 
+201:           </Link>
+202: 
+203:           <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+204: 
+205:             Contact
+206: 
+207:           </Link>
+208: 
+209:           <Link
+210: 
+211:             to="/book-demo"
+212: 
+213:             className="mobile-demo-button"
+214: 
+215:             onClick={() => setMobileMenuOpen(false)}
+216: 
+217:           >
+218: 
+219:             Book a Demo <span>â†’</span>
+220: 
+221:           </Link>
+222: 
+223:         </div>
+224: 
+225:         <style>{`
+226: 
+227:           /* Premium company branding for the Home navbar */
+228:           header.navbar .nav-container > .logo-link {
+229:             width: auto !important;
+230:             min-width: 0 !important;
+231:             height: 96px !important;
+232:             display: flex !important;
+233:             flex: 0 0 auto !important;
+234:             align-items: center !important;
+235:             justify-content: flex-start !important;
+236:             gap: 0 !important;
+237:             margin: 0 !important;
+238:             padding: 0 !important;
+239:             background: transparent !important;
+240:             border: 0 !important;
+241:             box-shadow: none !important;
+242:             text-decoration: none !important;
+243:           }
+244: 
+245:           header.navbar .nav-container > .logo-link .navbar-logo {
+246:             position: relative !important;
+247:             left: auto !important;
+248:             top: auto !important;
+249:             right: auto !important;
+250:             bottom: auto !important;
+251:             width: 155px !important;
+252:             min-width: 155px !important;
+253:             max-width: 155px !important;
+254:             height: 108px !important;
+255:             max-height: 108px !important;
+256:             margin: 0 !important;
+257:             padding: 0 !important;
+258:             display: block !important;
+259:             object-fit: contain !important;
+260:             object-position: center !important;
+261:             background: transparent !important;
+262:             transform: none !important;
+263:           }
+264: 
+265:           header.navbar .navbar-company-name {
+266:             display: flex !important;
+267:             flex-direction: column !important;
+268:             align-items: flex-start !important;
+269:             justify-content: center !important;
+270:             gap: 4px !important;
+271:             margin: 0 0 0 -5px !important;
+272:             padding: 0 !important;
+273:             white-space: nowrap !important;
+274:             text-decoration: none !important;
+275:           }
+276: 
+277:           header.navbar .navbar-company-main {
+278:             display: block !important;
+279:             color: #ffffff !important;
+280:             font-size: 21px !important;
+281:             font-weight: 900 !important;
+282:             letter-spacing: 1px !important;
+283:             line-height: 1.12 !important;
+284:             text-transform: uppercase !important;
+285:             text-shadow: 0 0 16px rgba(0, 145, 255, 0.18);
+286:           }
+287: 
+288:           header.navbar .navbar-company-sub {
+289:             display: block !important;
+290:             color: #42dfff !important;
+291:             font-size: 10px !important;
+292:             font-weight: 800 !important;
+293:             letter-spacing: 4px !important;
+294:             line-height: 1.5 !important;
+295:             text-transform: uppercase !important;
+296:           }
+297: 
+298:           header.navbar .logo-link:hover .navbar-company-main {
+299:             color: #e4f8ff !important;
+300:           }
+301: 
+302:           header.navbar .logo-link:hover .navbar-company-sub {
+303:             color: #ffffff !important;
+304:           }
+305: 
+306:           @media (max-width: 1200px) and (min-width: 761px) {
+307:             header.navbar .nav-container > .logo-link .navbar-logo {
+308:               width: 118px !important;
+309:               min-width: 118px !important;
+310:               max-width: 118px !important;
+311:               height: 94px !important;
+312:             }
+313: 
+314:             header.navbar .navbar-company-main {
+315:               font-size: 16px !important;
+316:               letter-spacing: 0.5px !important;
+317:             }
+318: 
+319:             header.navbar .navbar-company-sub {
+320:               font-size: 9px !important;
+321:               letter-spacing: 2.8px !important;
+322:             }
+323: 
+324:             header.navbar .nav-links {
+325:               gap: 14px !important;
+326:             }
+327: 
+328:             header.navbar .nav-links a {
+329:               font-size: 13px !important;
+330:             }
+331:           }
+332: 
+333:           @media (max-width: 760px) {
+334:             header.navbar .nav-container > .logo-link {
+335:               gap: 0 !important;
+336:             }
+337: 
+338:             header.navbar .nav-container > .logo-link .navbar-logo {
+339:               width: 78px !important;
+340:               min-width: 78px !important;
+341:               max-width: 78px !important;
+342:               height: 68px !important;
+343:             }
+344: 
+345:             header.navbar .navbar-company-name {
+346:               gap: 2px !important;
+347:               margin-left: -3px !important;
+348:             }
+349: 
+350:             header.navbar .navbar-company-main {
+351:               font-size: 13px !important;
+352:               letter-spacing: 0.3px !important;
+353:             }
+354: 
+355:             header.navbar .navbar-company-sub {
+356:               font-size: 8px !important;
+357:               letter-spacing: 2px !important;
+358:             }
+359:           }
+360: 
+361:           /* Mobile-only additions.
+362: 
+363:              Desktop navbar keeps the existing App.css appearance. */
+364: 
+365:           .mobile-menu-toggle,
+366: 
+367:           .mobile-nav-menu {
+368: 
+369:             display: none;
+370: 
+371:           }
+372: 
+373:           @media (max-width: 760px) {
+374: 
+375:             .navbar .nav-links,
+376: 
+377:             .navbar .demo-button {
+378: 
+379:               display: none !important;
+380: 
+381:             }
+382: 
+383:             .navbar .nav-container {
+384: 
+385:               position: relative !important;
+386: 
+387:             }
+388: 
+389:             .mobile-menu-toggle {
+390: 
+391:               width: 44px !important;
+392: 
+393:               height: 44px !important;
+394: 
+395:               display: flex !important;
+396: 
+397:               flex-direction: column !important;
+398: 
+399:               align-items: center !important;
+400: 
+
+========== RequestTraining.jsx ==========
+1005: 
+1006:           NAVBAR
+1007: 
+1008:       ===================================================== */}
+1009: 
+1010:       <header className="navbar request-training-navbar">
+1011: 
+1012:         <div className="nav-container">
+1013: 
+1014:           <Link to="/" className="logo-link" onClick={closeMobileMenu}>
+1015: 
+1016:             <span className="navbar-brand-text">GRYPHON</span>
+1017: 
+1018:           </Link>
+1019: 
+1020:           {!isMobile && (
+1021: 
+1022:             <>
+1023: 
+1024:               <nav className="nav-links">
+1025: 
+1026:                 <Link to="/">Home</Link>
+1027: 
+1028:                 <Link to="/about">About</Link>
+1029: 
+1030:                 <Link to="/services">Services</Link>
+1031: 
+1032:                 <Link to="/solutions">Solutions</Link>
+1033: 
+1034:                 <Link to="/training" className="active">Training</Link>
+1035: 
+1036:                 <Link to="/contact">Contact</Link>
+1037: 
+1038:               </nav>
+1039: 
+1040:               <Link to="/contact" className="talk-button">
+1041: 
+1042:                 Talk to Us <span>â†’</span>
+1043: 
+1044:               </Link>
+1045: 
+1046:             </>
+1047: 
+1048:           )}
+1049: 
+1050:           {isMobile && (
+1051: 
+1052:             <>
+1053: 
+1054:               <button
+1055: 
+1056:                 type="button"
+1057: 
+1058:                 className={`request-mobile-toggle ${mobileMenuOpen ? "open" : ""}`}
+1059: 
+1060:                 onClick={() => setMobileMenuOpen((previous) => !previous)}
+
+========== Contact.jsx ==========
+395:       {/* =====================================================
+396: 
+397:           NAVBAR
+398: 
+399:       ===================================================== */}
+400: 
+401:       <header className="navbar">
+402: 
+403:         <div className="nav-container">
+404: 
+405:           <Link to="/" className="logo-link">
+406: 
+407:             <img src={gryphonLogo} alt="Gryphon Cyber" className="navbar-logo" />
+408: 
+409:           </Link>
+410: 
+411:           {!isMobile && (
+412: 
+413:             <>
+414: 
+415:               <nav className="nav-links">
+416: 
+417:                 <Link to="/">Home</Link>
+418: 
+419:                 <Link to="/about">About</Link>
+420: 
+421:                 <Link to="/services">Services</Link>
+422: 
+423:                 <Link to="/solutions">Solutions</Link>
+424: 
+425:                 <Link to="/training">Training</Link>
+426: 
+427:                 <Link to="/contact" className="active">Contact</Link>
+428: 
+429:               </nav>
+430: 
+431:               <Link to="/training/request" className="talk-button">Request Training <span>â†’</span></Link>
+432: 
+433:             </>
+434: 
+435:           )}
+436: 
+437:           {isMobile && (
+438: 
+439:             <button type="button" className={`contact-mobile-toggle ${mobileMenuOpen ? "open" : ""}`} onClick={() => setMobileMenuOpen((open) => !open)} aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"} aria-expanded={mobileMenuOpen}>
+440: 
+441:               <span></span><span></span><span></span>
+442: 
+443:             </button>
+444: 
+445:           )}
+446: 
+447:         </div>
+448: 
+449:         {isMobile && mobileMenuOpen && (
+450: 
+451:           <div className="contact-mobile-menu">
+452: 
+453:             <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+454: 
+455:             <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
+456: 
+457:             <Link to="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+458: 
+459:             <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
+460: 
+461:             <Link to="/training" onClick={() => setMobileMenuOpen(false)}>Training</Link>
+462: 
+463:             <Link to="/contact" className="active" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+464: 
+465:             <Link to="/training/request" className="contact-mobile-talk" onClick={() => setMobileMenuOpen(false)}>Request Training <span>â†’</span></Link>
+466: 
+467:           </div>
+468: 
+469:         )}
+470: 
+471:       </header>
+472: 
+473:       <main>
+474: 
+475:         {/* =====================================================
+476: 
+477:             HERO
+478: 
+479:         ===================================================== */}
+480: 
+481:         <section className="contact-hero">
+482: 
+483:           <div className="contact-grid"></div>
+484: 
+485:           <div className="contact-glow contact-glow-one"></div>
+486: 
+487:           <div className="contact-glow contact-glow-two"></div>
+488: 
+489:           <div className="contact-hero-content">
+490: 
+
+========== BookDemo.jsx ==========
+245: 
+246:           NAVBAR
+247: 
+248:       ================================================= */}
+249: 
+250:       <header className="navbar book-demo-responsive-navbar">
+251: 
+252:         <div className="nav-container book-demo-nav-container">
+253: 
+254:           <Link to="/" className="logo-link" onClick={() => setMobileMenuOpen(false)}>
+255: 
+256:             <img src={gryphonLogo} alt="Gryphon Cyber Private Limited" className="navbar-logo" />
+257: 
+258:           </Link>
+259: 
+260:           {!isMobile && (
+261: 
+262:             <>
+263: 
+264:               <nav className="nav-links">
+265: 
+266:                 <Link to="/">Home</Link>
+267: 
+268:                 <Link to="/about">About</Link>
+269: 
+270:                 <Link to="/services">Services</Link>
+271: 
+272:                 <Link to="/solutions">Solutions</Link>
+273: 
+274:                 <Link to="/training">Training</Link>
+275: 
+276:                 <Link to="/contact">Contact</Link>
+277: 
+278:               </nav>
+279: 
+280:               <Link to="/book-demo" className="demo-button active-demo-button">
+281: 
+282:                 Book a Demo <span>â†’</span>
+283: 
+284:               </Link>
+285: 
+286:             </>
+287: 
+288:           )}
+289: 
+290:           {isMobile && (
+291: 
+292:             <button
+293: 
+294:               type="button"
+295: 
+296:               className={`book-demo-mobile-toggle ${mobileMenuOpen ? "is-open" : ""}`}
+297: 
+298:               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+299: 
+300:               aria-expanded={mobileMenuOpen}
+301: 
+302:               onClick={() => setMobileMenuOpen((open) => !open)}
+303: 
+304:             >
+305: 
+306:               <span />
+307: 
+308:               <span />
+309: 
+310:               <span />
+311: 
+312:             </button>
+313: 
+314:           )}
+315: 
+316:         </div>
+317: 
+318:         {isMobile && mobileMenuOpen && (
+319: 
+320:           <nav className="book-demo-mobile-menu" aria-label="Mobile navigation">
+321: 
+322:             <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+323: 
+324:             <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
+325: 
+326:             <Link to="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+327: 
+328:             <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
+329: 
+330:             <Link to="/training" onClick={() => setMobileMenuOpen(false)}>Training</Link>
+331: 
+332:             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+333: 
+334:             <Link to="/book-demo" className="book-demo-mobile-cta" onClick={() => setMobileMenuOpen(false)}>
+335: 
+336:               Book a Demo <span>â†’</span>
+337: 
+338:             </Link>
+339: 
+340:           </nav>
+341: 
+342:         )}
+343: 
+344:       </header>
+345: 
+346:       {/* =================================================
+347: 
+348:           BOOK DEMO HERO
+349: 
+350:       ================================================= */}
+
+========== Training.jsx ==========
+200: 
+201:         <style>{trainingMobileNavStyles}</style>
+202: 
+203:       {/* =====================================================
+204: 
+205:           NAVBAR
+206: 
+207:       ===================================================== */}
+208: 
+209:       <header className="navbar">
+210: 
+211:         <div className="nav-container">
+212: 
+213:           <Link to="/" className="logo-link">
+214: 
+215:             <img
+216:   src={gryphonLogo}
+217:   alt="Gryphon Cyber Private Limited"
+218:   className="navbar-logo"
+219: />
+220: 
+221:           </Link>
+222: 
+223:           {!isMobile && (
+224: 
+225:             <>
+226: 
+227:               <nav className="nav-links">
+228: 
+229:                 <Link to="/">Home</Link>
+230: 
+231:                 <Link to="/about">About</Link>
+232: 
+233:                 <Link to="/services">Services</Link>
+234: 
+235:                 <Link to="/solutions">Solutions</Link>
+236: 
+237:                 <Link to="/training" className="active">Training</Link>
+238: 
+239:                 <Link to="/contact">Contact</Link>
+240: 
+241:               </nav>
+242: 
+243:               <Link to="/contact" className="talk-button">Talk to Us <span>â†’</span></Link>
+244: 
+245:             </>
+246: 
+247:           )}
+248: 
+249:           {isMobile && (
+250: 
+251:             <button type="button" className={`training-mobile-toggle ${mobileMenuOpen ? "open" : ""}`} onClick={() => setMobileMenuOpen((open) => !open)} aria-label={mobileMenuOpen ? "Close menu" : "Open menu"} aria-expanded={mobileMenuOpen}>
+252: 
+253:               <span></span><span></span><span></span>
+254: 
+255:             </button>
+256: 
+257:           )}
+258: 
+259:         </div>
+260: 
+261:         {isMobile && mobileMenuOpen && (
+262: 
+263:           <div className="training-mobile-menu">
+264: 
+265:             <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+266: 
+267:             <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
+268: 
+269:             <Link to="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+270: 
+271:             <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
+272: 
+273:             <Link to="/training" className="active" onClick={() => setMobileMenuOpen(false)}>Training</Link>
+274: 
+275:             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+276: 
+277:             <Link to="/contact" className="training-mobile-talk" onClick={() => setMobileMenuOpen(false)}>Talk to Us <span>â†’</span></Link>
+278: 
+279:           </div>
+280: 
+281:         )}
+282: 
+283:       </header>
+284: 
+285:       <main>
+286: 
+287:         {/* =================================================
+288: 
+289:             HERO
+290: 
+
+========== Services.jsx ==========
+145:       {/* =====================================================
+146: 
+147:           NAVBAR
+148: 
+149:       ===================================================== */}
+150: 
+151:       <header className="navbar">
+152: 
+153:         <div className="nav-container">
+154: 
+155:           {/* LOGO */}
+156: 
+157:           <Link
+158: 
+159:             to="/"
+160: 
+161:             className="logo-link"
+162: 
+163:             onClick={() => setMobileMenuOpen(false)}
+164: 
+165:           >
+166: 
+167:             <img
+168: 
+169:               src={gryphonLogo}
+170: 
+171:               alt="Gryphon Cyber"
+172: 
+173:               className="navbar-logo"
+174: 
+175:             />
+176: 
+177:           </Link>
+178: 
+179:           {!isMobile && (
+180: 
+181:             <>
+182: 
+183:               {/* DESKTOP NAVIGATION */}
+184: 
+185:               <nav className="nav-links">
+186: 
+187:                 <Link to="/">Home</Link>
+188: 
+189:                 <Link to="/about">About</Link>
+190: 
+191:                 <Link to="/services" className="active">Services</Link>
+192: 
+193:                 <Link to="/solutions">Solutions</Link>
+194: 
+195:                 <Link to="/training">Training</Link>
+196: 
+197:                 <Link to="/contact">Contact</Link>
+198: 
+199:               </nav>
+200: 
+201:               {/* DESKTOP TALK BUTTON */}
+202: 
+203:               <Link to="/contact" className="talk-button">
+204: 
+205:                 Talk to Us
+206: 
+207:                 <span>â†’</span>
+208: 
+209:               </Link>
+210: 
+211:             </>
+212: 
+213:           )}
+214: 
+215:           {/* MOBILE HAMBURGER */}
+216: 
+217:           {isMobile && (
+218: 
+219:             <button
+220: 
+221:               type="button"
+222: 
+223:               className={`services-mobile-toggle ${mobileMenuOpen ? "open" : ""}`}
+224: 
+225:               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+226: 
+227:               aria-expanded={mobileMenuOpen}
+228: 
+229:               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+230: 
+231:             >
+232: 
+233:               <span></span>
+234: 
+235:               <span></span>
+236: 
+237:               <span></span>
+238: 
+239:             </button>
+240: 
+241:           )}
+242: 
+243:         </div>
+244: 
+245:         {/* MOBILE NAVIGATION */}
+246: 
+247:         {isMobile && mobileMenuOpen && (
+248: 
+249:           <div className="services-mobile-menu">
+250: 
+251:             <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+252: 
+253:             <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
+254: 
+255:             <Link
+256: 
+257:               to="/services"
+258: 
+259:               className="mobile-active"
+260: 
+261:               onClick={() => setMobileMenuOpen(false)}
+262: 
+263:             >
+264: 
+265:               Services
+266: 
+267:             </Link>
+268: 
+269:             <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
+270: 
+271:             <Link to="/training" onClick={() => setMobileMenuOpen(false)}>Training</Link>
+272: 
+273:             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+274: 
+275:             <Link
+276: 
+277:               to="/contact"
+278: 
+279:               className="services-mobile-talk"
+280: 
+281:               onClick={() => setMobileMenuOpen(false)}
+282: 
+283:             >
+284: 
+285:               Talk to Us
+286: 
+287:               <span>â†’</span>
+288: 
+289:             </Link>
+290: 
+291:           </div>
+292: 
+293:         )}
+294: 
+295:         {/* MOBILE NAVIGATION STYLES */}
+296: 
+297:         <style>{`
+298: 
+299:           /\* SERVICES MOBILE NAVIGATION \*/
+300: 
+
+========== About.jsx ==========
+95:       {/* =====================================================
+96: 
+97:           NAVBAR
+98: 
+99:       ===================================================== */}
+100: 
+101:       <header className="navbar about-navbar">
+102: 
+103:         <div className="nav-container">
+104: 
+105:           <Link
+106:   to="/"
+107:   className="logo-link"
+108:   onClick={() => setMobileMenuOpen(false)}
+109: >
+110:   <img
+111:     src={gryphonLogo}
+112:     alt="Gryphon Cyber Logo"
+113:     className="navbar-logo"
+114:   />
+115: 
+116:   <span className="navbar-company-name">
+117:     <span className="navbar-company-main">
+118:       GRYPHON CYBER
+119:     </span>
+120: 
+121:     <span className="navbar-company-sub">
+122:       PRIVATE LIMITED
+123:     </span>
+124:   </span>
+125: </Link>
+126: 
+127:           {!isMobile && (
+128: 
+129:             <>
+130: 
+131:               <nav className="nav-links">
+132: 
+133:                 <Link to="/">Home</Link>
+134: 
+135:                 <Link to="/about" className="active">About</Link>
+136: 
+137:                 <Link to="/services">Services</Link>
+138: 
+139:                 <Link to="/solutions">Solutions</Link>
+140: 
+141:                 <Link to="/training">Training</Link>
+142: 
+143:                 <Link to="/contact">Contact</Link>
+144: 
+145:               </nav>
+146: 
+147:               <Link to="/contact" className="talk-button">
+148: 
+149:                 Talk to Us
+150: 
+151:                 <span>â†’</span>
+152: 
+153:               </Link>
+154: 
+155:             </>
+156: 
+157:           )}
+158: 
+159:           {/* MOBILE HAMBURGER */}
+160: 
+161:           {isMobile && (
+162: 
+163:             <button
+164: 
+165:               type="button"
+166: 
+167:               className={`about-mobile-toggle ${
+168: 
+169:                 mobileMenuOpen ? "open" : ""
+170: 
+171:               }`}
+172: 
+173:               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+174: 
+175:               aria-expanded={mobileMenuOpen}
+176: 
+177:               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+178: 
+179:             >
+180: 
+181:               <span></span>
+182: 
+183:               <span></span>
+184: 
+185:               <span></span>
+186: 
+187:             </button>
+188: 
+189:           )}
+190: 
+191:         </div>
+192: 
+193:         {/* MOBILE NAVIGATION */}
+194: 
+195:         {isMobile && mobileMenuOpen && (
+196: 
+197:           <div className="about-mobile-menu">
+198: 
+199:             <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+200: 
+201:               Home
+202: 
+203:             </Link>
+204: 
+205:             <Link
+206: 
+207:               to="/about"
+208: 
+209:               className="mobile-active"
+210: 
+211:               onClick={() => setMobileMenuOpen(false)}
+212: 
+213:             >
+214: 
+215:               About
+216: 
+217:             </Link>
+218: 
+219:             <Link to="/services" onClick={() => setMobileMenuOpen(false)}>
+220: 
+221:               Services
+222: 
+223:             </Link>
+224: 
+225:             <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>
+226: 
+227:               Solutions
+228: 
+229:             </Link>
+230: 
+231:             <Link to="/training" onClick={() => setMobileMenuOpen(false)}>
+232: 
+233:               Training
+234: 
+235:             </Link>
+236: 
+237:             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+238: 
+239:               Contact
+240: 
+241:             </Link>
+242: 
+243:             <Link
+244: 
+245:               to="/contact"
+246: 
+247:               className="about-mobile-talk"
+248: 
+249:               onClick={() => setMobileMenuOpen(false)}
+250: 
+251:             >
+252: 
+253:               Talk to Us
+254: 
+255:               <span>â†’</span>
+256: 
+257:             </Link>
+258: 
+259:           </div>
+260: 
+261:         )}
+262: 
+263:         <style>{`
+264: 
+265:           /\* ABOUT MOBILE NAVIGATION \*/
+266: 
+267:           .about-mobile-toggle {
+268: 
+269:             width: 44px !important;
+270: 
+

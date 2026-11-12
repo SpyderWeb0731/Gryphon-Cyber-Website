@@ -1,10 +1,12 @@
+import "../App.css";
+import NavbarBrand from "../components/NavbarBrand";
 import { useEffect, useState } from "react";
-
 import { Link, useLocation } from "react-router-dom";
 
-import "../App.css";
-
 import gryphonLogo from "../assets/gryphon-logo.png";
+import spiderLogo from "../assets/solutions-spider-logo.png";
+import oversightLogo from "../assets/solutions-oversight-logo.png";
+import lawSyncLogo from "../assets/solutions-lawsync-logo.png";
 
 import Footer from "../components/Footer";
 
@@ -48,11 +50,37 @@ function Solutions() {
 
   const location = useLocation();
 
+  // Navigate to a product section without triggering a full-page navigation.
+  const handleProductNavigation = (event, productCode) => {
+    event.preventDefault();
+
+    const productId = productCode.toLowerCase();
+    const target = document.getElementById(productId);
+
+    if (!target) {
+      console.error(`Solutions product section not found: #${productId}`);
+      return;
+    }
+
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${window.location.search}#${productId}`
+    );
+
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   const products = [
 
     {
 
       code: "SAKSHAM",
+
+      logo: gryphonLogo,
 
       category: "PREDICTIVE INTELLIGENCE",
 
@@ -82,6 +110,8 @@ function Solutions() {
 
       code: "SPIDER",
 
+      logo: spiderLogo,
+
       category: "SOCIAL INTELLIGENCE",
 
       title: "Unified Intelligence Search",
@@ -110,6 +140,8 @@ function Solutions() {
 
       code: "OVERSIGHT",
 
+      logo: oversightLogo,
+
       category: "DEEP NETWORK ANALYSIS",
 
       title: "Deep Network Intelligence",
@@ -137,6 +169,8 @@ function Solutions() {
     {
 
       code: "LAWSYNC",
+
+      logo: lawSyncLogo,
 
       category: "LAW ENFORCEMENT & INTELLIGENCE",
 
@@ -256,7 +290,7 @@ function Solutions() {
 
       ================================================= */}
 
-      <header className="navbar">
+      <header className="navbar gryphon-standard-navbar">
 
         <div className="nav-container">
 
@@ -270,15 +304,7 @@ function Solutions() {
 
           >
 
-            <img
-
-              src={gryphonLogo}
-
-              alt="Gryphon Cyber"
-
-              className="navbar-logo"
-
-            />
+            <NavbarBrand />
 
           </Link>
 
@@ -301,6 +327,8 @@ function Solutions() {
                   Solutions
 
                 </Link>
+
+                <Link to="/engagements">Engagements</Link>
 
                 <Link to="/training">Training</Link>
 
@@ -399,6 +427,18 @@ function Solutions() {
             >
 
               Solutions
+
+            </Link>
+
+            <Link
+
+              to="/engagements"
+
+              onClick={() => setMobileMenuOpen(false)}
+
+            >
+
+              Engagements
 
             </Link>
 
@@ -620,18 +660,6 @@ function Solutions() {
 
           }
 
-          @media (max-width: 760px) {
-
-            .navbar,
-
-            .navbar .nav-container {
-
-              position: relative !important;
-
-            }
-
-          }
-
           @media (max-width: 420px) {
 
             .solutions-mobile-toggle {
@@ -650,6 +678,83 @@ function Solutions() {
 
             }
 
+          }
+
+
+          /* SOLUTIONS HERO BRAND LABEL — MATCH SERVICES PAGE */
+          .solutions-page-hero .solutions-brand-label {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 14px !important;
+            width: fit-content !important;
+            color: #35e0ff !important;
+            font-size: 17px !important;
+            font-weight: 900 !important;
+            letter-spacing: 3.5px !important;
+            line-height: 1.45 !important;
+            text-transform: uppercase !important;
+          }
+
+          .solutions-page-hero .solutions-brand-logo {
+            display: block !important;
+            width: 48px !important;
+            height: 48px !important;
+            min-width: 48px !important;
+            object-fit: contain !important;
+            flex: 0 0 48px !important;
+          }
+
+          .solutions-page-hero .solutions-brand-label span {
+            display: inline-block !important;
+            color: #35e0ff !important;
+            font: inherit !important;
+            letter-spacing: inherit !important;
+            line-height: inherit !important;
+          }
+
+          /* PRODUCT LINKS — CLICKABLE AND CLEARLY VISIBLE */
+          .solutions-page-hero ~ .solution-index .solution-index-links a {
+            position: relative !important;
+            z-index: 2 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 10px !important;
+            color: #e7f2fa !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+          }
+
+          .solutions-page-hero ~ .solution-index .solution-index-links a span {
+            color: #22dfff !important;
+            opacity: 1 !important;
+          }
+
+          .solutions-page-hero ~ .solution-index .solution-index-links a:hover {
+            color: #22dfff !important;
+          }
+
+          .solutions-products .solution-product {
+            scroll-margin-top: 125px !important;
+          }
+
+          @media (max-width: 760px) {
+            .solutions-page-hero .solutions-brand-label {
+              gap: 10px !important;
+              font-size: 12px !important;
+              letter-spacing: 2px !important;
+            }
+
+            .solutions-page-hero .solutions-brand-logo {
+              width: 38px !important;
+              height: 38px !important;
+              min-width: 38px !important;
+              flex-basis: 38px !important;
+            }
           }
 
         `}</style>
@@ -676,9 +781,15 @@ function Solutions() {
 
           <div className="solutions-hero-content">
 
-            <div className="inner-page-label">
+            <div className="inner-page-label solutions-brand-label">
 
-              GRYPHON CYBER • INTELLIGENCE PLATFORM
+              <img
+                src={gryphonLogo}
+                alt="Gryphon Cyber logo"
+                className="solutions-brand-logo"
+              />
+
+              <span>GRYPHON CYBER • INTELLIGENCE PLATFORM</span>
 
             </div>
 
@@ -729,11 +840,12 @@ function Solutions() {
               {products.map((product, index) => (
 
                 <a
-
                   href={`#${product.code.toLowerCase()}`}
-
                   key={product.code}
-
+                  onClick={(event) =>
+                    handleProductNavigation(event, product.code)
+                  }
+                  aria-label={`Scroll to ${product.code} product details`}
                 >
 
                   <span>
@@ -882,13 +994,14 @@ function Solutions() {
 
                 </div>
 
-                <div className="solution-core">
+                <div className={`solution-core solution-core-${product.code.toLowerCase()}`}>
 
-                  <span>
-
-                    {product.code.substring(0, 2)}
-
-                  </span>
+                  <img
+                    src={product.logo}
+                    alt={`${product.code} application logo`}
+                    className="solution-core-logo"
+                    loading="lazy"
+                  />
 
                 </div>
 

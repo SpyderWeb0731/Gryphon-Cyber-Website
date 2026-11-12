@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -8,32 +8,117 @@ import Training from "./pages/Training";
 import Contact from "./pages/Contact";
 import BookDemo from "./pages/BookDemo";
 import RequestTraining from "./pages/RequestTraining";
+import Engagements from "./pages/Engagements";
 
-function App() {
+
+/* ==========================================================
+   GRYPHON CYBER — PAGE TRANSITION
+========================================================== */
+
+function PageTransition({ children }) {
+  const location = useLocation();
+
   return (
-    <HashRouter>
+    <div
+      key={location.pathname}
+      className="gryphon-page-transition"
+    >
+      {children}
+    </div>
+  );
+}
+
+
+/* ==========================================================
+   APPLICATION ROUTES
+========================================================== */
+
+function AppRoutes() {
+  return (
+    <PageTransition>
       <Routes>
-        {/* Home */}
-        <Route path="/" element={<Home />} />
 
-        {/* Main Pages */}
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/solutions" element={<Solutions />} />
-        <Route path="/training" element={<Training />} />
-        <Route path="/contact" element={<Contact />} />
+        {/* ==================================================
+            HOME
+        ================================================== */}
 
-        {/* Other Pages */}
-        <Route path="/book-demo" element={<BookDemo />} />
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
-        {/* Training Request */}
+
+        {/* ==================================================
+            MAIN PAGES
+        ================================================== */}
+
+        <Route
+          path="/about"
+          element={<About />}
+        />
+
+        <Route
+          path="/services"
+          element={<Services />}
+        />
+
+        <Route
+          path="/solutions"
+          element={<Solutions />}
+        />
+
+        <Route
+          path="/training"
+          element={<Training />}
+        />
+
+        <Route
+          path="/contact"
+          element={<Contact />}
+        />
+
+        <Route
+          path="/engagements"
+          element={<Engagements />}
+        />
+
+
+        {/* ==================================================
+            OTHER PAGES
+        ================================================== */}
+
+        <Route
+          path="/book-demo"
+          element={<BookDemo />}
+        />
+
+
+        {/* ==================================================
+            TRAINING REQUEST
+        ================================================== */}
+
         <Route
           path="/training/request"
           element={<RequestTraining />}
         />
+
       </Routes>
+    </PageTransition>
+  );
+}
+
+
+/* ==========================================================
+   APP
+========================================================== */
+
+function App() {
+  return (
+    <HashRouter>
+      <AppRoutes />
     </HashRouter>
   );
 }
+
 
 export default App;

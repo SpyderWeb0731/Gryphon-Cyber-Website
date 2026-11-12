@@ -1,3 +1,4 @@
+import NavbarBrand from "../components/NavbarBrand";
 import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
@@ -469,11 +470,63 @@ function RequestTraining() {
 
           }
 
-          .request-training-page .request-training-navbar .navbar-brand-text {
+          .request-training-page .request-training-navbar .logo-link {
 
-            font-size: 18px;
+            flex: 0 1 auto;
 
-            letter-spacing: 0.14em;
+            max-width: calc(100% - 58px);
+
+          }
+
+          .request-training-page .request-training-navbar .navbar-logo {
+
+            width: 88px;
+
+            min-width: 88px;
+
+            max-width: 88px;
+
+            height: 64px;
+
+            max-height: 64px;
+
+            object-fit: contain;
+
+          }
+
+          .request-training-page .request-training-navbar .navbar-company-name {
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            gap: 2px;
+
+            min-width: 0;
+
+            white-space: nowrap;
+
+          }
+
+          .request-training-page .request-training-navbar .navbar-company-main {
+
+            font-size: 13px;
+
+            line-height: 1.15;
+
+            letter-spacing: 0.3px;
+
+          }
+
+          .request-training-page .request-training-navbar .navbar-company-sub {
+
+            font-size: 8px;
+
+            line-height: 1.4;
+
+            letter-spacing: 2px;
 
           }
 
@@ -1007,13 +1060,13 @@ function RequestTraining() {
 
       ===================================================== */}
 
-      <header className="navbar request-training-navbar">
+      <header className="navbar request-training-navbar gryphon-standard-navbar">
 
         <div className="nav-container">
 
           <Link to="/" className="logo-link" onClick={closeMobileMenu}>
 
-            <span className="navbar-brand-text">GRYPHON</span>
+            <NavbarBrand />
 
           </Link>
 

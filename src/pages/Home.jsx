@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import '../App.css'
+import heroBackground from '../assets/Gryphon_Cyber_Hero_Background.png';
+import gryphonLogo from '../assets/gryphon-logo.png';
 
-import gryphonLogo from '../assets/gryphon-logo.png'
 
 import Footer from "../components/Footer";
+import NavbarBrand from "../components/NavbarBrand";
 
 function Home() {
-
-  const [activeNode, setActiveNode] = useState(null);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -18,7 +18,7 @@ function Home() {
 
     const animatedElements = document.querySelectorAll(
 
-      '.story-intro, .intelligence-network, .services-story-heading, .story-service-card, .product-story'
+      '.story-intro, .intelligence-network, .network-trust-logos, .services-story-heading, .story-service-card, .product-story'
 
     )
 
@@ -66,13 +66,15 @@ function Home() {
 
     <div className="app">
 
+
+
       {/* =====================================================
 
           NAVBAR
 
       ===================================================== */}
 
-      <header className="navbar">
+      <header className="navbar gryphon-standard-navbar">
 
         <div className="nav-container">
 
@@ -86,15 +88,7 @@ function Home() {
 
           >
 
-            <img
-
-              src={gryphonLogo}
-
-              alt="Gryphon Cyber Private Limited"
-
-              className="navbar-logo"
-
-            />
+            <NavbarBrand />
 
           </Link>
 
@@ -109,6 +103,8 @@ function Home() {
             <Link to="/services">Services</Link>
 
             <Link to="/solutions">Solutions</Link>
+
+            <Link to="/engagements">Engagements</Link>
 
             <Link to="/training">Training</Link>
 
@@ -183,6 +179,12 @@ function Home() {
           <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>
 
             Solutions
+
+          </Link>
+
+          <Link to="/engagements" onClick={() => setMobileMenuOpen(false)}>
+
+            Engagements
 
           </Link>
 
@@ -471,20 +473,14 @@ function Home() {
         ===================================================== */}
 
         <section
-
-          className="hero"
-
+          className="hero gc-home-hero"
           id="home"
-
+          style={{ "--gc-hero-bg": `url("${heroBackground}")` }}
         >
-
-          <div className="hero-grid"></div>
-
-          <div className="hero-glow"></div>
 
           {/* LEFT CONTENT */}
 
-          <div className="hero-content">
+          <div className="hero-content gc-home-hero-content">
 
             <div className="hero-badge">
 
@@ -494,11 +490,11 @@ function Home() {
 
             <h1>
 
-              Beyond the
+               We serve who
 
               <span>
 
-                Visible.
+                serves the nation
 
               </span>
 
@@ -634,563 +630,7 @@ function Home() {
 
           </div>
 
-          {/* =====================================================
-
-              HERO VISUAL
-
-          ===================================================== */}
-
-          <div className="hero-visual">
-
-  <div className="gryphon-mission-visual">
-
-  {/* =====================================================
-
-      ATMOSPHERIC GLOW
-
-  ===================================================== */}
-
-  <div className="mission-glow glow-one"></div>
-
-  <div className="mission-glow glow-two"></div>
-
-  {/* =====================================================
-
-      MAIN RADAR RINGS
-
-  ===================================================== */}
-
-  <div className="mission-ring ring-one"></div>
-
-  <div className="mission-ring ring-two"></div>
-
-  <div className="mission-ring ring-three"></div>
-
-  {/* =====================================================
-
-      3D ORBITAL SYSTEM
-
-  ===================================================== */}
-
-  <div className="mission-orbit orbit-a"></div>
-
-  <div className="mission-orbit orbit-b"></div>
-
-  <div className="mission-orbit orbit-c"></div>
-
-  {/* =====================================================
-
-      CENTRAL EARTH / INTELLIGENCE CORE
-
-  ===================================================== */}
-
-  <div className="mission-earth">
-
-    <div className="earth-grid"></div>
-
-    <div className="earth-land land-one"></div>
-
-    <div className="earth-land land-two"></div>
-
-    <div className="earth-land land-three"></div>
-
-    <div className="earth-light light-one"></div>
-
-    <div className="earth-light light-two"></div>
-
-    <div className="earth-light light-three"></div>
-
-    <div className="earth-light light-four"></div>
-
-  </div>
-
-  {/* =====================================================
-
-      CENTRAL SECURITY SHIELD
-
-  ===================================================== */}
-
-  <div className="mission-shield">
-
-    <div className="shield-lock">
-
-      <div className="lock-body"></div>
-
-      <div className="lock-ring"></div>
-
-    </div>
-
-  </div>
-
-  {/* =====================================================
-
-      01 — INTELLIGENCE ANALYSIS
-
-  ===================================================== */}
-
-  <div
-
-    className="mission-node node-intelligence"
-
-    tabIndex="0"
-
-    aria-label="Intelligence Analysis"
-
-  >
-
-    <div className="node-icon">
-
-      <div className="analysis-screen screen-one"></div>
-
-      <div className="analysis-screen screen-two"></div>
-
-      <div className="analysis-screen screen-three"></div>
-
-    </div>
-
-    {/* HOVER INFORMATION CARD */}
-
-    <div className="mission-info-card">
-
-      <div className="mission-info-top">
-
-        <span className="mission-info-number">
-
-          01
-
-        </span>
-
-        <span className="mission-info-status">
-
-          INTELLIGENCE
-
-        </span>
-
-      </div>
-
-      <h3>
-
-        Intelligence Analysis
-
-      </h3>
-
-      <p>
-
-        Transform complex information into actionable
-
-        intelligence through advanced analysis and
-
-        connected intelligence systems.
-
-      </p>
-
-      <Link
-
-        to="/solutions"
-
-        className="mission-info-button"
-
-      >
-
-        Explore Intelligence
-
-        <span>
-
-          →
-
-        </span>
-
-      </Link>
-
-    </div>
-
-  </div>
-
-  {/* =====================================================
-
-      02 — CYBER SECURITY
-
-  ===================================================== */}
-
-  <div
-
-    className="mission-node node-security"
-
-    tabIndex="0"
-
-    aria-label="Cyber Security"
-
-  >
-
-    <div className="security-icon">
-
-      <div className="security-shield"></div>
-
-    </div>
-
-    {/* HOVER INFORMATION CARD */}
-
-    <div className="mission-info-card">
-
-      <div className="mission-info-top">
-
-        <span className="mission-info-number">
-
-          02
-
-        </span>
-
-        <span className="mission-info-status">
-
-          SECURITY
-
-        </span>
-
-      </div>
-
-      <h3>
-
-        Cyber Security
-
-      </h3>
-
-      <p>
-
-        Protect critical digital assets through
-
-        network security hardening, threat monitoring
-
-        and breach prevention capabilities.
-
-      </p>
-
-      <Link
-
-        to="/services"
-
-        className="mission-info-button"
-
-      >
-
-        Explore Security
-
-        <span>
-
-          →
-
-        </span>
-
-      </Link>
-
-    </div>
-
-  </div>
-
-  {/* =====================================================
-
-      03 — DIGITAL FORENSICS
-
-  ===================================================== */}
-
-  <div
-
-    className="mission-node node-forensics"
-
-    tabIndex="0"
-
-    aria-label="Digital Forensics"
-
-  >
-
-    <div className="fingerprint-icon">
-
-      <span></span>
-
-      <span></span>
-
-      <span></span>
-
-      <span></span>
-
-      <span></span>
-
-    </div>
-
-    {/* HOVER INFORMATION CARD */}
-
-    <div className="mission-info-card">
-
-      <div className="mission-info-top">
-
-        <span className="mission-info-number">
-
-          03
-
-        </span>
-
-        <span className="mission-info-status">
-
-          FORENSICS
-
-        </span>
-
-      </div>
-
-      <h3>
-
-        Digital Forensics
-
-      </h3>
-
-      <p>
-
-        Develop practical cyber forensic capabilities
-
-        for investigation, evidence analysis and
-
-        scenario-based operational work.
-
-      </p>
-
-      <Link
-
-        to="/training"
-
-        className="mission-info-button"
-
-      >
-
-        Explore Training
-
-        <span>
-
-          →
-
-        </span>
-
-      </Link>
-
-    </div>
-
-  </div>
-
-  {/* =====================================================
-
-      04 — GROUND OPERATIONS
-
-  ===================================================== */}
-
-  <div
-
-    className="mission-node node-ground"
-
-    tabIndex="0"
-
-    aria-label="Ground Operations"
-
-  >
-
-    <div className="ground-icon">
-
-      <div className="ground-person"></div>
-
-      <div className="ground-drone"></div>
-
-    </div>
-
-    {/* HOVER INFORMATION CARD */}
-
-    <div className="mission-info-card">
-
-      <div className="mission-info-top">
-
-        <span className="mission-info-number">
-
-          04
-
-        </span>
-
-        <span className="mission-info-status">
-
-          OPERATIONS
-
-        </span>
-
-      </div>
-
-      <h3>
-
-        Ground Operations
-
-      </h3>
-
-      <p>
-
-        Connect digital intelligence with operational
-
-        realities to support complex investigations
-
-        and intelligence gathering.
-
-      </p>
-
-      <Link
-
-        to="/about"
-
-        className="mission-info-button"
-
-      >
-
-        Discover Gryphon
-
-        <span>
-
-          →
-
-        </span>
-
-      </Link>
-
-    </div>
-
-  </div>
-
-  {/* =====================================================
-
-      05 — SECURE INFRASTRUCTURE
-
-  ===================================================== */}
-
-  <div
-
-    className="mission-node node-cloud"
-
-    tabIndex="0"
-
-    aria-label="Secure Infrastructure"
-
-  >
-
-    <div className="cloud-icon">
-
-      <div className="cloud-shape"></div>
-
-      <div className="server server-one"></div>
-
-      <div className="server server-two"></div>
-
-      <div className="server server-three"></div>
-
-    </div>
-
-    {/* HOVER INFORMATION CARD */}
-
-    <div className="mission-info-card">
-
-      <div className="mission-info-top">
-
-        <span className="mission-info-number">
-
-          05
-
-        </span>
-
-        <span className="mission-info-status">
-
-          INFRASTRUCTURE
-
-        </span>
-
-      </div>
-
-      <h3>
-
-        Secure Infrastructure
-
-      </h3>
-
-      <p>
-
-        Build secure technology environments supporting
-
-        cloud infrastructure, data analytics and
-
-        protected digital operations.
-
-      </p>
-
-      <Link
-
-        to="/services"
-
-        className="mission-info-button"
-
-      >
-
-        Explore Services
-
-        <span>
-
-          →
-
-        </span>
-
-      </Link>
-
-    </div>
-
-  </div>
-
-  {/* =====================================================
-
-      CONNECTION BEAMS
-
-  ===================================================== */}
-
-  <div className="mission-beam beam-one"></div>
-
-  <div className="mission-beam beam-two"></div>
-
-  <div className="mission-beam beam-three"></div>
-
-  <div className="mission-beam beam-four"></div>
-
-  <div className="mission-beam beam-five"></div>
-
-  {/* =====================================================
-
-      FLOATING DATA PARTICLES
-
-  ===================================================== */}
-
-  <div className="mission-particle particle-one"></div>
-
-  <div className="mission-particle particle-two"></div>
-
-  <div className="mission-particle particle-three"></div>
-
-  <div className="mission-particle particle-four"></div>
-
-  <div className="mission-particle particle-five"></div>
-
-  <div className="mission-particle particle-six"></div>
-
-  <div className="mission-particle particle-seven"></div>
-
-  <div className="mission-particle particle-eight"></div>
-
-  {/* =====================================================
-
-      SCANNING BEAM
-
-  ===================================================== */}
-
-  <div className="mission-scanner"></div>
-
-</div>
-
-</div>
+          {/* The hero artwork is rendered as a full-section background image. */}
 
         </section>
 
@@ -1254,14 +694,12 @@ function Home() {
 
             <div className="network-orbit orbit-three"></div>
 
-            <div className="network-core">
-
-              <span>
-
-                GC
-
-              </span>
-
+            <div className="network-core" aria-label="Gryphon Cyber company logo">
+              <img
+                src={gryphonLogo}
+                alt="Gryphon Cyber"
+                className="network-core-logo"
+              />
             </div>
 
             <div className="network-node node-1">
@@ -1312,6 +750,38 @@ function Home() {
 
             <div className="network-line line-4"></div>
 
+          </div>
+
+          {/* =================================================
+              INSTITUTIONAL LOGO NETWORK
+              Logos are displayed beneath the connected circles.
+              The four existing service-logo assets are included too.
+          ================================================= */}
+
+          <div className="network-trust-logos">
+            <div className="network-trust-heading">
+              <span>CONNECTED INSTITUTIONAL ECOSYSTEM</span>
+              <h3>Built around trusted networks.</h3>
+            </div>
+
+            <div className="network-trust-grid">
+              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/maharashtra-police.png`} alt="Maharashtra Police" loading="lazy" /></div>
+              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/indian-army.png`} alt="Indian Army" loading="lazy" /></div>
+              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/indianoil.png`} alt="IndianOil" loading="lazy" /></div>
+              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/hdfc-bank.png`} alt="HDFC Bank" loading="lazy" /></div>
+              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/enforcement-directorate.png`} alt="Enforcement Directorate" loading="lazy" /></div>
+              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/dggi.png`} alt="Directorate General of GST Intelligence" loading="lazy" /></div>
+              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/intelligence-bureau.png`} alt="Intelligence Bureau" loading="lazy" /></div>
+              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/bsf.png`} alt="Border Security Force" loading="lazy" /></div>
+              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/ministry-home-affairs.png`} alt="Ministry of Home Affairs" loading="lazy" /></div>
+              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/ministry-defence.png`} alt="Ministry of Defence" loading="lazy" /></div>
+
+              {/* Existing four project logos already used in the website */}
+              <div className="network-trust-logo network-trust-existing"><img src={`${import.meta.env.BASE_URL}logos/service-logo-1.png`} alt="Maharashtra Police institutional logo" loading="lazy" /></div>
+              <div className="network-trust-logo network-trust-existing"><img src={`${import.meta.env.BASE_URL}logos/service-logo-2.png`} alt="Arunachal Pradesh Police institutional logo" loading="lazy" /></div>
+              <div className="network-trust-logo network-trust-existing"><img src={`${import.meta.env.BASE_URL}logos/service-logo-3.png`} alt="Chhattisgarh Police institutional logo" loading="lazy" /></div>
+              <div className="network-trust-logo network-trust-existing"><img src={`${import.meta.env.BASE_URL}logos/service-logo-4.png`} alt="West Bengal Police institutional logo" loading="lazy" /></div>
+            </div>
           </div>
 
           {/* =================================================
@@ -1366,9 +836,14 @@ function Home() {
 
                 </div>
 
-                <div className="story-service-icon">
+                <div className="story-service-icon" aria-hidden="true">
 
-                  ◇
+                  <svg className="story-service-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 18 24 8l19 10-19 10L5 18Z" />
+                    <path d="M13 23v10c7 6 15 6 22 0V23" />
+                    <path d="M43 19v13" />
+                    <circle cx="43" cy="35" r="2" fill="currentColor" />
+                  </svg>
 
                 </div>
 
@@ -1420,9 +895,15 @@ function Home() {
 
                 </div>
 
-                <div className="story-service-icon">
+                <div className="story-service-icon" aria-hidden="true">
 
-                  ◎
+                  <svg className="story-service-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M8 25v-4a16 16 0 0 1 32 0v4" />
+                    <rect x="6" y="22" width="8" height="13" rx="3" />
+                    <rect x="34" y="22" width="8" height="13" rx="3" />
+                    <path d="M38 35c-2 5-7 7-14 7h-4" />
+                    <path d="M20 42h5" />
+                  </svg>
 
                 </div>
 
@@ -1474,9 +955,13 @@ function Home() {
 
                 </div>
 
-                <div className="story-service-icon">
+                <div className="story-service-icon" aria-hidden="true">
 
-                  ◉
+                  <svg className="story-service-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 35h20a9 9 0 0 0 1-18 13 13 0 0 0-25-2 10 10 0 0 0 4 20Z" />
+                    <path d="M16 25h5l3-5 4 10 3-5h4" />
+                    <circle cx="24" cy="25" r="2" fill="currentColor" />
+                  </svg>
 
                 </div>
 
@@ -1530,9 +1015,13 @@ function Home() {
 
                 </div>
 
-                <div className="story-service-icon">
+                <div className="story-service-icon" aria-hidden="true">
 
-                  ⬡
+                  <svg className="story-service-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M24 5 40 11v12c0 10-7 17-16 20C15 40 8 33 8 23V11l16-6Z" />
+                    <path d="m16 24 6 6 11-12" />
+                    <path d="M8 11 24 18l16-7" />
+                  </svg>
 
                 </div>
 

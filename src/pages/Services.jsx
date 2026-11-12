@@ -1,9 +1,9 @@
+import NavbarBrand from "../components/NavbarBrand";
 import { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
 import '../App.css'
-
 import gryphonLogo from "../assets/gryphon-logo.png";
 
 import Footer from "../components/Footer";
@@ -148,32 +148,18 @@ function Services() {
 
       ===================================================== */}
 
-      <header className="navbar">
+      <header className="navbar gryphon-standard-navbar">
 
         <div className="nav-container">
 
           {/* LOGO */}
 
           <Link
-
             to="/"
-
             className="logo-link"
-
             onClick={() => setMobileMenuOpen(false)}
-
           >
-
-            <img
-
-              src={gryphonLogo}
-
-              alt="Gryphon Cyber"
-
-              className="navbar-logo"
-
-            />
-
+            <NavbarBrand />
           </Link>
 
           {!isMobile && (
@@ -191,6 +177,8 @@ function Services() {
                 <Link to="/services" className="active">Services</Link>
 
                 <Link to="/solutions">Solutions</Link>
+
+                <Link to="/engagements">Engagements</Link>
 
                 <Link to="/training">Training</Link>
 
@@ -267,6 +255,8 @@ function Services() {
             </Link>
 
             <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
+
+            <Link to="/engagements" onClick={() => setMobileMenuOpen(false)}>Engagements</Link>
 
             <Link to="/training" onClick={() => setMobileMenuOpen(false)}>Training</Link>
 
@@ -526,9 +516,19 @@ function Services() {
 
           <div className="inner-page-content">
 
-            <div className="inner-page-label">
+            <div className="inner-page-label services-brand-label">
 
-              GRYPHON CYBER • CAPABILITIES
+              <img
+
+                src={gryphonLogo}
+
+                alt="Gryphon Cyber logo"
+
+                className="services-brand-logo"
+
+              />
+
+              <span>GRYPHON CYBER • CAPABILITIES</span>
 
             </div>
 
@@ -743,6 +743,81 @@ function Services() {
       ===================================================== */}
 
       <Footer />
+
+      {/* SERVICES HERO BRAND LABEL STYLES */}
+      <style>{`
+        .services-brand-label {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: flex-start !important;
+          gap: 14px !important;
+          width: fit-content !important;
+          max-width: 100% !important;
+          margin-bottom: 28px !important;
+          white-space: nowrap !important;
+          color: #35e0ff !important;
+          font-size: 18px !important;
+          font-weight: 900 !important;
+          letter-spacing: 3px !important;
+          line-height: 1.4 !important;
+        }
+
+        .services-brand-logo {
+          display: block !important;
+          width: 52px !important;
+          height: 52px !important;
+          max-width: none !important;
+          object-fit: contain !important;
+          flex: 0 0 52px !important;
+        }
+
+        .services-brand-label > span {
+          display: inline-block !important;
+          color: #35e0ff !important;
+          font-size: 18px !important;
+          font-weight: 900 !important;
+          letter-spacing: 3px !important;
+          line-height: 1.4 !important;
+        }
+
+        @media (max-width: 760px) {
+          .services-brand-label {
+            gap: 10px !important;
+            margin-bottom: 22px !important;
+            white-space: normal !important;
+            font-size: 14px !important;
+            letter-spacing: 1.8px !important;
+          }
+
+          .services-brand-logo {
+            width: 42px !important;
+            height: 42px !important;
+            flex-basis: 42px !important;
+          }
+
+          .services-brand-label > span {
+            font-size: 13px !important;
+            letter-spacing: 1.8px !important;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .services-brand-label {
+            gap: 8px !important;
+          }
+
+          .services-brand-logo {
+            width: 36px !important;
+            height: 36px !important;
+            flex-basis: 36px !important;
+          }
+
+          .services-brand-label > span {
+            font-size: 11px !important;
+            letter-spacing: 1.2px !important;
+          }
+        }
+      `}</style>
 
     </div>
 

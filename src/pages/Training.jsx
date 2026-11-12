@@ -1,10 +1,9 @@
+import "../App.css";
+import NavbarBrand from "../components/NavbarBrand";
 import { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import gryphonLogo from "../assets/gryphon-logo.png";
-
-import "../App.css";
 
 const trainingMobileNavStyles = `
 
@@ -33,6 +32,61 @@ const trainingMobileNavStyles = `
 }
 
 @media(max-width:420px){.training-mobile-menu{padding-left:16px;padding-right:16px;}}
+
+/* TRAINING PAGE — HERO BRAND LABEL */
+.training-page .training-eyebrow {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  font-size: 17px !important;
+  font-weight: 900 !important;
+  letter-spacing: 3.5px !important;
+  line-height: 1.45 !important;
+  color: #35e0ff !important;
+  text-transform: uppercase !important;
+}
+
+.training-page .training-eyebrow .training-brand-logo {
+  display: block !important;
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  object-fit: contain !important;
+  flex: 0 0 48px !important;
+}
+
+.training-page .training-eyebrow .training-brand-text {
+  display: inline-block !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  animation: none !important;
+  color: #35e0ff !important;
+  font: inherit !important;
+  letter-spacing: inherit !important;
+  line-height: inherit !important;
+  white-space: normal !important;
+}
+
+@media (max-width: 760px) {
+  .training-page .training-eyebrow {
+    gap: 10px !important;
+    font-size: 12px !important;
+    letter-spacing: 2px !important;
+  }
+
+  .training-page .training-eyebrow .training-brand-logo {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    flex-basis: 38px !important;
+  }
+}
 
 `;
 
@@ -206,17 +260,13 @@ function Training() {
 
       ===================================================== */}
 
-      <header className="navbar">
+      <header className="navbar gryphon-standard-navbar">
 
         <div className="nav-container">
 
-          <Link to="/" className="logo-link">
+          <Link to="/" className="logo-link" onClick={() => setMobileMenuOpen(false)}>
 
-            <img
-  src={gryphonLogo}
-  alt="Gryphon Cyber Private Limited"
-  className="navbar-logo"
-/>
+            <NavbarBrand />
 
           </Link>
 
@@ -233,6 +283,8 @@ function Training() {
                 <Link to="/services">Services</Link>
 
                 <Link to="/solutions">Solutions</Link>
+
+                <Link to="/engagements">Engagements</Link>
 
                 <Link to="/training" className="active">Training</Link>
 
@@ -270,6 +322,8 @@ function Training() {
 
             <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
 
+            <Link to="/engagements" onClick={() => setMobileMenuOpen(false)}>Engagements</Link>
+
             <Link to="/training" className="active" onClick={() => setMobileMenuOpen(false)}>Training</Link>
 
             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
@@ -304,9 +358,15 @@ function Training() {
 
             <div className="training-eyebrow">
 
-              <span></span>
+              <img
+                src={gryphonLogo}
+                alt="Gryphon Cyber logo"
+                className="training-brand-logo"
+              />
 
-              GRYPHON CYBER • TRAINING & EXPERTISE
+              <span className="training-brand-text">
+                GRYPHON CYBER • TRAINING & EXPERTISE
+              </span>
 
             </div>
 
