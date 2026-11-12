@@ -116,7 +116,7 @@ function About() {
 
       ===================================================== */}
 
-      <header className="navbar gryphon-standard-navbar">
+      <header className="navbar gryphon-standard-navbar" style={{ position: "relative", zIndex: 100000 }}>
 
         <div className="nav-container">
 
@@ -141,6 +141,8 @@ function About() {
                 <Link to="/services">Services</Link>
 
                 <Link to="/solutions">Solutions</Link>
+
+                <Link to="/engagements">Engagements</Link>
 
                 <Link to="/training">Training</Link>
 
@@ -232,6 +234,12 @@ function About() {
 
             </Link>
 
+            <Link to="/engagements" onClick={() => setMobileMenuOpen(false)}>
+
+              Engagements
+
+            </Link>
+
             <Link to="/training" onClick={() => setMobileMenuOpen(false)}>
 
               Training
@@ -269,6 +277,14 @@ function About() {
           /\* ABOUT MOBILE NAVIGATION \*/
 
           .about-mobile-toggle {
+
+            position: relative !important;
+
+            z-index: 100002 !important;
+
+            pointer-events: auto !important;
+
+            touch-action: manipulation !important;
 
             width: 44px !important;
 
@@ -341,6 +357,10 @@ function About() {
           .about-mobile-menu {
 
             position: absolute !important;
+
+            pointer-events: auto !important;
+
+            touch-action: manipulation !important;
 
             top: 100% !important;
 

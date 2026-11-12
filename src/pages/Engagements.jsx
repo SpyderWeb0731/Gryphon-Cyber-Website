@@ -176,23 +176,26 @@ function EngagementSection({
 export default function Engagements() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== "undefined" && window.innerWidth <= 760
-  );
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 760px)");
-
-    const handleViewportChange = (event) => {
-      setIsMobile(event.matches);
-      if (!event.matches) setMobileMenuOpen(false);
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
     };
 
-    setIsMobile(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handleViewportChange);
+    const handleResize = () => {
+      if (window.innerWidth > 760) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      mediaQuery.removeEventListener("change", handleViewportChange);
+      document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -207,8 +210,11 @@ export default function Engagements() {
           NAVBAR
       ===================================================== */}
 
-      <header className="navbar gryphon-standard-navbar">
-        <div className="nav-container">
+      <header
+        className="navbar gryphon-standard-navbar engagements-navbar"
+        style={{ position: "relative", zIndex: 100000 }}
+      >
+        <div className="nav-container engagements-nav-container">
           <Link
             to="/"
             className="logo-link"
@@ -217,65 +223,68 @@ export default function Engagements() {
             <NavbarBrand />
           </Link>
 
-          {!isMobile && (
-            <>
-              <nav className="nav-links" aria-label="Main navigation">
-                <Link to="/">Home</Link>
-                <Link to="/about">About</Link>
-                <Link to="/services">Services</Link>
-                <Link to="/solutions">Solutions</Link>
-                <Link to="/engagements" className="active">Engagements</Link>
-                <Link to="/training">Training</Link>
-                <Link to="/contact">Contact</Link>
-              </nav>
+          <nav className="nav-links engagements-desktop-nav" aria-label="Main navigation">
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+            <Link to="/services">Services</Link>
+            <Link to="/solutions">Solutions</Link>
+            <Link to="/engagements" className="active">Engagements</Link>
+            <Link to="/training">Training</Link>
+            <Link to="/contact">Contact</Link>
+          </nav>
 
-              <Link to="/contact" className="talk-button">
-                Talk to Us
-                <span>→</span>
-              </Link>
-            </>
-          )}
+          <Link to="/contact" className="talk-button engagements-desktop-talk">
+            Talk to Us
+            <span>→</span>
+          </Link>
 
-          {isMobile && (
-            <button
-              type="button"
-              className={`services-mobile-toggle ${mobileMenuOpen ? "open" : ""}`}
-              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-              aria-expanded={mobileMenuOpen}
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          )}
+          <button
+            type="button"
+            className={`engagements-mobile-toggle ${
+              mobileMenuOpen ? "open" : ""
+            }`}
+            aria-label={
+              mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
+            aria-expanded={mobileMenuOpen}
+            aria-controls="engagements-mobile-menu"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
 
-        {isMobile && mobileMenuOpen && (
-          <div className="services-mobile-menu">
-            <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-            <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
-            <Link to="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
-            <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
-            <Link
-              to="/engagements"
-              className="mobile-active"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Engagements
-            </Link>
-            <Link to="/training" onClick={() => setMobileMenuOpen(false)}>Training</Link>
-            <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
-            <Link
-              to="/contact"
-              className="services-mobile-talk"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Talk to Us
-              <span>→</span>
-            </Link>
-          </div>
-        )}
+        <div
+          id="engagements-mobile-menu"
+          className={`engagements-mobile-menu ${
+            mobileMenuOpen ? "open" : ""
+          }`}
+          aria-hidden={!mobileMenuOpen}
+        >
+          <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+          <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
+          <Link to="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+          <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
+          <Link
+            to="/engagements"
+            className="mobile-active"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Engagements
+          </Link>
+          <Link to="/training" onClick={() => setMobileMenuOpen(false)}>Training</Link>
+          <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+          <Link
+            to="/contact"
+            className="engagements-mobile-talk"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Talk to Us
+            <span>→</span>
+          </Link>
+        </div>
       </header>
 
       {/* =====================================================
