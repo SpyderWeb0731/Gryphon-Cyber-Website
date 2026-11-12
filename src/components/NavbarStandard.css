@@ -1,371 +1,1442 @@
 /* ==========================================================
-   GRYPHON CYBER — SINGLE SOURCE OF TRUTH FOR ALL NAVBARS
-   Matches the earlier Home/Services reference styling.
-   Imported by NavbarBrand.jsx.
-========================================================== */
+   GRYPHON CYBER — STANDARD NAVBAR
+   Complete responsive navbar
+   Scroll DOWN  -> Hide
+   Scroll UP    -> Show
+   ========================================================== */
+
+
+/* ==========================================================
+   GLOBAL NAVBAR
+   ========================================================== */
 
 header.navbar.gryphon-standard-navbar {
   position: fixed !important;
+
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
+
   z-index: 100000 !important;
+
   display: block !important;
+
   width: 100% !important;
+
   height: 96px !important;
   min-height: 96px !important;
+
   margin: 0 !important;
   padding: 0 !important;
-  overflow: visible !important;
+
   box-sizing: border-box !important;
+
+  overflow: visible !important;
+
   background: #000308 !important;
   background-color: #000308 !important;
   background-image: none !important;
+
   border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+
   box-shadow: none !important;
+
   backdrop-filter: blur(18px) !important;
   -webkit-backdrop-filter: blur(18px) !important;
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.30s ease-in-out !important;
+
+  /*
+   * IMPORTANT
+   *
+   * NavbarBrand.jsx changes this variable:
+   *
+   * --navbar-y: 0px
+   * --navbar-y: -110%
+   *
+   * The navbar movement is controlled ONLY here.
+   */
+  --navbar-y: 0px;
+
+  transform: translate3d(0, var(--navbar-y), 0) !important;
+
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1) !important;
+
   will-change: transform;
+
+  isolation: isolate;
 }
 
-/* Scroll down hides; scroll up reveals. */
-header.navbar.gryphon-standard-navbar.navbar-scroll-hidden {
-  transform: translate3d(0, -110%, 0) !important;
-  pointer-events: none !important;
+
+/* ==========================================================
+   VISIBLE STATE
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar.navbar-scroll-visible {
+  --navbar-y: 0px !important;
+
+  pointer-events: auto !important;
+
+  visibility: visible !important;
+
+  opacity: 1 !important;
 }
+
+
+/* ==========================================================
+   HIDDEN STATE
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar.navbar-scroll-hidden {
+  --navbar-y: -110% !important;
+
+  pointer-events: none !important;
+
+  visibility: visible !important;
+
+  opacity: 1 !important;
+}
+
+
+/* ==========================================================
+   NAVBAR CONTAINER
+   ========================================================== */
 
 header.navbar.gryphon-standard-navbar .nav-container {
+  position: relative !important;
+
   width: 100% !important;
   max-width: 100% !important;
+
   height: 96px !important;
   min-height: 96px !important;
+
   margin: 0 !important;
+
   padding: 0 clamp(24px, 3.5vw, 64px) !important;
+
   box-sizing: border-box !important;
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: space-between !important;
+
   gap: 20px !important;
+
   background: transparent !important;
+
   box-shadow: none !important;
 }
 
-/* Shared logo + company lockup */
+
+/* ==========================================================
+   LOGO LINK
+   ========================================================== */
+
 header.navbar.gryphon-standard-navbar .logo-link {
   position: relative !important;
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: flex-start !important;
+
   flex: 0 0 auto !important;
+
   width: auto !important;
+
   min-width: 0 !important;
+
   height: 96px !important;
+
   gap: 0 !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
   overflow: visible !important;
+
   background: transparent !important;
+
   border: none !important;
+
   box-shadow: none !important;
+
   text-decoration: none !important;
+
+  cursor: pointer !important;
 }
 
-header.navbar.gryphon-standard-navbar .logo-link .navbar-logo {
+
+/* ==========================================================
+   LOGO
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.logo-link
+.navbar-logo {
+
   position: relative !important;
+
   width: 155px !important;
   min-width: 155px !important;
   max-width: 155px !important;
+
   height: 108px !important;
   max-height: 108px !important;
+
   display: block !important;
+
   object-fit: contain !important;
+
   object-position: center !important;
+
   margin: 0 !important;
   padding: 0 !important;
+
   background: transparent !important;
+
+  /*
+   * Do NOT apply transform here.
+   * The navbar itself handles movement.
+   */
   transform: none !important;
+
   flex: 0 0 155px !important;
 }
 
-header.navbar.gryphon-standard-navbar .navbar-company-name {
+
+/* ==========================================================
+   COMPANY NAME
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.navbar-company-name {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   align-items: flex-start !important;
+
   justify-content: center !important;
+
   gap: 4px !important;
+
   margin: 0 0 0 -5px !important;
+
   padding: 0 !important;
+
   white-space: nowrap !important;
+
   text-decoration: none !important;
 }
 
-header.navbar.gryphon-standard-navbar .navbar-company-main {
+
+/* ==========================================================
+   COMPANY MAIN NAME
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.navbar-company-main {
+
   display: block !important;
+
   color: #ffffff !important;
+
   font-size: 21px !important;
+
   font-weight: 900 !important;
+
   letter-spacing: 1px !important;
+
   line-height: 1.12 !important;
+
   text-transform: uppercase !important;
 }
 
-header.navbar.gryphon-standard-navbar .navbar-company-sub {
+
+/* ==========================================================
+   COMPANY SUB NAME
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.navbar-company-sub {
+
   display: block !important;
+
   color: #42dfff !important;
+
   font-size: 10px !important;
+
   font-weight: 800 !important;
+
   letter-spacing: 4px !important;
+
   line-height: 1.5 !important;
+
   text-transform: uppercase !important;
 }
 
-header.navbar.gryphon-standard-navbar .logo-link:hover .navbar-company-main {
+
+/* ==========================================================
+   LOGO / BRAND HOVER
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.logo-link:hover
+.navbar-company-main {
+
   color: #e4f8ff !important;
 }
 
-header.navbar.gryphon-standard-navbar .logo-link:hover .navbar-company-sub {
+
+header.navbar.gryphon-standard-navbar
+.logo-link:hover
+.navbar-company-sub {
+
   color: #ffffff !important;
 }
 
-/* Desktop navigation */
-header.navbar.gryphon-standard-navbar .nav-links {
+
+/* ==========================================================
+   DESKTOP NAVIGATION
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.nav-links {
+
   flex: 1 1 auto !important;
+
   min-width: 0 !important;
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: space-evenly !important;
+
   gap: clamp(18px, 2.3vw, 38px) !important;
+
   margin: 0 20px !important;
+
   padding: 0 !important;
+
   background: transparent !important;
 }
 
-header.navbar.gryphon-standard-navbar .nav-links a {
+
+/* ==========================================================
+   DESKTOP NAV LINKS
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.nav-links a {
+
   position: relative !important;
+
   display: inline-flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   color: #a5b3c1 !important;
+
   font-size: 16px !important;
+
   font-weight: 650 !important;
+
   letter-spacing: 0.2px !important;
+
   line-height: 1.5 !important;
+
   padding: 10px 0 !important;
+
   white-space: nowrap !important;
+
   text-decoration: none !important;
-  transition: color 0.25s ease !important;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease !important;
 }
 
-header.navbar.gryphon-standard-navbar .nav-links a.active,
-header.navbar.gryphon-standard-navbar .nav-links a:hover {
+
+/* ==========================================================
+   DESKTOP LINK HOVER
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.nav-links a:hover,
+
+header.navbar.gryphon-standard-navbar
+.nav-links a.active {
+
   color: #00d9ff !important;
 }
 
-header.navbar.gryphon-standard-navbar .nav-links a.active::after {
+
+/* ==========================================================
+   ACTIVE LINK LINE
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.nav-links a.active::after {
+
   content: "" !important;
+
   position: absolute !important;
+
   left: 0 !important;
   right: 0 !important;
+
   bottom: 2px !important;
+
   height: 2px !important;
-  background: linear-gradient(90deg, #0878f9, #00d9ff) !important;
-  box-shadow: 0 0 10px rgba(0, 217, 255, 0.4) !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      #0878f9,
+      #00d9ff
+    ) !important;
+
+  box-shadow:
+    0 0 10px rgba(0, 217, 255, 0.4) !important;
 }
 
-/* Same CTA dimensions on all pages; text labels remain page-specific. */
-header.navbar.gryphon-standard-navbar .demo-button,
-header.navbar.gryphon-standard-navbar .talk-button {
+
+/* ==========================================================
+   DESKTOP CTA
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.demo-button,
+
+header.navbar.gryphon-standard-navbar
+.talk-button {
+
   position: relative !important;
+
   flex: 0 0 auto !important;
+
   width: 185px !important;
   min-width: 185px !important;
   max-width: 185px !important;
+
   height: 56px !important;
   min-height: 56px !important;
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   gap: 12px !important;
+
   padding: 0 16px !important;
+
   margin: 0 !important;
+
   box-sizing: border-box !important;
+
   color: #ffffff !important;
-  background: linear-gradient(110deg, #0767ed, #0788fe) !important;
+
+  background:
+    linear-gradient(
+      110deg,
+      #0767ed,
+      #0788fe
+    ) !important;
+
   border: 1px solid #168cff !important;
+
   border-radius: 10px !important;
+
   font-size: 15px !important;
+
   font-weight: 750 !important;
+
   line-height: 1 !important;
+
   white-space: nowrap !important;
+
   text-decoration: none !important;
-  box-shadow: 0 5px 18px rgba(0, 105, 255, 0.18) !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease !important;
+
+  box-shadow:
+    0 5px 18px rgba(0, 105, 255, 0.18) !important;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease !important;
 }
 
-header.navbar.gryphon-standard-navbar .demo-button span,
-header.navbar.gryphon-standard-navbar .talk-button span {
+
+/* ==========================================================
+   CTA ARROW
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.demo-button span,
+
+header.navbar.gryphon-standard-navbar
+.talk-button span {
+
   color: #ffffff !important;
+
   display: inline-block !important;
-  transition: transform 0.3s ease !important;
+
+  transition:
+    transform 0.3s ease !important;
 }
 
-header.navbar.gryphon-standard-navbar .demo-button:hover,
-header.navbar.gryphon-standard-navbar .talk-button:hover {
+
+/* ==========================================================
+   CTA HOVER
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+.demo-button:hover,
+
+header.navbar.gryphon-standard-navbar
+.talk-button:hover {
+
   transform: translateY(-3px) !important;
-  background: linear-gradient(110deg, #0878ff, #05baff) !important;
+
+  background:
+    linear-gradient(
+      110deg,
+      #0878ff,
+      #05baff
+    ) !important;
+
   color: #ffffff !important;
+
   border-color: #8ceaff !important;
-  box-shadow: 0 9px 25px rgba(0, 116, 255, 0.38), 0 0 18px rgba(0, 190, 255, 0.25) !important;
+
+  box-shadow:
+    0 9px 25px rgba(0, 116, 255, 0.38),
+    0 0 18px rgba(0, 190, 255, 0.25) !important;
 }
 
-header.navbar.gryphon-standard-navbar .demo-button:hover span,
-header.navbar.gryphon-standard-navbar .talk-button:hover span {
+
+header.navbar.gryphon-standard-navbar
+.demo-button:hover span,
+
+header.navbar.gryphon-standard-navbar
+.talk-button:hover span {
+
   transform: translateX(5px) !important;
 }
 
-/* Laptop / smaller desktop */
+
+/* ==========================================================
+   LAPTOP
+   ========================================================== */
+
 @media (max-width: 1200px) and (min-width: 901px) {
-  header.navbar.gryphon-standard-navbar .nav-container {
+
+  header.navbar.gryphon-standard-navbar
+  .nav-container {
+
     padding: 0 20px !important;
+
     gap: 10px !important;
   }
-  header.navbar.gryphon-standard-navbar .logo-link .navbar-logo {
+
+
+  header.navbar.gryphon-standard-navbar
+  .logo-link
+  .navbar-logo {
+
     width: 118px !important;
+
     min-width: 118px !important;
+
     max-width: 118px !important;
+
     height: 94px !important;
+
     flex-basis: 118px !important;
   }
-  header.navbar.gryphon-standard-navbar .navbar-company-main {
+
+
+  header.navbar.gryphon-standard-navbar
+  .navbar-company-main {
+
     font-size: 16px !important;
+
     letter-spacing: 0.5px !important;
   }
-  header.navbar.gryphon-standard-navbar .navbar-company-sub {
+
+
+  header.navbar.gryphon-standard-navbar
+  .navbar-company-sub {
+
     font-size: 9px !important;
+
     letter-spacing: 2.8px !important;
   }
-  header.navbar.gryphon-standard-navbar .nav-links {
+
+
+  header.navbar.gryphon-standard-navbar
+  .nav-links {
+
     gap: 14px !important;
+
     margin: 0 8px !important;
   }
-  header.navbar.gryphon-standard-navbar .nav-links a {
+
+
+  header.navbar.gryphon-standard-navbar
+  .nav-links a {
+
     font-size: 13px !important;
   }
-  header.navbar.gryphon-standard-navbar .demo-button,
-  header.navbar.gryphon-standard-navbar .talk-button {
+
+
+  header.navbar.gryphon-standard-navbar
+  .demo-button,
+
+  header.navbar.gryphon-standard-navbar
+  .talk-button {
+
     width: 145px !important;
+
     min-width: 145px !important;
+
     max-width: 145px !important;
+
     height: 50px !important;
+
     min-height: 50px !important;
+
     font-size: 13px !important;
+
     padding: 0 12px !important;
   }
 }
 
-/* Compact laptop: nav links stay visible because page JS switches to mobile at 760px. */
+
+/* ==========================================================
+   COMPACT LAPTOP / TABLET
+   ========================================================== */
+
 @media (min-width: 761px) and (max-width: 900px) {
-  header.navbar.gryphon-standard-navbar .nav-container {
+
+  header.navbar.gryphon-standard-navbar {
+
+    height: 82px !important;
+
+    min-height: 82px !important;
+  }
+
+
+  header.navbar.gryphon-standard-navbar
+  .nav-container {
+
+    height: 82px !important;
+
+    min-height: 82px !important;
+
     padding: 0 12px !important;
+
     gap: 7px !important;
   }
-  header.navbar.gryphon-standard-navbar .logo-link .navbar-logo {
+
+
+  header.navbar.gryphon-standard-navbar
+  .logo-link {
+
+    height: 82px !important;
+  }
+
+
+  header.navbar.gryphon-standard-navbar
+  .logo-link
+  .navbar-logo {
+
     width: 82px !important;
+
     min-width: 82px !important;
+
     max-width: 82px !important;
+
     height: 76px !important;
+
     flex-basis: 82px !important;
   }
-  header.navbar.gryphon-standard-navbar .navbar-company-name {
+
+
+  header.navbar.gryphon-standard-navbar
+  .navbar-company-name {
+
     margin-left: -3px !important;
   }
-  header.navbar.gryphon-standard-navbar .navbar-company-main {
+
+
+  header.navbar.gryphon-standard-navbar
+  .navbar-company-main {
+
     font-size: 12px !important;
+
     letter-spacing: 0 !important;
   }
-  header.navbar.gryphon-standard-navbar .navbar-company-sub {
+
+
+  header.navbar.gryphon-standard-navbar
+  .navbar-company-sub {
+
     font-size: 7px !important;
+
     letter-spacing: 1.2px !important;
   }
-  header.navbar.gryphon-standard-navbar .nav-links {
+
+
+  header.navbar.gryphon-standard-navbar
+  .nav-links {
+
     gap: 7px !important;
+
     margin: 0 5px !important;
   }
-  header.navbar.gryphon-standard-navbar .nav-links a {
+
+
+  header.navbar.gryphon-standard-navbar
+  .nav-links a {
+
     font-size: 10px !important;
   }
-  header.navbar.gryphon-standard-navbar .demo-button,
-  header.navbar.gryphon-standard-navbar .talk-button {
+
+
+  header.navbar.gryphon-standard-navbar
+  .demo-button,
+
+  header.navbar.gryphon-standard-navbar
+  .talk-button {
+
     width: 112px !important;
+
     min-width: 112px !important;
+
     max-width: 112px !important;
+
     height: 42px !important;
+
     min-height: 42px !important;
+
     gap: 5px !important;
+
     padding: 0 6px !important;
+
     font-size: 10px !important;
   }
 }
 
-/* Mobile: retain each page's existing hamburger and dropdown menu. */
+
+/* ==========================================================
+   MOBILE NAVBAR
+   ========================================================== */
+
 @media (max-width: 760px) {
+
   header.navbar.gryphon-standard-navbar {
+
     height: 86px !important;
+
     min-height: 86px !important;
+
+    transition:
+      transform 0.30s cubic-bezier(0.22, 1, 0.36, 1) !important;
   }
-  header.navbar.gryphon-standard-navbar .nav-container {
+
+
+  header.navbar.gryphon-standard-navbar
+  .nav-container {
+
     width: 100% !important;
+
     height: 86px !important;
+
     min-height: 86px !important;
+
     padding: 0 16px !important;
+
     display: flex !important;
+
     align-items: center !important;
+
     justify-content: space-between !important;
+
     gap: 8px !important;
   }
-  header.navbar.gryphon-standard-navbar .logo-link {
+
+
+  header.navbar.gryphon-standard-navbar
+  .logo-link {
+
     height: 86px !important;
+
     max-width: calc(100% - 58px) !important;
   }
-  header.navbar.gryphon-standard-navbar .logo-link .navbar-logo {
+
+
+  header.navbar.gryphon-standard-navbar
+  .logo-link
+  .navbar-logo {
+
     width: 78px !important;
+
     min-width: 78px !important;
+
     max-width: 78px !important;
+
     height: 68px !important;
+
     max-height: 68px !important;
+
     flex-basis: 78px !important;
   }
-  header.navbar.gryphon-standard-navbar .navbar-company-name {
+
+
+  header.navbar.gryphon-standard-navbar
+  .navbar-company-name {
+
     gap: 2px !important;
+
     margin-left: -3px !important;
   }
-  header.navbar.gryphon-standard-navbar .navbar-company-main {
+
+
+  header.navbar.gryphon-standard-navbar
+  .navbar-company-main {
+
     font-size: 13px !important;
+
     letter-spacing: 0.3px !important;
   }
-  header.navbar.gryphon-standard-navbar .navbar-company-sub {
+
+
+  header.navbar.gryphon-standard-navbar
+  .navbar-company-sub {
+
     font-size: 8px !important;
+
     letter-spacing: 2px !important;
   }
-  header.navbar.gryphon-standard-navbar .nav-links,
-  header.navbar.gryphon-standard-navbar .demo-button,
-  header.navbar.gryphon-standard-navbar .talk-button {
+
+
+  /*
+   * Hide desktop navigation.
+   */
+
+  header.navbar.gryphon-standard-navbar
+  .nav-links,
+
+  header.navbar.gryphon-standard-navbar
+  .demo-button,
+
+  header.navbar.gryphon-standard-navbar
+  .talk-button {
+
     display: none !important;
   }
 }
 
+
+/* ==========================================================
+   MOBILE HAMBURGER
+   ========================================================== */
+
+@media (max-width: 760px) {
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-toggle,
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-toggle,
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-toggle,
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-toggle,
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-toggle,
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-toggle,
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-toggle {
+
+    position: relative !important;
+
+    z-index: 100002 !important;
+
+    flex: 0 0 auto !important;
+
+    width: 42px !important;
+
+    height: 42px !important;
+
+    min-width: 42px !important;
+
+    min-height: 42px !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    margin: 0 !important;
+
+    padding: 8px !important;
+
+    background: transparent !important;
+
+    border: 1px solid transparent !important;
+
+    border-radius: 6px !important;
+
+    color: #ffffff !important;
+
+    cursor: pointer !important;
+
+    pointer-events: auto !important;
+
+    touch-action: manipulation !important;
+
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-toggle span {
+
+    display: block !important;
+
+    width: 18px !important;
+
+    height: 2px !important;
+
+    flex: 0 0 2px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    background: #00d9ff !important;
+
+    border-radius: 999px !important;
+
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease !important;
+  }
+}
+
+
+/* ==========================================================
+   MOBILE HAMBURGER OPEN STATE
+   ========================================================== */
+
+@media (max-width: 760px) {
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-toggle.open span:nth-child(1),
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-toggle.open span:nth-child(1),
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-toggle.open span:nth-child(1),
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-toggle.open span:nth-child(1),
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-toggle.open span:nth-child(1),
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-toggle.open span:nth-child(1),
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-toggle.open span:nth-child(1) {
+
+    transform: translateY(7px) rotate(45deg) !important;
+  }
+
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-toggle.open span:nth-child(2),
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-toggle.open span:nth-child(2),
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-toggle.open span:nth-child(2),
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-toggle.open span:nth-child(2),
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-toggle.open span:nth-child(2),
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-toggle.open span:nth-child(2),
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-toggle.open span:nth-child(2) {
+
+    opacity: 0 !important;
+  }
+
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-toggle.open span:nth-child(3),
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-toggle.open span:nth-child(3),
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-toggle.open span:nth-child(3),
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-toggle.open span:nth-child(3),
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-toggle.open span:nth-child(3),
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-toggle.open span:nth-child(3),
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-toggle.open span:nth-child(3) {
+
+    transform: translateY(-7px) rotate(-45deg) !important;
+  }
+}
+
+
+/* ==========================================================
+   MOBILE MENU
+   ========================================================== */
+
+@media (max-width: 760px) {
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-menu,
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-menu,
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-menu,
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-menu,
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-menu,
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-menu,
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-menu {
+
+    position: absolute !important;
+
+    top: 86px !important;
+
+    left: 0 !important;
+
+    right: 0 !important;
+
+    z-index: 100001 !important;
+
+    width: 100% !important;
+
+    max-height: calc(100vh - 86px) !important;
+
+    overflow-y: auto !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: stretch !important;
+
+    padding: 12px 16px 20px !important;
+
+    box-sizing: border-box !important;
+
+    background:
+      rgba(0, 3, 8, 0.98) !important;
+
+    border-top:
+      1px solid rgba(0, 217, 255, 0.08) !important;
+
+    border-bottom:
+      1px solid rgba(0, 217, 255, 0.12) !important;
+
+    box-shadow:
+      0 20px 45px rgba(0, 0, 0, 0.45) !important;
+
+    backdrop-filter: blur(18px) !important;
+
+    -webkit-backdrop-filter: blur(18px) !important;
+
+    pointer-events: auto !important;
+
+    touch-action: manipulation !important;
+  }
+
+
+  /* Mobile menu links */
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-menu a,
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-menu a,
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-menu a,
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-menu a,
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-menu a,
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-menu a,
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-menu a {
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: space-between !important;
+
+    width: 100% !important;
+
+    min-height: 48px !important;
+
+    padding: 13px 12px !important;
+
+    box-sizing: border-box !important;
+
+    color: #d8e5ee !important;
+
+    background: transparent !important;
+
+    border-bottom:
+      1px solid rgba(255, 255, 255, 0.06) !important;
+
+    font-size: 15px !important;
+
+    font-weight: 650 !important;
+
+    line-height: 1.3 !important;
+
+    text-decoration: none !important;
+
+    border-radius: 6px !important;
+
+    transition:
+      color 0.2s ease,
+      background 0.2s ease !important;
+  }
+
+
+  /* Mobile menu hover */
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-menu a:hover,
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-menu a:hover,
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-menu a:hover,
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-menu a:hover,
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-menu a:hover,
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-menu a:hover,
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-menu a:hover {
+
+    color: #00d9ff !important;
+
+    background:
+      rgba(0, 217, 255, 0.06) !important;
+  }
+
+
+  /* Active mobile links */
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-menu a.active,
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-menu a.active,
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-menu a.active,
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-menu a.active,
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-menu a.active,
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-menu a.active,
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-menu a.active {
+
+    color: #00d9ff !important;
+
+    background:
+      rgba(0, 217, 255, 0.07) !important;
+  }
+
+
+  /* Mobile Talk To Us */
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-talk,
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-talk,
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-talk,
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-talk,
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-talk,
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-talk,
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-talk {
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 10px !important;
+
+    width: 100% !important;
+
+    min-height: 48px !important;
+
+    margin-top: 12px !important;
+
+    padding: 12px 16px !important;
+
+    box-sizing: border-box !important;
+
+    color: #ffffff !important;
+
+    background:
+      linear-gradient(
+        110deg,
+        #0767ed,
+        #0788fe
+      ) !important;
+
+    border:
+      1px solid #168cff !important;
+
+    border-radius: 8px !important;
+
+    font-size: 14px !important;
+
+    font-weight: 750 !important;
+
+    text-decoration: none !important;
+  }
+}
+
+
+/* ==========================================================
+   MOBILE MENU SAFETY
+   ========================================================== */
+
+header.navbar.gryphon-standard-navbar
+button[aria-expanded="true"] {
+
+  pointer-events: auto !important;
+}
+
+
+@media (max-width: 760px) {
+
+  header.navbar.gryphon-standard-navbar
+  button[aria-expanded="true"] {
+
+    position: relative !important;
+
+    z-index: 100003 !important;
+
+    pointer-events: auto !important;
+  }
+}
+
+
+/*
+ * If the menu is open, never allow pointer events
+ * to be blocked by the hidden state.
+ */
+
+@media (max-width: 760px) {
+
+  header.navbar.gryphon-standard-navbar:has(
+    button[aria-expanded="true"]
+  ) {
+
+    --navbar-y: 0px !important;
+
+    pointer-events: auto !important;
+  }
+}
+
+
+/* ==========================================================
+   ACCESSIBILITY / REDUCED MOTION
+   ========================================================== */
+
 @media (prefers-reduced-motion: reduce) {
-  header.navbar.gryphon-standard-navbar,
-  header.navbar.gryphon-standard-navbar .nav-links a,
-  header.navbar.gryphon-standard-navbar .demo-button,
-  header.navbar.gryphon-standard-navbar .talk-button {
+
+  header.navbar.gryphon-standard-navbar {
+
+    transition: none !important;
+  }
+
+
+  header.navbar.gryphon-standard-navbar
+  .nav-links a,
+
+  header.navbar.gryphon-standard-navbar
+  .demo-button,
+
+  header.navbar.gryphon-standard-navbar
+  .talk-button,
+
+  header.navbar.gryphon-standard-navbar
+  .services-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .about-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .engagements-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .training-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .solutions-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .contact-mobile-toggle span,
+
+  header.navbar.gryphon-standard-navbar
+  .home-mobile-toggle span {
+
     transition: none !important;
   }
 }
 
-/* Anchor targets should not sit underneath the fixed navbar. */
+
+/* ==========================================================
+   PAGE SCROLL OFFSET
+   ========================================================== */
+
 html {
   scroll-padding-top: 100px;
+}
+
+
+@media (max-width: 760px) {
+
+  html {
+    scroll-padding-top: 90px;
+  }
+}
+
+
+/* ==========================================================
+   EXTRA SAFETY
+   ========================================================== */
+
+/*
+ * Prevent accidental transforms from page-level navbar
+ * children from affecting the actual navbar movement.
+ */
+
+header.navbar.gryphon-standard-navbar
+.nav-container {
+
+  transform: none !important;
+}
+
+
+/*
+ * The navbar itself is the ONLY element that moves
+ * when scrolling.
+ */
+
+header.navbar.gryphon-standard-navbar {
+  transform-origin: top center !important;
 }

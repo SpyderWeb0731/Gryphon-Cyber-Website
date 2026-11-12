@@ -8,73 +8,75 @@ export default function NavbarBrand() {
       "header.navbar.gryphon-standard-navbar"
     );
 
-    if (!navbar) return undefined;
+    if (!navbar) return;
 
-    navbar.classList.remove("navbar-scroll-hidden");
+    let lastScrollY = window.scrollY || 0;
+    let ticking = false;
 
-    let lastScrollY = Math.max(window.scrollY || 0, 0);
-    let accumulatedMovement = 0;
-    let previousDirection = 0;
+    // Start visible
+    navbar.style.setProperty("--navbar-y", "0px");
 
-    const threshold = 7;
+    const showNavbar = () => {
+      navbar.style.setProperty("--navbar-y", "0px");
+
+      navbar.classList.remove("navbar-scroll-hidden");
+      navbar.classList.add("navbar-scroll-visible");
+    };
+
+    const hideNavbar = () => {
+      navbar.style.setProperty("--navbar-y", "-110%");
+      
+      navbar.classList.remove("navbar-scroll-visible");
+      navbar.classList.add("navbar-scroll-hidden");
+    };
 
     const handleScroll = () => {
-      const currentScrollY = Math.max(window.scrollY || 0, 0);
+      if (ticking) return;
 
-      /*
-       * Never hide the navbar while the mobile menu is open.
-       */
-      const mobileMenuOpen = Boolean(
-        navbar.querySelector(
-          'button[aria-expanded="true"]'
-        )
-      );
+      ticking = true;
 
-      if (currentScrollY <= 45 || mobileMenuOpen) {
-        navbar.classList.remove("navbar-scroll-hidden");
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY || 0;
 
-        lastScrollY = currentScrollY;
-        accumulatedMovement = 0;
-        previousDirection = 0;
-
-        return;
-      }
-
-      const delta = currentScrollY - lastScrollY;
-
-      if (delta === 0) {
-        return;
-      }
-
-      const direction = delta > 0 ? 1 : -1;
-
-      /*
-       * Reset the accumulated movement when
-       * the scroll direction changes.
-       */
-      if (direction !== previousDirection) {
-        accumulatedMovement = 0;
-        previousDirection = direction;
-      }
-
-      accumulatedMovement += Math.abs(delta);
-
-      lastScrollY = currentScrollY;
-
-      /*
-       * Hide navbar when scrolling down.
-       * Show navbar when scrolling up.
-       */
-      if (accumulatedMovement >= threshold) {
-        if (direction > 0) {
-          navbar.classList.add("navbar-scroll-hidden");
-        } else {
-          navbar.classList.remove("navbar-scroll-hidden");
+        // Always visible at the top
+        if (currentScrollY <= 40) {
+          showNavbar();
+          lastScrollY = currentScrollY;
+          ticking = false;
+          return;
         }
 
-        accumulatedMovement = 0;
-      }
+        // Keep navbar visible if mobile menu is open
+        const mobileMenuOpen = Boolean(
+          navbar.querySelector('button[aria-expanded="true"]')
+        );
+
+        if (mobileMenuOpen) {
+          showNavbar();
+          lastScrollY = currentScrollY;
+          ticking = false;
+          return;
+        }
+
+        const difference = currentScrollY - lastScrollY;
+
+        // Scrolling DOWN
+        if (difference > 0) {
+          hideNavbar();
+        }
+
+        // Scrolling UP
+        else if (difference < 0) {
+          showNavbar();
+        }
+
+        lastScrollY = currentScrollY;
+        ticking = false;
+      });
     };
+
+    // Initial state
+    showNavbar();
 
     window.addEventListener("scroll", handleScroll, {
       passive: true,
@@ -83,7 +85,10 @@ export default function NavbarBrand() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
 
+      navbar.style.setProperty("--navbar-y", "0px");
+
       navbar.classList.remove("navbar-scroll-hidden");
+      navbar.classList.remove("navbar-scroll-visible");
     };
   }, []);
 
