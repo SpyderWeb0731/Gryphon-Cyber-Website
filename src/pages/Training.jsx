@@ -286,6 +286,8 @@ function Training() {
 
                 <Link to="/engagements">Engagements</Link>
 
+                <Link to="/blog">Blog</Link>
+
                 <Link to="/training" className="active">Training</Link>
 
                 <Link to="/contact">Contact</Link>
@@ -323,6 +325,8 @@ function Training() {
             <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
 
             <Link to="/engagements" onClick={() => setMobileMenuOpen(false)}>Engagements</Link>
+
+            <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
 
             <Link to="/training" className="active" onClick={() => setMobileMenuOpen(false)}>Training</Link>
 
@@ -474,81 +478,7 @@ function Training() {
 
           ================================================= */}
 
-          <div className="training-command">
-
-            <div className="training-command-label">
-
-              TRAINING SYSTEM
-
-            </div>
-
-            <div className="training-radar">
-
-              <div className="training-radar-ring ring-one"></div>
-
-              <div className="training-radar-ring ring-two"></div>
-
-              <div className="training-radar-ring ring-three"></div>
-
-              <div className="training-radar-cross horizontal"></div>
-
-              <div className="training-radar-cross vertical"></div>
-
-              <div className="training-radar-sweep"></div>
-
-              <div className="training-radar-core">
-
-                <span></span>
-
-              </div>
-
-              <div className="training-radar-point point-one">
-
-                <span>01</span>
-
-              </div>
-
-              <div className="training-radar-point point-two">
-
-                <span>02</span>
-
-              </div>
-
-              <div className="training-radar-point point-three">
-
-                <span>03</span>
-
-              </div>
-
-              <div className="training-radar-point point-four">
-
-                <span>04</span>
-
-              </div>
-
-            </div>
-
-            <div className="training-command-data">
-
-              <div>
-
-                <span>MODE</span>
-
-                <strong>FIELD READY</strong>
-
-              </div>
-
-              <div>
-
-                <span>STATUS</span>
-
-                <strong>ACTIVE</strong>
-
-              </div>
-
-            </div>
-
-          </div>
+          
 
         </section>
 

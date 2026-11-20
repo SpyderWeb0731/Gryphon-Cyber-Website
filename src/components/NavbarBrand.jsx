@@ -8,24 +8,60 @@ export default function NavbarBrand() {
       "header.navbar.gryphon-standard-navbar"
     );
 
-    if (!navbar) return;
+    if (!navbar) {
+      console.warn("Gryphon navbar not found");
+      return;
+    }
 
-    let lastScrollY = window.scrollY || 0;
+    let lastScrollY =
+      window.scrollY ||
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+
     let ticking = false;
 
-    // Start visible
-    navbar.style.setProperty("--navbar-y", "0px");
+    const getScrollY = () => {
+      return (
+        window.scrollY ||
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        0
+      );
+    };
 
     const showNavbar = () => {
-      navbar.style.setProperty("--navbar-y", "0px");
+      navbar.style.setProperty(
+        "transform",
+        "translate3d(0, 0, 0)",
+        "important"
+      );
+
+      navbar.style.setProperty(
+        "transition",
+        "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
+        "important"
+      );
 
       navbar.classList.remove("navbar-scroll-hidden");
       navbar.classList.add("navbar-scroll-visible");
     };
 
     const hideNavbar = () => {
-      navbar.style.setProperty("--navbar-y", "-110%");
-      
+      navbar.style.setProperty(
+        "transform",
+        "translate3d(0, -110%, 0)",
+        "important"
+      );
+
+      navbar.style.setProperty(
+        "transition",
+        "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
+        "important"
+      );
+
       navbar.classList.remove("navbar-scroll-visible");
       navbar.classList.add("navbar-scroll-hidden");
     };
@@ -36,19 +72,19 @@ export default function NavbarBrand() {
       ticking = true;
 
       window.requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY || 0;
+        const currentScrollY = getScrollY();
 
-        // Always visible at the top
-        if (currentScrollY <= 40) {
+        // Always show at the very top
+        if (currentScrollY <= 20) {
           showNavbar();
           lastScrollY = currentScrollY;
           ticking = false;
           return;
         }
 
-        // Keep navbar visible if mobile menu is open
-        const mobileMenuOpen = Boolean(
-          navbar.querySelector('button[aria-expanded="true"]')
+        // Keep navbar visible when mobile menu is open
+        const mobileMenuOpen = navbar.querySelector(
+          'button[aria-expanded="true"]'
         );
 
         if (mobileMenuOpen) {
@@ -61,12 +97,12 @@ export default function NavbarBrand() {
         const difference = currentScrollY - lastScrollY;
 
         // Scrolling DOWN
-        if (difference > 0) {
+        if (difference > 1) {
           hideNavbar();
         }
 
         // Scrolling UP
-        else if (difference < 0) {
+        else if (difference < -1) {
           showNavbar();
         }
 
@@ -75,17 +111,23 @@ export default function NavbarBrand() {
       });
     };
 
-    // Initial state
+    // Force initial visible state
     showNavbar();
 
     window.addEventListener("scroll", handleScroll, {
       passive: true,
     });
 
+    document.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("scroll", handleScroll);
 
-      navbar.style.setProperty("--navbar-y", "0px");
+      navbar.style.removeProperty("transform");
+      navbar.style.removeProperty("transition");
 
       navbar.classList.remove("navbar-scroll-hidden");
       navbar.classList.remove("navbar-scroll-visible");

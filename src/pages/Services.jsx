@@ -180,6 +180,8 @@ function Services() {
 
                 <Link to="/engagements">Engagements</Link>
 
+                <Link to="/blog">Blog</Link>
+
                 <Link to="/training">Training</Link>
 
                 <Link to="/contact">Contact</Link>
@@ -257,6 +259,8 @@ function Services() {
             <Link to="/solutions" onClick={() => setMobileMenuOpen(false)}>Solutions</Link>
 
             <Link to="/engagements" onClick={() => setMobileMenuOpen(false)}>Engagements</Link>
+
+            <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
 
             <Link to="/training" onClick={() => setMobileMenuOpen(false)}>Training</Link>
 

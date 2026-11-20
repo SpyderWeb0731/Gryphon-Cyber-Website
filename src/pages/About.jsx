@@ -10,7 +10,7 @@ import NavbarBrand from "../components/NavbarBrand";
 import gryphonLogo from "../assets/gryphon-logo.png";
 
 const trustLogos = [
-  { src: `${import.meta.env.BASE_URL}logos/trust/maharashtra-police.png`, alt: "Maharashtra Police" },
+  { src: `${import.meta.env.BASE_URL}logos/trust/maharashtra-police.png`, alt: "J&K Police" },
   { src: `${import.meta.env.BASE_URL}logos/trust/indian-army.png`, alt: "Indian Army" },
   { src: `${import.meta.env.BASE_URL}logos/trust/indianoil.png`, alt: "IndianOil" },
   { src: `${import.meta.env.BASE_URL}logos/trust/hdfc-bank.png`, alt: "HDFC Bank" },
@@ -144,6 +144,8 @@ function About() {
 
                 <Link to="/engagements">Engagements</Link>
 
+                <Link to="/blog">Blog</Link>
+
                 <Link to="/training">Training</Link>
 
                 <Link to="/contact">Contact</Link>
@@ -237,6 +239,12 @@ function About() {
             <Link to="/engagements" onClick={() => setMobileMenuOpen(false)}>
 
               Engagements
+
+            </Link>
+
+            <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>
+
+              Blog
 
             </Link>
 
@@ -1141,60 +1149,78 @@ function About() {
               {/* Floating data architecture */}
 
               <div className="about-data-architecture about-reveal">
+  <div className="data-architecture-glow"></div>
 
-                <div className="data-architecture-glow"></div>
+  {/* Cyber grid */}
+  <div className="data-grid"></div>
 
-                <div className="data-node data-node-one">
+  {/* Outer rotating rings */}
+  <div className="data-orbit data-orbit-one">
+    <span className="data-orbit-dot"></span>
+  </div>
 
-                  <span></span>
+  <div className="data-orbit data-orbit-two">
+    <span className="data-orbit-dot"></span>
+  </div>
 
-                  INTELLIGENCE
+  <div className="data-orbit data-orbit-three">
+    <span className="data-orbit-dot"></span>
+  </div>
 
-                </div>
+  {/* Connecting intelligence lines */}
+  <div className="data-connection connection-one"></div>
+  <div className="data-connection connection-two"></div>
+  <div className="data-connection connection-three"></div>
+  <div className="data-connection connection-four"></div>
 
-                <div className="data-node data-node-two">
+  {/* Intelligence nodes */}
+  <div className="data-node data-node-one">
+    <span></span>
+    <strong>INTELLIGENCE</strong>
+  </div>
 
-                  <span></span>
+  <div className="data-node data-node-two">
+    <span></span>
+    <strong>INVESTIGATION</strong>
+  </div>
 
-                  INVESTIGATION
+  <div className="data-node data-node-three">
+    <span></span>
+    <strong>SECURITY</strong>
+  </div>
 
-                </div>
+  <div className="data-node data-node-four">
+    <span></span>
+    <strong>OPERATIONS</strong>
+  </div>
 
-                <div className="data-node data-node-three">
+  {/* Central Gryphon Cyber Core */}
+  <div className="data-center">
+    <div className="data-center-ring data-center-ring-one"></div>
+    <div className="data-center-ring data-center-ring-two"></div>
 
-                  <span></span>
+    <div className="data-center-inner">
+      <div className="data-center-glow"></div>
 
-                  SECURITY
+      <img
+        src={gryphonLogo}
+        alt="Gryphon Cyber"
+        className="data-center-logo"
+      />
+    </div>
 
-                </div>
+    <div className="data-center-scan"></div>
+  </div>
 
-                <div className="data-node data-node-four">
+  {/* Small technical labels */}
+  <div className="data-tech-label data-tech-top">
+    CYBER INTELLIGENCE
+  </div>
 
-                  <span></span>
-
-                  OPERATIONS
-
-                </div>
-
-                <div className="data-center">
-
-                  <div className="data-center-inner">
-
-                    GC
-
-                  </div>
-
-                </div>
-
-                <div className="data-connection connection-one"></div>
-
-                <div className="data-connection connection-two"></div>
-
-                <div className="data-connection connection-three"></div>
-
-                <div className="data-connection connection-four"></div>
-
-              </div>
+  <div className="data-tech-label data-tech-bottom">
+    GRYPHON CORE // 01
+  </div>
+</div>
 
             </div>
 
@@ -1294,7 +1320,7 @@ function About() {
 
                     INTELLIGENCE
 
-                    <b>→</b>
+                    
 
                   </span>
 
@@ -1344,7 +1370,7 @@ function About() {
 
                     INVESTIGATION
 
-                    <b>→</b>
+                  
 
                   </span>
 
@@ -1394,7 +1420,7 @@ function About() {
 
                     EXPERTISE
 
-                    <b>→</b>
+                    
 
                   </span>
 
@@ -1444,7 +1470,7 @@ function About() {
 
                     OPERATIONS
 
-                    <b>→</b>
+                        
 
                   </span>
 
@@ -2474,7 +2500,18 @@ function About() {
 
             <div className="final-core-center">
 
-              GC
+              <img
+                src={gryphonLogo}
+                alt="Gryphon Cyber"
+                className="final-core-logo"
+                style={{
+                  width: "82px",
+                  height: "82px",
+                  objectFit: "contain",
+                  display: "block",
+                  filter: "drop-shadow(0 0 14px rgba(0, 220, 255, 0.55))"
+                }}
+              />
 
             </div>
 

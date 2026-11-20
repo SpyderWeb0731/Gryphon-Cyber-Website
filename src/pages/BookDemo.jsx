@@ -402,6 +402,10 @@ function BookDemo() {
                   Engagements
                 </Link>
 
+                <Link to="/blog">
+                  Blog
+                </Link>
+
                 <Link to="/training">
                   Training
                 </Link>
@@ -490,6 +494,13 @@ function BookDemo() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Engagements
+            </Link>
+
+            <Link
+              to="/blog"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Blog
             </Link>
 
             <Link

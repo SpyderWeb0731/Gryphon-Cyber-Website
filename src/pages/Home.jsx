@@ -6,6 +6,23 @@ import '../App.css'
 import heroBackground from '../assets/Gryphon_Cyber_Hero_Background.png';
 import gryphonLogo from '../assets/gryphon-logo.png';
 
+const trustLogos = [
+  { src: `${import.meta.env.BASE_URL}logos/trust/maharashtra-police.png`, name: 'J&K Police' },
+  { src: `${import.meta.env.BASE_URL}logos/trust/indian-army.png`, name: 'Indian Army' },
+  { src: `${import.meta.env.BASE_URL}logos/trust/indianoil.png`, name: 'IndianOil' },
+  { src: `${import.meta.env.BASE_URL}logos/trust/hdfc-bank.png`, name: 'HDFC Bank' },
+  { src: `${import.meta.env.BASE_URL}logos/trust/enforcement-directorate.png`, name: 'Enforcement Directorate' },
+  { src: `${import.meta.env.BASE_URL}logos/trust/dggi.png`, name: 'DGGI' },
+  { src: `${import.meta.env.BASE_URL}logos/trust/intelligence-bureau.png`, name: 'Intelligence Bureau' },
+  { src: `${import.meta.env.BASE_URL}logos/trust/bsf.png`, name: 'Border Security Force' },
+  { src: `${import.meta.env.BASE_URL}logos/trust/ministry-home-affairs.png`, name: 'Ministry of Home Affairs' },
+  { src: `${import.meta.env.BASE_URL}logos/trust/ministry-defence.png`, name: 'Ministry of Defence' },
+  { src: `${import.meta.env.BASE_URL}logos/service-logo-1.png`, name: 'Maharashtra Police' },
+  { src: `${import.meta.env.BASE_URL}logos/service-logo-2.png`, name: 'Arunachal Pradesh Police' },
+  { src: `${import.meta.env.BASE_URL}logos/service-logo-3.png`, name: 'Chhattisgarh Police' },
+  { src: `${import.meta.env.BASE_URL}logos/service-logo-4.png`, name: 'West Bengal Police' },
+];
+
 
 import Footer from "../components/Footer";
 import NavbarBrand from "../components/NavbarBrand";
@@ -66,6 +83,94 @@ function Home() {
 
     <div className="app">
 
+      <style>{`
+        .network-trust-logo,
+        .network-trust-logo:hover,
+        .network-trust-logo:focus,
+        .network-trust-logo:active {
+          transform: none !important;
+          animation: none !important;
+          transition: none !important;
+        }
+
+        .network-trust-logo img,
+        .network-trust-logo:hover img,
+        .network-trust-logo:focus img,
+        .network-trust-logo:active img {
+          transform: none !important;
+          animation: none !important;
+          transition: none !important;
+        }
+
+        /* Logo card + name layout */
+        .network-trust-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          width: 100%;
+          min-width: 0;
+          text-align: center;
+        }
+
+        .network-trust-item .network-trust-logo {
+          width: 100%;
+          height: 155px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          flex-shrink: 0;
+        }
+
+        .network-trust-item .network-trust-logo img {
+          max-width: 78%;
+          max-height: 78%;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          display: block;
+        }
+
+        .network-trust-name {
+          position: static !important;
+          display: block;
+          width: 100%;
+          margin: 14px 0 0;
+          padding: 0 4px;
+          color: #d9e7f2;
+          font-size: 12px;
+          line-height: 1.35;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          text-align: center;
+          white-space: normal;
+          overflow: visible;
+        }
+
+        @media (max-width: 1100px) {
+          .network-trust-item .network-trust-logo {
+            height: 145px;
+          }
+
+          .network-trust-name {
+            font-size: 11px;
+          }
+        }
+
+        @media (max-width: 760px) {
+          .network-trust-item .network-trust-logo {
+            height: 135px;
+          }
+
+          .network-trust-name {
+            font-size: 10px;
+            margin-top: 9px;
+          }
+        }
+      `}</style>
+
 
 
       {/* =====================================================
@@ -105,6 +210,8 @@ function Home() {
             <Link to="/solutions">Solutions</Link>
 
             <Link to="/engagements">Engagements</Link>
+
+            <Link to="/blog">Blog</Link>
 
             <Link to="/training">Training</Link>
 
@@ -185,6 +292,12 @@ function Home() {
           <Link to="/engagements" onClick={() => setMobileMenuOpen(false)}>
 
             Engagements
+
+          </Link>
+
+          <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>
+
+            Blog
 
           </Link>
 
@@ -765,22 +878,24 @@ function Home() {
             </div>
 
             <div className="network-trust-grid">
-              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/maharashtra-police.png`} alt="Maharashtra Police" loading="lazy" /></div>
-              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/indian-army.png`} alt="Indian Army" loading="lazy" /></div>
-              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/indianoil.png`} alt="IndianOil" loading="lazy" /></div>
-              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/hdfc-bank.png`} alt="HDFC Bank" loading="lazy" /></div>
-              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/enforcement-directorate.png`} alt="Enforcement Directorate" loading="lazy" /></div>
-              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/dggi.png`} alt="Directorate General of GST Intelligence" loading="lazy" /></div>
-              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/intelligence-bureau.png`} alt="Intelligence Bureau" loading="lazy" /></div>
-              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/bsf.png`} alt="Border Security Force" loading="lazy" /></div>
-              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/ministry-home-affairs.png`} alt="Ministry of Home Affairs" loading="lazy" /></div>
-              <div className="network-trust-logo"><img src={`${import.meta.env.BASE_URL}logos/trust/ministry-defence.png`} alt="Ministry of Defence" loading="lazy" /></div>
+              {trustLogos.map((logo, index) => (
+                <div
+                  className="network-trust-item"
+                  key={`${logo.name}-${index}`}
+                >
+                  <div className="network-trust-logo">
+                    <img
+                      src={logo.src}
+                      alt={logo.name}
+                      loading="lazy"
+                    />
+                  </div>
 
-              {/* Existing four project logos already used in the website */}
-              <div className="network-trust-logo network-trust-existing"><img src={`${import.meta.env.BASE_URL}logos/service-logo-1.png`} alt="Maharashtra Police institutional logo" loading="lazy" /></div>
-              <div className="network-trust-logo network-trust-existing"><img src={`${import.meta.env.BASE_URL}logos/service-logo-2.png`} alt="Arunachal Pradesh Police institutional logo" loading="lazy" /></div>
-              <div className="network-trust-logo network-trust-existing"><img src={`${import.meta.env.BASE_URL}logos/service-logo-3.png`} alt="Chhattisgarh Police institutional logo" loading="lazy" /></div>
-              <div className="network-trust-logo network-trust-existing"><img src={`${import.meta.env.BASE_URL}logos/service-logo-4.png`} alt="West Bengal Police institutional logo" loading="lazy" /></div>
+                  <div className="network-trust-name">
+                    {logo.name}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

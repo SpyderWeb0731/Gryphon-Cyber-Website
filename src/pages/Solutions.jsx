@@ -329,6 +329,7 @@ function Solutions() {
                 </Link>
 
                 <Link to="/engagements">Engagements</Link>
+                <Link to="/blog">Blog</Link>
 
                 <Link to="/training">Training</Link>
 
@@ -440,6 +441,9 @@ function Solutions() {
 
               Engagements
 
+            </Link>
+            <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>
+              Blog
             </Link>
 
             <Link to="/training" onClick={() => setMobileMenuOpen(false)}>

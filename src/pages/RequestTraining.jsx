@@ -1,2149 +1,4169 @@
 import NavbarBrand from "../components/NavbarBrand";
+
 import { useEffect, useState } from "react";
+
+
 
 import { Link } from "react-router-dom";
 
+
+
 import "../App.css";
+
 import Footer from "../components/Footer";
+
+
 
 function RequestTraining() {
 
-  const [submitted, setSubmitted] = useState(false);
 
-  const [isMobile, setIsMobile] = useState(false);
 
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
 
-    const mediaQuery = window.matchMedia("(max-width: 760px)");
 
-    const updateViewport = () => {
+  const [isMobile, setIsMobile] = useState(false);
 
-      setIsMobile(mediaQuery.matches);
 
-      if (!mediaQuery.matches) {
 
-        setMobileMenuOpen(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-      }
 
-    };
 
-    updateViewport();
+  useEffect(() => {
 
-    mediaQuery.addEventListener("change", updateViewport);
 
-    return () => {
 
-      mediaQuery.removeEventListener("change", updateViewport);
+    const mediaQuery = window.matchMedia("(max-width: 760px)");
 
-    };
 
-  }, []);
 
-  const closeMobileMenu = () => setMobileMenuOpen(false);
+    const updateViewport = () => {
 
-  const [errors, setErrors] = useState({
 
-    email: "",
 
-    phone: "",
+      setIsMobile(mediaQuery.matches);
 
-  });
 
-  const [formData, setFormData] = useState({
 
-    name: "",
+      if (!mediaQuery.matches) {
 
-    organization: "",
 
-    designation: "",
 
-    email: "",
+        setMobileMenuOpen(false);
 
-    phone: "",
 
-    trainingArea: "",
 
-    participants: "",
+      }
 
-    preferredDate: "",
 
-    mode: "",
 
-    message: "",
+    };
 
-  });
 
-  const handleChange = (e) => {
 
-    const { name, value } = e.target;
+    updateViewport();
 
-    setFormData((previous) => ({
 
-      ...previous,
 
-      [name]: value,
+    mediaQuery.addEventListener("change", updateViewport);
 
-    }));
 
-    if (name === "email" || name === "phone") {
 
-      setErrors((previous) => ({
+    return () => {
 
-        ...previous,
 
-        [name]: "",
 
-      }));
+      mediaQuery.removeEventListener("change", updateViewport);
 
-    }
 
-    if (submitted) {
 
-      setSubmitted(false);
+    };
 
-    }
 
-  };
 
-  const handleSubmit = async (e) => {
+  }, []);
 
-    e.preventDefault();
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    const phoneRegex = /^(?:\+?91[\s-]?|0)?[6-9]\d{9}$/;
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
-    const email = formData.email.trim();
 
-    const phone = formData.phone.trim();
 
-    const cleanedPhone = phone.replace(/[\s-]/g, "");
+  const [errors, setErrors] = useState({
 
-    const newErrors = {
 
-      email: "",
 
-      phone: "",
+    email: "",
 
-    };
 
-    /* =====================================================
 
-       EMAIL VALIDATION
+    phone: "",
 
-    ===================================================== */
 
-    if (!emailRegex.test(email)) {
 
-      newErrors.email = "Please enter a valid email address.";
+  });
 
-    }
 
-    /* =====================================================
 
-       PHONE VALIDATION
+  const [formData, setFormData] = useState({
 
-    ===================================================== */
 
-    if (!phoneRegex.test(cleanedPhone)) {
 
-      newErrors.phone = "Please enter a valid Indian mobile number.";
+    name: "",
 
-    }
 
-    /* =====================================================
 
-       SHOW VALIDATION ERRORS
+    organization: "",
 
-    ===================================================== */
 
-    if (newErrors.email || newErrors.phone) {
 
-      setErrors(newErrors);
+    designation: "",
 
-      if (newErrors.email && newErrors.phone) {
 
-        alert(
 
-          "Please correct the following:\n\n" +
+    email: "",
 
-            "• Invalid email address\n" +
 
-            "• Invalid Indian mobile number"
 
-        );
+    phone: "",
 
-      } else if (newErrors.email) {
 
-        alert(
 
-          "Please enter a valid email address.\n\n" +
+    trainingArea: "",
 
-            "Example: name@organization.com"
 
-        );
 
-      } else if (newErrors.phone) {
+    participants: "",
 
-        alert(
 
-          "Please enter a valid Indian mobile number.\n\n" +
 
-            "Example: 9876543210"
+    preferredDate: "",
 
-        );
 
-      }
 
-      return;
+    mode: "",
 
-    }
 
-    /* =====================================================
 
-       SEND TRAINING REQUEST TO BACKEND
+    message: "",
 
-       Backend will save it into Excel
 
-    ===================================================== */
 
-    try {
+  });
 
-      const response = await fetch(
 
-        "http://localhost:5000/api/training-request",
 
-        {
+  const handleChange = (e) => {
 
-          method: "POST",
 
-          headers: {
 
-            "Content-Type": "application/json",
+    const { name, value } = e.target;
 
-          },
 
-          body: JSON.stringify({
 
-            name: formData.name,
+    setFormData((previous) => ({
 
-            organization: formData.organization,
 
-            designation: formData.designation,
 
-            email: formData.email,
+      ...previous,
 
-            phone: formData.phone,
 
-            trainingArea: formData.trainingArea,
 
-            participants: formData.participants,
+      [name]: value,
 
-            preferredDate: formData.preferredDate,
 
-            mode: formData.mode,
 
-            message: formData.message,
+    }));
 
-          }),
 
-        }
 
-      );
+    if (name === "email" || name === "phone") {
 
-      const data = await response.json();
 
-      if (!response.ok) {
 
-        throw new Error(
+      setErrors((previous) => ({
 
-          data.message || "Unable to save training request."
 
-        );
 
-      }
+        ...previous,
 
-      /* =====================================================
 
-         SUCCESS
 
-      ===================================================== */
+        [name]: "",
 
-      setSubmitted(true);
 
-      alert(
 
-        "Training request submitted successfully.\n\n" +
+      }));
 
-          "Your request has been saved."
 
-      );
 
-      /* =====================================================
+    }
 
-         RESET FORM
 
-      ===================================================== */
 
-      setFormData({
+    if (submitted) {
 
-        name: "",
 
-        organization: "",
 
-        designation: "",
+      setSubmitted(false);
 
-        email: "",
 
-        phone: "",
 
-        trainingArea: "",
+    }
 
-        participants: "",
 
-        preferredDate: "",
 
-        mode: "",
+  };
 
-        message: "",
 
-      });
 
-      setErrors({
+  const handleSubmit = async (e) => {
 
-        email: "",
 
-        phone: "",
 
-      });
+    e.preventDefault();
 
-    } catch (error) {
 
-      console.error("Training request error:", error);
 
-      alert(
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        "Unable to submit your training request.\n\n" +
 
-          "Please make sure the Gryphon Cyber backend server is running."
 
-      );
+    const phoneRegex = /^(?:\+?91[\s-]?|0)?[6-9]\d{9}$/;
 
-    }
 
-  };
 
-  return (
+    const email = formData.email.trim();
 
-    <div className="app request-training-page">
 
-      <style>{`
 
-        .request-training-page {
+    const phone = formData.phone.trim();
 
-          width: 100%;
 
-          min-width: 0;
 
-          overflow-x: hidden;
+    const cleanedPhone = phone.replace(/[\s-]/g, "");
 
-        }
 
-        .request-training-page .request-mobile-toggle,
 
-        .request-training-page .request-mobile-menu {
+    const newErrors = {
 
-          display: none;
 
-        }
 
-        .request-training-page .request-mobile-toggle {
+      email: "",
 
-          border: 1px solid rgba(0, 191, 255, 0.75);
 
-          background: #02070d;
 
-          color: #fff;
+      phone: "",
 
-          width: 44px;
 
-          height: 44px;
 
-          border-radius: 10px;
+    };
 
-          padding: 0;
 
-          align-items: center;
 
-          justify-content: center;
+    /* =====================================================
 
-          flex-direction: column;
 
-          gap: 5px;
 
-          cursor: pointer;
+       EMAIL VALIDATION
 
-          flex-shrink: 0;
 
-        }
 
-        .request-training-page .request-mobile-toggle span {
+    ===================================================== */
 
-          width: 19px;
 
-          height: 2px;
 
-          background: #fff;
+    if (!emailRegex.test(email)) {
 
-          border-radius: 2px;
 
-          transition: transform 0.2s ease, opacity 0.2s ease;
 
-        }
+      newErrors.email = "Please enter a valid email address.";
 
-        .request-training-page .request-mobile-toggle.open span:nth-child(1) {
 
-          transform: translateY(7px) rotate(45deg);
 
-        }
+    }
 
-        .request-training-page .request-mobile-toggle.open span:nth-child(2) {
 
-          opacity: 0;
 
-        }
+    /* =====================================================
 
-        .request-training-page .request-mobile-toggle.open span:nth-child(3) {
 
-          transform: translateY(-7px) rotate(-45deg);
 
-        }
+       PHONE VALIDATION
 
-        @media (max-width: 760px) {
 
-          .request-training-page {
 
-            font-size: 15px;
+    ===================================================== */
 
-          }
 
-          .request-training-page .request-training-navbar {
 
-            position: relative;
+    if (!phoneRegex.test(cleanedPhone)) {
 
-            z-index: 1000;
 
-            width: 100%;
 
-          }
+      newErrors.phone = "Please enter a valid Indian mobile number.";
 
-          .request-training-page .request-training-navbar .nav-container {
 
-            width: 100%;
 
-            min-height: 72px;
+    }
 
-            height: auto;
 
-            padding: 12px 18px;
 
-            box-sizing: border-box;
+    /* =====================================================
 
-            display: flex;
 
-            align-items: center;
 
-            justify-content: space-between;
+       SHOW VALIDATION ERRORS
 
-            gap: 14px;
 
-          }
 
-          .request-training-page .request-training-navbar .logo-link {
+    ===================================================== */
 
-            min-width: 0;
 
-            flex: 1;
 
-          }
+    if (newErrors.email || newErrors.phone) {
 
-          .request-training-page .request-training-navbar .logo-link {
 
-            flex: 0 1 auto;
 
-            max-width: calc(100% - 58px);
+      setErrors(newErrors);
 
-          }
 
-          .request-training-page .request-training-navbar .navbar-logo {
 
-            width: 88px;
+      if (newErrors.email && newErrors.phone) {
 
-            min-width: 88px;
 
-            max-width: 88px;
 
-            height: 64px;
+        alert(
 
-            max-height: 64px;
 
-            object-fit: contain;
 
-          }
+          "Please correct the following:\n\n" +
 
-          .request-training-page .request-training-navbar .navbar-company-name {
 
-            display: flex;
 
-            flex-direction: column;
+            "• Invalid email address\n" +
 
-            justify-content: center;
 
-            gap: 2px;
 
-            min-width: 0;
+            "• Invalid Indian mobile number"
 
-            white-space: nowrap;
 
-          }
 
-          .request-training-page .request-training-navbar .navbar-company-main {
+        );
 
-            font-size: 13px;
 
-            line-height: 1.15;
 
-            letter-spacing: 0.3px;
+      } else if (newErrors.email) {
 
-          }
 
-          .request-training-page .request-training-navbar .navbar-company-sub {
 
-            font-size: 8px;
+        alert(
 
-            line-height: 1.4;
 
-            letter-spacing: 2px;
 
-          }
+          "Please enter a valid email address.\n\n" +
 
-          .request-training-page .request-mobile-toggle {
 
-            display: flex;
 
-          }
+            "Example: name@organization.com"
 
-          .request-training-page .request-mobile-menu {
 
-            position: absolute;
 
-            top: 100%;
+        );
 
-            left: 0;
 
-            width: 100%;
 
-            box-sizing: border-box;
+      } else if (newErrors.phone) {
 
-            padding: 12px 14px 16px;
 
-            background: #030b16;
 
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        alert(
 
-            border-bottom: 1px solid rgba(0, 191, 255, 0.18);
 
-            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.42);
 
-            display: block;
+          "Please enter a valid Indian mobile number.\n\n" +
 
-            max-height: calc(100vh - 72px);
 
-            overflow-y: auto;
 
-            opacity: 0;
+            "Example: 9876543210"
 
-            visibility: hidden;
 
-            pointer-events: none;
 
-            transform: translateY(-8px);
+        );
 
-            transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
 
-          }
 
-          .request-training-page .request-mobile-menu.open {
+      }
 
-            opacity: 1;
 
-            visibility: visible;
 
-            pointer-events: auto;
+      return;
 
-            transform: translateY(0);
 
-          }
 
-          .request-training-page .request-mobile-menu nav {
+    }
 
-            display: flex;
 
-            flex-direction: column;
 
-            gap: 4px;
+    /* =====================================================
 
-          }
 
-          .request-training-page .request-mobile-menu nav a {
 
-            display: block;
+       SEND TRAINING REQUEST TO BACKEND
 
-            width: 100%;
 
-            box-sizing: border-box;
 
-            padding: 13px 14px;
+       Backend will save it into Excel
 
-            border-radius: 8px;
 
-            color: #e7edf5;
 
-            text-decoration: none;
+    ===================================================== */
 
-            font-size: 15px;
 
-            line-height: 1.2;
 
-          }
+    try {
 
-          .request-training-page .request-mobile-menu nav a:hover,
 
-          .request-training-page .request-mobile-menu nav a:focus-visible {
 
-            background: rgba(23, 100, 232, 0.16);
+      const response = await fetch(
 
-          }
 
-          .request-training-page .request-mobile-training {
 
-            display: flex;
+        "http://localhost:5000/api/training-request",
 
-            width: 100%;
 
-            box-sizing: border-box;
 
-            margin-top: 10px;
+        {
 
-            padding: 14px 16px;
 
-            align-items: center;
 
-            justify-content: center;
+          method: "POST",
 
-            gap: 10px;
 
-            border-radius: 8px;
 
-            background: #1764e8 !important;
+          headers: {
 
-            color: #fff !important;
 
-            text-decoration: none;
 
-            font-weight: 700;
+            "Content-Type": "application/json",
 
-            font-size: 14px;
 
-          }
 
-          .request-training-page .request-mobile-training span {
+          },
 
-            font-size: 18px;
 
-          }
 
-          .request-training-page .request-training-hero {
+          body: JSON.stringify({
 
-            min-height: auto;
 
-            padding: 78px 20px 70px;
 
-            display: flex;
+            name: formData.name,
 
-            flex-direction: column;
 
-            gap: 0;
 
-          }
+            organization: formData.organization,
 
-          .request-training-page .request-hero-content {
 
-            width: 100%;
 
-            max-width: none;
+            designation: formData.designation,
 
-          }
 
-          .request-training-page .request-eyebrow {
 
-            font-size: 10px;
+            email: formData.email,
 
-            letter-spacing: 0.14em;
 
-            line-height: 1.5;
 
-          }
+            phone: formData.phone,
 
-          .request-training-page .request-hero-content h1 {
 
-            max-width: 100%;
 
-            margin: 18px 0 20px;
+            trainingArea: formData.trainingArea,
 
-            font-size: clamp(46px, 13vw, 72px);
 
-            line-height: 0.94;
 
-            overflow-wrap: anywhere;
+            participants: formData.participants,
 
-          }
 
-          .request-training-page .request-hero-content p {
 
-            max-width: 100%;
+            preferredDate: formData.preferredDate,
 
-            font-size: 14px;
 
-            line-height: 1.75;
 
-          }
+            mode: formData.mode,
 
-          .request-training-page .request-hero-meta {
 
-            width: 100%;
 
-            display: grid;
+            message: formData.message,
 
-            grid-template-columns: repeat(3, minmax(0, 1fr));
 
-            gap: 12px;
 
-            margin-top: 30px;
+          }),
 
-          }
 
-          .request-training-page .request-hero-meta strong {
 
-            font-size: 14px;
+        }
 
-          }
 
-          .request-training-page .request-hero-meta span {
 
-            font-size: 8px;
+      );
 
-            letter-spacing: 0.13em;
 
-          }
 
-          .request-training-page .request-command {
+      const data = await response.json();
 
-            width: min(100%, 330px);
 
-            height: 330px;
 
-            margin: 55px auto 0;
+      if (!response.ok) {
 
-            transform: scale(0.9);
 
-            transform-origin: center top;
 
-          }
+        throw new Error(
 
-          .request-training-page .request-form-section,
 
-          .request-training-page .request-process {
 
-            padding-left: 20px;
+          data.message || "Unable to save training request."
 
-            padding-right: 20px;
 
-          }
 
-          .request-training-page .request-form-section {
+        );
 
-            padding-top: 72px;
 
-            padding-bottom: 72px;
 
-          }
+      }
 
-          .request-training-page .request-form-header h2,
 
-          .request-training-page .request-process-header h2 {
 
-            font-size: clamp(42px, 11vw, 62px);
+      /* =====================================================
 
-            line-height: 0.98;
 
-          }
 
-          .request-training-page .request-form-header p {
+         SUCCESS
 
-            max-width: 100%;
 
-            font-size: 14px;
 
-            line-height: 1.7;
+      ===================================================== */
 
-          }
 
-          .request-training-page .training-request-form {
 
-            width: 100%;
+      setSubmitted(true);
 
-          }
 
-          .request-training-page .form-block {
 
-            padding: 24px 0;
+      alert(
 
-          }
 
-          .request-training-page .form-grid {
 
-            display: grid !important;
+        "Training request submitted successfully.\n\n" +
 
-            grid-template-columns: minmax(0, 1fr) !important;
 
-            gap: 20px;
 
-          }
+          "Your request has been saved."
 
-          .request-training-page .form-field {
 
-            min-width: 0;
 
-            width: 100%;
+      );
 
-          }
 
-          .request-training-page .form-field input,
 
-          .request-training-page .form-field select,
+      /* =====================================================
 
-          .request-training-page .form-field textarea {
 
-            width: 100%;
 
-            max-width: 100%;
+         RESET FORM
 
-            box-sizing: border-box;
 
-            font-size: 16px;
 
-          }
+      ===================================================== */
 
-          .request-training-page .form-field textarea {
 
-            min-height: 170px;
 
-            resize: vertical;
+      setFormData({
 
-          }
 
-          .request-training-page .request-submit-area {
 
-            display: flex;
+        name: "",
 
-            flex-direction: column;
 
-            align-items: stretch;
 
-            gap: 24px;
+        organization: "",
 
-            padding-top: 24px;
 
-          }
 
-          .request-training-page .request-submit-info {
+        designation: "",
 
-            width: 100%;
 
-          }
 
-          .request-training-page .request-submit-button {
+        email: "",
 
-            width: 100%;
 
-            min-height: 54px;
 
-            box-sizing: border-box;
+        phone: "",
 
-            justify-content: center;
 
-          }
 
-          .request-training-page .request-process {
+        trainingArea: "",
 
-            padding-top: 72px;
 
-            padding-bottom: 72px;
 
-          }
+        participants: "",
 
-          .request-training-page .request-process-flow {
 
-            display: grid !important;
 
-            grid-template-columns: minmax(0, 1fr) !important;
+        preferredDate: "",
 
-            gap: 14px;
 
-            margin-top: 36px;
 
-          }
+        mode: "",
 
-          .request-training-page .request-process-card {
 
-            width: 100%;
 
-            min-width: 0;
+        message: "",
 
-            box-sizing: border-box;
 
-          }
 
-          .request-training-page .request-process-connector {
+      });
 
-            display: none !important;
 
-          }
 
-          .request-training-page .request-bottom-cta {
+      setErrors({
 
-            padding: 72px 20px;
 
-          }
 
-          .request-training-page .request-bottom-cta h2 {
+        email: "",
 
-            font-size: clamp(42px, 11vw, 62px);
 
-            line-height: 0.98;
 
-          }
+        phone: "",
 
-          .request-training-page .request-back-button {
 
-            max-width: 100%;
 
-            box-sizing: border-box;
+      });
 
-          }
 
-          .request-training-page .site-footer {
 
-            overflow: hidden;
+    } catch (error) {
 
-          }
 
-          .request-training-page .footer-container {
 
-            width: 100%;
+      console.error("Training request error:", error);
 
-            box-sizing: border-box;
 
-            grid-template-columns: repeat(2, minmax(0, 1fr));
 
-            gap: 34px 20px;
+      alert(
 
-            padding-left: 20px;
 
-            padding-right: 20px;
 
-          }
+        "Unable to submit your training request.\n\n" +
 
-          .request-training-page .footer-brand {
 
-            grid-column: 1 / -1;
 
-          }
+          "Please make sure the Gryphon Cyber backend server is running."
 
-          .request-training-page .footer-bottom {
 
-            padding: 18px 20px;
 
-            display: flex;
+      );
 
-            flex-direction: column;
 
-            align-items: flex-start;
 
-            gap: 8px;
+    }
 
-          }
 
-        }
 
-        @media (max-width: 480px) {
+  };
 
-          .request-training-page .request-training-navbar .nav-container {
 
-            padding-left: 14px;
 
-            padding-right: 14px;
+  return (
 
-          }
 
-          .request-training-page .request-training-hero {
 
-            padding-left: 16px;
+    <div className="app request-training-page">
 
-            padding-right: 16px;
 
-          }
 
-          .request-training-page .request-hero-content h1 {
+      <style>{`
 
-            font-size: clamp(43px, 14vw, 60px);
 
-          }
 
-          .request-training-page .request-command {
+        .request-training-page {
 
-            width: min(100%, 300px);
 
-            height: 300px;
 
-            transform: scale(0.86);
+          width: 100%;
 
-            margin-bottom: -35px;
 
-          }
 
-          .request-training-page .request-form-section,
+          min-width: 0;
 
-          .request-training-page .request-process,
 
-          .request-training-page .request-bottom-cta {
 
-            padding-left: 16px;
+          overflow-x: hidden;
 
-            padding-right: 16px;
 
-          }
 
-          .request-training-page .footer-container {
+        }
 
-            grid-template-columns: minmax(0, 1fr);
 
-          }
 
-          .request-training-page .footer-brand {
+        .request-training-page .request-mobile-toggle,
 
-            grid-column: auto;
 
-          }
 
-        }
+        .request-training-page .request-mobile-menu {
 
-      `}</style>
 
-      {/* =====================================================
 
-          NAVBAR
+          display: none;
 
-      ===================================================== */}
 
-      <header className="navbar request-training-navbar gryphon-standard-navbar">
 
-        <div className="nav-container">
+        }
 
-          <Link to="/" className="logo-link" onClick={closeMobileMenu}>
 
-            <NavbarBrand />
 
-          </Link>
+        .request-training-page .request-mobile-toggle {
 
-          {!isMobile && (
 
-            <>
 
-              <nav className="nav-links">
+          border: 1px solid rgba(0, 191, 255, 0.75);
 
-                <Link to="/">Home</Link>
 
-                <Link to="/about">About</Link>
 
-                <Link to="/services">Services</Link>
+          background: #02070d;
 
-                <Link to="/solutions">Solutions</Link>
 
-                <Link to="/training" className="active">Training</Link>
 
-                <Link to="/contact">Contact</Link>
+          color: #fff;
 
-              </nav>
 
-              <Link to="/contact" className="talk-button">
 
-                Talk to Us <span>→</span>
+          width: 44px;
 
-              </Link>
 
-            </>
 
-          )}
+          height: 44px;
 
-          {isMobile && (
 
-            <>
 
-              <button
+          border-radius: 10px;
 
-                type="button"
 
-                className={`request-mobile-toggle ${mobileMenuOpen ? "open" : ""}`}
 
-                onClick={() => setMobileMenuOpen((previous) => !previous)}
+          padding: 0;
 
-                aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
 
-                aria-expanded={mobileMenuOpen}
 
-              >
+          align-items: center;
 
-                <span></span>
 
-                <span></span>
 
-                <span></span>
+          justify-content: center;
 
-              </button>
 
-              <div className={`request-mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
 
-                <nav>
+          flex-direction: column;
 
-                  <Link to="/" onClick={closeMobileMenu}>Home</Link>
 
-                  <Link to="/about" onClick={closeMobileMenu}>About</Link>
 
-                  <Link to="/services" onClick={closeMobileMenu}>Services</Link>
+          gap: 5px;
 
-                  <Link to="/solutions" onClick={closeMobileMenu}>Solutions</Link>
 
-                  <Link to="/training" onClick={closeMobileMenu}>Training</Link>
 
-                  <Link to="/contact" onClick={closeMobileMenu}>Contact</Link>
+          cursor: pointer;
 
-                </nav>
 
-                <Link
 
-                  to="/training/request"
+          flex-shrink: 0;
 
-                  className="request-mobile-training active"
 
-                  onClick={closeMobileMenu}
 
-                >
+        }
 
-                  Request Training <span>→</span>
 
-                </Link>
 
-              </div>
+        .request-training-page .request-mobile-toggle span {
 
-            </>
 
-          )}
 
-        </div>
+          width: 19px;
 
-      </header>
 
-      <main>
 
-        {/* =====================================================
+          height: 2px;
 
-            HERO
 
-        ===================================================== */}
 
-        <section className="request-training-hero">
+          background: #fff;
 
-          <div className="request-grid"></div>
 
-          <div className="request-glow"></div>
 
-          <div className="request-hero-content">
+          border-radius: 2px;
 
-            <div className="request-eyebrow">
 
-              <span></span>
 
-              GRYPHON CYBER • TRAINING REQUEST
+          transition: transform 0.2s ease, opacity 0.2s ease;
 
-            </div>
 
-            <h1>
 
-              Build your
+        }
 
-              <span>
 
-                training program.
 
-              </span>
+        .request-training-page .request-mobile-toggle.open span:nth-child(1) {
 
-            </h1>
 
-            <p>
 
-              Tell us about your team's training requirements
+          transform: translateY(7px) rotate(45deg);
 
-              and we'll help structure a program around your
 
-              operational needs.
 
-            </p>
+        }
 
-            <div className="request-hero-meta">
 
-              <div>
 
-                <strong>
+        .request-training-page .request-mobile-toggle.open span:nth-child(2) {
 
-                  01
 
-                </strong>
 
-                <span>
+          opacity: 0;
 
-                  REQUIREMENT
 
-                </span>
 
-              </div>
+        }
 
-              <div>
 
-                <strong>
 
-                  02
+        .request-training-page .request-mobile-toggle.open span:nth-child(3) {
 
-                </strong>
 
-                <span>
 
-                  PLANNING
+          transform: translateY(-7px) rotate(-45deg);
 
-                </span>
 
-              </div>
 
-              <div>
+        }
 
-                <strong>
 
-                  03
 
-                </strong>
+        @media (max-width: 760px) {
 
-                <span>
 
-                  EXECUTION
 
-                </span>
+          .request-training-page {
 
-              </div>
 
-            </div>
 
-          </div>
+            font-size: 15px;
 
-          {/* =================================================
 
-              COMMAND VISUAL
 
-          ================================================= */}
+          }
 
-          <div className="request-command">
 
-            <div className="request-command-label">
 
-              TRAINING INTAKE SYSTEM
+          .request-training-page .request-training-navbar {
 
-            </div>
 
-            <div className="request-orbit orbit-one"></div>
 
-            <div className="request-orbit orbit-two"></div>
+            position: relative;
 
-            <div className="request-orbit orbit-three"></div>
 
-            <div className="request-command-core">
 
-              <span>
+            z-index: 1000;
 
-                GC
 
-              </span>
 
-            </div>
+            width: 100%;
 
-            <div className="request-command-node node-one">
 
-              <span></span>
 
-              01
+          }
 
-            </div>
 
-            <div className="request-command-node node-two">
 
-              <span></span>
+          .request-training-page .request-training-navbar .nav-container {
 
-              02
 
-            </div>
 
-            <div className="request-command-node node-three">
+            width: 100%;
 
-              <span></span>
 
-              03
 
-            </div>
+            min-height: 72px;
 
-            <div className="request-command-line line-one"></div>
 
-            <div className="request-command-line line-two"></div>
 
-            <div className="request-command-line line-three"></div>
+            height: auto;
 
-            <div className="request-command-status">
 
-              <span></span>
 
-              INTAKE SYSTEM
+            padding: 12px 18px;
 
-              <strong>
 
-                READY
 
-              </strong>
+            box-sizing: border-box;
 
-            </div>
 
-          </div>
 
-        </section>
+            display: flex;
 
-        {/* =====================================================
 
-            FORM SECTION
 
-        ===================================================== */}
+            align-items: center;
 
-        <section className="request-form-section">
 
-          <div className="request-form-header">
 
-            <div className="request-section-label">
+            justify-content: space-between;
 
-              01 — TRAINING REQUIREMENT
 
-            </div>
 
-            <h2>
+            gap: 14px;
 
-              Tell us what
 
-              <span>
 
-                you need.
+          }
 
-              </span>
 
-            </h2>
 
-            <p>
+          .request-training-page .request-training-navbar .logo-link {
 
-              Provide the details below so the Gryphon Cyber
 
-              team can understand your training requirement.
 
-            </p>
+            min-width: 0;
 
-          </div>
 
-          <form
 
-            className="training-request-form"
+            flex: 1;
 
-            onSubmit={handleSubmit}
 
-            noValidate
 
-          >
+          }
 
-            {/* =================================================
 
-                PERSONAL / ORGANIZATION
 
-            ================================================= */}
+          .request-training-page .request-training-navbar .logo-link {
 
-            <div className="form-block">
 
-              <div className="form-block-header">
 
-                <span>
+            flex: 0 1 auto;
 
-                  01
 
-                </span>
 
-                <div>
+            max-width: calc(100% - 58px);
 
-                  CONTACT & ORGANIZATION
 
-                </div>
 
-              </div>
+          }
 
-              <div className="form-grid">
 
-                {/* FULL NAME */}
 
-                <div className="form-field">
+          .request-training-page .request-training-navbar .navbar-logo {
 
-                  <label>
 
-                    FULL NAME *
 
-                  </label>
+            width: 88px;
 
-                  <input
 
-                    type="text"
 
-                    name="name"
+            min-width: 88px;
 
-                    value={formData.name}
 
-                    onChange={handleChange}
 
-                    placeholder="Enter your full name"
+            max-width: 88px;
 
-                    required
 
-                  />
 
-                </div>
+            height: 64px;
 
-                {/* ORGANIZATION */}
 
-                <div className="form-field">
 
-                  <label>
+            max-height: 64px;
 
-                    ORGANIZATION *
 
-                  </label>
 
-                  <input
+            object-fit: contain;
 
-                    type="text"
 
-                    name="organization"
 
-                    value={formData.organization}
+          }
 
-                    onChange={handleChange}
 
-                    placeholder="Organization / Department"
 
-                    required
+          .request-training-page .request-training-navbar .navbar-company-name {
 
-                  />
 
-                </div>
 
-                {/* DESIGNATION */}
+            display: flex;
 
-                <div className="form-field">
 
-                  <label>
 
-                    DESIGNATION
+            flex-direction: column;
 
-                  </label>
 
-                  <input
 
-                    type="text"
+            justify-content: center;
 
-                    name="designation"
 
-                    value={formData.designation}
 
-                    onChange={handleChange}
+            gap: 2px;
 
-                    placeholder="Your designation"
 
-                  />
 
-                </div>
+            min-width: 0;
 
-                {/* EMAIL */}
 
-                <div className="form-field">
 
-                  <label>
+            white-space: nowrap;
 
-                    EMAIL *
 
-                  </label>
 
-                  <input
+          }
 
-                    type="text"
 
-                    name="email"
 
-                    value={formData.email}
+          .request-training-page .request-training-navbar .navbar-company-main {
 
-                    onChange={handleChange}
 
-                    placeholder="name@organization.com"
 
-                    required
+            font-size: 13px;
 
-                    className={
 
-                      errors.email
 
-                        ? "input-error"
+            line-height: 1.15;
 
-                        : ""
 
-                    }
 
-                  />
+            letter-spacing: 0.3px;
 
-                  {errors.email && (
 
-                    <span className="field-error">
 
-                      {errors.email}
+          }
 
-                    </span>
 
-                  )}
 
-                </div>
+          .request-training-page .request-training-navbar .navbar-company-sub {
 
-                {/* PHONE */}
 
-                <div className="form-field">
 
-                  <label>
+            font-size: 8px;
 
-                    PHONE NUMBER *
 
-                  </label>
 
-                  <input
+            line-height: 1.4;
 
-                    type="tel"
 
-                    name="phone"
 
-                    value={formData.phone}
+            letter-spacing: 2px;
 
-                    onChange={handleChange}
 
-                    placeholder="+91 XXXXX XXXXX"
 
-                    required
+          }
 
-                    className={
 
-                      errors.phone
 
-                        ? "input-error"
+          .request-training-page .request-mobile-toggle {
 
-                        : ""
 
-                    }
 
-                  />
+            display: flex;
 
-                  {errors.phone && (
 
-                    <span className="field-error">
 
-                      {errors.phone}
+          }
 
-                    </span>
 
-                  )}
 
-                </div>
+          .request-training-page .request-mobile-menu {
 
-              </div>
 
-            </div>
 
-            {/* =================================================
+            position: absolute;
 
-                TRAINING REQUIREMENT
 
-            ================================================= */}
 
-            <div className="form-block">
+            top: 100%;
 
-              <div className="form-block-header">
 
-                <span>
 
-                  02
+            left: 0;
 
-                </span>
 
-                <div>
 
-                  TRAINING REQUIREMENT
+            width: 100%;
 
-                </div>
 
-              </div>
 
-              <div className="form-grid">
+            box-sizing: border-box;
 
-                {/* TRAINING AREA */}
 
-                <div className="form-field">
 
-                  <label>
+            padding: 12px 14px 16px;
 
-                    TRAINING AREA *
 
-                  </label>
 
-                  <select
+            background: #030b16;
 
-                    name="trainingArea"
 
-                    value={formData.trainingArea}
 
-                    onChange={handleChange}
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
 
-                    required
 
-                  >
 
-                    <option value="">
+            border-bottom: 1px solid rgba(0, 191, 255, 0.18);
 
-                      Select training area
 
-                    </option>
 
-                    <option value="Cyber Investigation">
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.42);
 
-                      Cyber Investigation
 
-                    </option>
 
-                    <option value="Forensic Analysis">
+            display: block;
 
-                      Forensic Analysis
 
-                    </option>
 
-                    <option value="Scenario Simulation">
+            max-height: calc(100vh - 72px);
 
-                      Scenario Simulation
 
-                    </option>
 
-                    <option value="Interview Skills">
+            overflow-y: auto;
 
-                      Interview Skills
 
-                    </option>
 
-                    <option value="Multiple Areas">
+            opacity: 0;
 
-                      Multiple Training Areas
 
-                    </option>
 
-                  </select>
+            visibility: hidden;
 
-                </div>
 
-                {/* PARTICIPANTS */}
 
-                <div className="form-field">
+            pointer-events: none;
 
-                  <label>
 
-                    PARTICIPANTS *
 
-                  </label>
+            transform: translateY(-8px);
 
-                  <input
 
-                    type="number"
 
-                    name="participants"
+            transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
 
-                    value={formData.participants}
 
-                    onChange={handleChange}
 
-                    placeholder="Number of participants"
+          }
 
-                    min="1"
 
-                    required
 
-                  />
+          .request-training-page .request-mobile-menu.open {
 
-                </div>
 
-                {/* PREFERRED DATE */}
 
-                <div className="form-field">
+            opacity: 1;
 
-                  <label>
 
-                    PREFERRED DATE
 
-                  </label>
+            visibility: visible;
 
-                  <input
 
-                    type="date"
 
-                    name="preferredDate"
+            pointer-events: auto;
 
-                    value={formData.preferredDate}
 
-                    onChange={handleChange}
 
-                  />
+            transform: translateY(0);
 
-                </div>
 
-                {/* TRAINING MODE */}
 
-                <div className="form-field">
+          }
 
-                  <label>
 
-                    TRAINING MODE
 
-                  </label>
+          .request-training-page .request-mobile-menu nav {
 
-                  <select
 
-                    name="mode"
 
-                    value={formData.mode}
+            display: flex;
 
-                    onChange={handleChange}
 
-                  >
 
-                    <option value="">
+            flex-direction: column;
 
-                      Select mode
 
-                    </option>
 
-                    <option value="On-site">
+            gap: 4px;
 
-                      On-site
 
-                    </option>
 
-                    <option value="Online">
+          }
 
-                      Online
 
-                    </option>
 
-                    <option value="Hybrid">
+          .request-training-page .request-mobile-menu nav a {
 
-                      Hybrid
 
-                    </option>
 
-                  </select>
+            display: block;
 
-                </div>
 
-              </div>
 
-            </div>
+            width: 100%;
 
-            {/* =================================================
 
-                REQUIREMENTS
 
-            ================================================= */}
+            box-sizing: border-box;
 
-            <div className="form-block">
 
-              <div className="form-block-header">
 
-                <span>
+            padding: 13px 14px;
 
-                  03
 
-                </span>
 
-                <div>
+            border-radius: 8px;
 
-                  ADDITIONAL REQUIREMENTS
 
-                </div>
 
-              </div>
+            color: #e7edf5;
 
-              <div className="form-field">
 
-                <label>
 
-                  TELL US ABOUT YOUR REQUIREMENT
+            text-decoration: none;
 
-                </label>
 
-                <textarea
 
-                  name="message"
+            font-size: 15px;
 
-                  value={formData.message}
 
-                  onChange={handleChange}
 
-                  placeholder="Tell us about your team, objectives, preferred topics or any specific requirements..."
+            line-height: 1.2;
 
-                  rows="7"
 
-                ></textarea>
 
-              </div>
+          }
 
-            </div>
 
-            {/* =================================================
 
-                SUBMIT
+          .request-training-page .request-mobile-menu nav a:hover,
 
-            ================================================= */}
 
-            <div className="request-submit-area">
 
-              <div className="request-submit-info">
+          .request-training-page .request-mobile-menu nav a:focus-visible {
 
-                <span className="request-submit-dot"></span>
 
-                <div>
 
-                  <strong>
+            background: rgba(23, 100, 232, 0.16);
 
-                    READY TO BEGIN
 
-                  </strong>
 
-                  <small>
+          }
 
-                    Your request will be saved securely
 
-                    to the Gryphon Cyber training records.
 
-                  </small>
+          .request-training-page .request-mobile-training {
 
-                </div>
 
-              </div>
 
-              <button
+            display: flex;
 
-                type="submit"
 
-                className="request-submit-button"
 
-              >
+            width: 100%;
 
-                {submitted
 
-                  ? "REQUEST SAVED"
 
-                  : "SUBMIT TRAINING REQUEST"
+            box-sizing: border-box;
 
-                }
 
-                <span>
 
-                  →
+            margin-top: 10px;
 
-                </span>
 
-              </button>
 
-            </div>
+            padding: 14px 16px;
 
-          </form>
 
-        </section>
 
-        {/* =====================================================
+            align-items: center;
 
-            PROCESS
 
-        ===================================================== */}
 
-        <section className="request-process">
+            justify-content: center;
 
-          <div className="request-process-header">
 
-            <div className="request-section-label">
 
-              02 — WHAT HAPPENS NEXT
+            gap: 10px;
 
-            </div>
 
-            <h2>
 
-              From request
+            border-radius: 8px;
 
-              <span>
 
-                to training.
 
-              </span>
+            background: #1764e8 !important;
 
-            </h2>
 
-          </div>
 
-          <div className="request-process-flow">
+            color: #fff !important;
 
-            {/* 01 */}
 
-            <div className="request-process-card">
 
-              <span>
+            text-decoration: none;
 
-                01
 
-              </span>
 
-              <div className="request-process-icon">
+            font-weight: 700;
 
-                ◇
 
-              </div>
 
-              <h3>
+            font-size: 14px;
 
-                Request
 
-              </h3>
 
-              <p>
+          }
 
-                Share your team's training requirements
 
-                with Gryphon Cyber.
 
-              </p>
+          .request-training-page .request-mobile-training span {
 
-            </div>
 
-            <div className="request-process-connector"></div>
 
-            {/* 02 */}
+            font-size: 18px;
 
-            <div className="request-process-card">
 
-              <span>
 
-                02
+          }
 
-              </span>
 
-              <div className="request-process-icon">
 
-                ◎
+          .request-training-page .request-training-hero {
 
-              </div>
 
-              <h3>
 
-                Discuss
+            min-height: auto;
 
-              </h3>
 
-              <p>
 
-                Discuss objectives, participants and
+            padding: 78px 20px 70px;
 
-                training requirements.
 
-              </p>
 
-            </div>
+            display: flex;
 
-            <div className="request-process-connector"></div>
 
-            {/* 03 */}
 
-            <div className="request-process-card">
+            flex-direction: column;
 
-              <span>
 
-                03
 
-              </span>
+            gap: 0;
 
-              <div className="request-process-icon">
 
-                +
 
-              </div>
+          }
 
-              <h3>
 
-                Structure
 
-              </h3>
+          .request-training-page .request-hero-content {
 
-              <p>
 
-                Structure the training around the
 
-                identified requirements.
+            width: 100%;
 
-              </p>
 
-            </div>
 
-            <div className="request-process-connector"></div>
+            max-width: none;
 
-            {/* 04 */}
 
-            <div className="request-process-card">
 
-              <span>
+          }
 
-                04
 
-              </span>
 
-              <div className="request-process-icon">
+          .request-training-page .request-eyebrow {
 
-                →
 
-              </div>
 
-              <h3>
+            font-size: 10px;
 
-                Execute
 
-              </h3>
 
-              <p>
+            letter-spacing: 0.14em;
 
-                Deliver practical training focused on
 
-                investigative capability.
 
-              </p>
+            line-height: 1.5;
 
-            </div>
 
-          </div>
 
-        </section>
+          }
 
-        {/* =====================================================
 
-            CTA
 
-        ===================================================== */}
+          .request-training-page .request-hero-content h1 {
 
-        <section className="request-bottom-cta">
 
-          <div className="request-bottom-glow"></div>
 
-          <div>
+            max-width: 100%;
 
-            <div className="request-section-label">
 
-              GRYPHON CYBER
 
-            </div>
+            margin: 18px 0 20px;
 
-            <h2>
 
-              Ready to build
 
-              <span>
+            font-size: clamp(46px, 13vw, 72px);
 
-                capability?
 
-              </span>
 
-            </h2>
+            line-height: 0.94;
 
-            <Link
 
-              to="/training"
 
-              className="request-back-button"
+            overflow-wrap: anywhere;
 
-            >
 
-              Back to Training
 
-              <span>
+          }
 
-                ←
 
-              </span>
 
-            </Link>
+          .request-training-page .request-hero-content p {
 
-          </div>
 
-        </section>
 
-      </main>
+            max-width: 100%;
 
-      {/* =====================================================
 
-          FOOTER
 
-      ===================================================== */}
+            font-size: 14px;
 
-      <Footer />
 
-    </div>
 
-  );
+            line-height: 1.75;
+
+
+
+          }
+
+
+
+          .request-training-page .request-hero-meta {
+
+
+
+            width: 100%;
+
+
+
+            display: grid;
+
+
+
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+
+
+
+            gap: 12px;
+
+
+
+            margin-top: 30px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-hero-meta strong {
+
+
+
+            font-size: 14px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-hero-meta span {
+
+
+
+            font-size: 8px;
+
+
+
+            letter-spacing: 0.13em;
+
+
+
+          }
+
+
+
+          .request-training-page .request-command {
+
+
+
+            width: min(100%, 330px);
+
+
+
+            height: 330px;
+
+
+
+            margin: 55px auto 0;
+
+
+
+            transform: scale(0.9);
+
+
+
+            transform-origin: center top;
+
+
+
+          }
+
+
+
+          .request-training-page .request-form-section,
+
+
+
+          .request-training-page .request-process {
+
+
+
+            padding-left: 20px;
+
+
+
+            padding-right: 20px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-form-section {
+
+
+
+            padding-top: 72px;
+
+
+
+            padding-bottom: 72px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-form-header h2,
+
+
+
+          .request-training-page .request-process-header h2 {
+
+
+
+            font-size: clamp(42px, 11vw, 62px);
+
+
+
+            line-height: 0.98;
+
+
+
+          }
+
+
+
+          .request-training-page .request-form-header p {
+
+
+
+            max-width: 100%;
+
+
+
+            font-size: 14px;
+
+
+
+            line-height: 1.7;
+
+
+
+          }
+
+
+
+          .request-training-page .training-request-form {
+
+
+
+            width: 100%;
+
+
+
+          }
+
+
+
+          .request-training-page .form-block {
+
+
+
+            padding: 24px 0;
+
+
+
+          }
+
+
+
+          .request-training-page .form-grid {
+
+
+
+            display: grid !important;
+
+
+
+            grid-template-columns: minmax(0, 1fr) !important;
+
+
+
+            gap: 20px;
+
+
+
+          }
+
+
+
+          .request-training-page .form-field {
+
+
+
+            min-width: 0;
+
+
+
+            width: 100%;
+
+
+
+          }
+
+
+
+          .request-training-page .form-field input,
+
+
+
+          .request-training-page .form-field select,
+
+
+
+          .request-training-page .form-field textarea {
+
+
+
+            width: 100%;
+
+
+
+            max-width: 100%;
+
+
+
+            box-sizing: border-box;
+
+
+
+            font-size: 16px;
+
+
+
+          }
+
+
+
+          .request-training-page .form-field textarea {
+
+
+
+            min-height: 170px;
+
+
+
+            resize: vertical;
+
+
+
+          }
+
+
+
+          .request-training-page .request-submit-area {
+
+
+
+            display: flex;
+
+
+
+            flex-direction: column;
+
+
+
+            align-items: stretch;
+
+
+
+            gap: 24px;
+
+
+
+            padding-top: 24px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-submit-info {
+
+
+
+            width: 100%;
+
+
+
+          }
+
+
+
+          .request-training-page .request-submit-button {
+
+
+
+            width: 100%;
+
+
+
+            min-height: 54px;
+
+
+
+            box-sizing: border-box;
+
+
+
+            justify-content: center;
+
+
+
+          }
+
+
+
+          .request-training-page .request-process {
+
+
+
+            padding-top: 72px;
+
+
+
+            padding-bottom: 72px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-process-flow {
+
+
+
+            display: grid !important;
+
+
+
+            grid-template-columns: minmax(0, 1fr) !important;
+
+
+
+            gap: 14px;
+
+
+
+            margin-top: 36px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-process-card {
+
+
+
+            width: 100%;
+
+
+
+            min-width: 0;
+
+
+
+            box-sizing: border-box;
+
+
+
+          }
+
+
+
+          .request-training-page .request-process-connector {
+
+
+
+            display: none !important;
+
+
+
+          }
+
+
+
+          .request-training-page .request-bottom-cta {
+
+
+
+            padding: 72px 20px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-bottom-cta h2 {
+
+
+
+            font-size: clamp(42px, 11vw, 62px);
+
+
+
+            line-height: 0.98;
+
+
+
+          }
+
+
+
+          .request-training-page .request-back-button {
+
+
+
+            max-width: 100%;
+
+
+
+            box-sizing: border-box;
+
+
+
+          }
+
+
+
+          .request-training-page .site-footer {
+
+
+
+            overflow: hidden;
+
+
+
+          }
+
+
+
+          .request-training-page .footer-container {
+
+
+
+            width: 100%;
+
+
+
+            box-sizing: border-box;
+
+
+
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+
+
+            gap: 34px 20px;
+
+
+
+            padding-left: 20px;
+
+
+
+            padding-right: 20px;
+
+
+
+          }
+
+
+
+          .request-training-page .footer-brand {
+
+
+
+            grid-column: 1 / -1;
+
+
+
+          }
+
+
+
+          .request-training-page .footer-bottom {
+
+
+
+            padding: 18px 20px;
+
+
+
+            display: flex;
+
+
+
+            flex-direction: column;
+
+
+
+            align-items: flex-start;
+
+
+
+            gap: 8px;
+
+
+
+          }
+
+
+
+        }
+
+
+
+        @media (max-width: 480px) {
+
+
+
+          .request-training-page .request-training-navbar .nav-container {
+
+
+
+            padding-left: 14px;
+
+
+
+            padding-right: 14px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-training-hero {
+
+
+
+            padding-left: 16px;
+
+
+
+            padding-right: 16px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-hero-content h1 {
+
+
+
+            font-size: clamp(43px, 14vw, 60px);
+
+
+
+          }
+
+
+
+          .request-training-page .request-command {
+
+
+
+            width: min(100%, 300px);
+
+
+
+            height: 300px;
+
+
+
+            transform: scale(0.86);
+
+
+
+            margin-bottom: -35px;
+
+
+
+          }
+
+
+
+          .request-training-page .request-form-section,
+
+
+
+          .request-training-page .request-process,
+
+
+
+          .request-training-page .request-bottom-cta {
+
+
+
+            padding-left: 16px;
+
+
+
+            padding-right: 16px;
+
+
+
+          }
+
+
+
+          .request-training-page .footer-container {
+
+
+
+            grid-template-columns: minmax(0, 1fr);
+
+
+
+          }
+
+
+
+          .request-training-page .footer-brand {
+
+
+
+            grid-column: auto;
+
+
+
+          }
+
+
+
+        }
+
+
+
+      `}</style>
+
+
+
+      {/* =====================================================
+
+
+
+          NAVBAR
+
+
+
+      ===================================================== */}
+
+
+
+      <header className="navbar request-training-navbar gryphon-standard-navbar">
+
+
+
+        <div className="nav-container">
+
+
+
+          <Link to="/" className="logo-link" onClick={closeMobileMenu}>
+
+
+
+            <NavbarBrand />
+
+
+
+          </Link>
+
+
+
+          {!isMobile && (
+
+
+
+            <>
+
+
+
+              <nav className="nav-links">
+
+
+
+                <Link to="/">Home</Link>
+
+
+
+                <Link to="/about">About</Link>
+
+
+
+                <Link to="/services">Services</Link>
+
+
+
+                <Link to="/solutions">Solutions</Link>
+                <Link to="/engagements">Engagements</Link>
+                <Link to="/blog">Blog</Link>
+                <Link to="/engagements">Engagements</Link>
+
+
+
+                <Link to="/training" className="active">Training</Link>
+
+
+
+                <Link to="/contact">Contact</Link>
+
+
+
+              </nav>
+
+
+
+              <Link to="/contact" className="talk-button">
+
+
+
+                Talk to Us <span>→</span>
+
+
+
+              </Link>
+
+
+
+            </>
+
+
+
+          )}
+
+
+
+          {isMobile && (
+
+
+
+            <>
+
+
+
+              <button
+
+
+
+                type="button"
+
+
+
+                className={`request-mobile-toggle ${mobileMenuOpen ? "open" : ""}`}
+
+
+
+                onClick={() => setMobileMenuOpen((previous) => !previous)}
+
+
+
+                aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+
+
+
+                aria-expanded={mobileMenuOpen}
+
+
+
+              >
+
+
+
+                <span></span>
+
+
+
+                <span></span>
+
+
+
+                <span></span>
+
+
+
+              </button>
+
+
+
+              <div className={`request-mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
+
+
+
+                <nav>
+
+
+
+                  <Link to="/" onClick={closeMobileMenu}>Home</Link>
+
+
+
+                  <Link to="/about" onClick={closeMobileMenu}>About</Link>
+
+
+
+                  <Link to="/services" onClick={closeMobileMenu}>Services</Link>
+
+
+
+                  <Link to="/solutions" onClick={closeMobileMenu}>Solutions</Link>
+                  <Link to="/engagements" onClick={closeMobileMenu}>Engagements</Link>
+                  <Link to="/blog" onClick={closeMobileMenu}>Blog</Link>
+                  <Link to="/engagements" onClick={closeMobileMenu}>Engagements</Link>
+
+
+
+                  <Link to="/training" onClick={closeMobileMenu}>Training</Link>
+
+
+
+                  <Link to="/contact" onClick={closeMobileMenu}>Contact</Link>
+
+
+
+                </nav>
+
+
+
+                <Link
+
+
+
+                  to="/training/request"
+
+
+
+                  className="request-mobile-training active"
+
+
+
+                  onClick={closeMobileMenu}
+
+
+
+                >
+
+
+
+                  Request Training <span>→</span>
+
+
+
+                </Link>
+
+
+
+              </div>
+
+
+
+            </>
+
+
+
+          )}
+
+
+
+        </div>
+
+
+
+      </header>
+
+
+
+      <main>
+
+
+
+        {/* =====================================================
+
+
+
+            HERO
+
+
+
+        ===================================================== */}
+
+
+
+        <section className="request-training-hero">
+
+
+
+          <div className="request-grid"></div>
+
+
+
+          <div className="request-glow"></div>
+
+
+
+          <div className="request-hero-content">
+
+
+
+            <div className="request-eyebrow">
+
+
+
+              <span></span>
+
+
+
+              GRYPHON CYBER • TRAINING REQUEST
+
+
+
+            </div>
+
+
+
+            <h1>
+
+
+
+              Build your
+
+
+
+              <span>
+
+
+
+                training program.
+
+
+
+              </span>
+
+
+
+            </h1>
+
+
+
+            <p>
+
+
+
+              Tell us about your team's training requirements
+
+
+
+              and we'll help structure a program around your
+
+
+
+              operational needs.
+
+
+
+            </p>
+
+
+
+            <div className="request-hero-meta">
+
+
+
+              <div>
+
+
+
+                <strong>
+
+
+
+                  01
+
+
+
+                </strong>
+
+
+
+                <span>
+
+
+
+                  REQUIREMENT
+
+
+
+                </span>
+
+
+
+              </div>
+
+
+
+              <div>
+
+
+
+                <strong>
+
+
+
+                  02
+
+
+
+                </strong>
+
+
+
+                <span>
+
+
+
+                  PLANNING
+
+
+
+                </span>
+
+
+
+              </div>
+
+
+
+              <div>
+
+
+
+                <strong>
+
+
+
+                  03
+
+
+
+                </strong>
+
+
+
+                <span>
+
+
+
+                  EXECUTION
+
+
+
+                </span>
+
+
+
+              </div>
+
+
+
+            </div>
+
+
+
+          </div>
+
+
+
+          {/* =================================================
+
+
+
+              COMMAND VISUAL
+
+
+
+          ================================================= */}
+
+
+
+          
+
+
+          
+
+
+        </section>
+
+
+
+        {/* =====================================================
+
+
+
+            FORM SECTION
+
+
+
+        ===================================================== */}
+
+
+
+        <section className="request-form-section">
+
+
+
+          <div className="request-form-header">
+
+
+
+            <div className="request-section-label">
+
+
+
+              01 — TRAINING REQUIREMENT
+
+
+
+            </div>
+
+
+
+            <h2>
+
+
+
+              Tell us what
+
+
+
+              <span>
+
+
+
+                you need.
+
+
+
+              </span>
+
+
+
+            </h2>
+
+
+
+            <p>
+
+
+
+              Provide the details below so the Gryphon Cyber
+
+
+
+              team can understand your training requirement.
+
+
+
+            </p>
+
+
+
+          </div>
+
+
+
+          <form
+
+
+
+            className="training-request-form"
+
+
+
+            onSubmit={handleSubmit}
+
+
+
+            noValidate
+
+
+
+          >
+
+
+
+            {/* =================================================
+
+
+
+                PERSONAL / ORGANIZATION
+
+
+
+            ================================================= */}
+
+
+
+            <div className="form-block">
+
+
+
+              <div className="form-block-header">
+
+
+
+                <span>
+
+
+
+                  01
+
+
+
+                </span>
+
+
+
+                <div>
+
+
+
+                  CONTACT & ORGANIZATION
+
+
+
+                </div>
+
+
+
+              </div>
+
+
+
+              <div className="form-grid">
+
+
+
+                {/* FULL NAME */}
+
+
+
+                <div className="form-field">
+
+
+
+                  <label>
+
+
+
+                    FULL NAME \*
+
+
+
+                  </label>
+
+
+
+                  <input
+
+
+
+                    type="text"
+
+
+
+                    name="name"
+
+
+
+                    value={formData.name}
+
+
+
+                    onChange={handleChange}
+
+
+
+                    placeholder="Enter your full name"
+
+
+
+                    required
+
+
+
+                  />
+
+
+
+                </div>
+
+
+
+                {/* ORGANIZATION */}
+
+
+
+                <div className="form-field">
+
+
+
+                  <label>
+
+
+
+                    ORGANIZATION \*
+
+
+
+                  </label>
+
+
+
+                  <input
+
+
+
+                    type="text"
+
+
+
+                    name="organization"
+
+
+
+                    value={formData.organization}
+
+
+
+                    onChange={handleChange}
+
+
+
+                    placeholder="Organization / Department"
+
+
+
+                    required
+
+
+
+                  />
+
+
+
+                </div>
+
+
+
+                {/* DESIGNATION */}
+
+
+
+                <div className="form-field">
+
+
+
+                  <label>
+
+
+
+                    DESIGNATION
+
+
+
+                  </label>
+
+
+
+                  <input
+
+
+
+                    type="text"
+
+
+
+                    name="designation"
+
+
+
+                    value={formData.designation}
+
+
+
+                    onChange={handleChange}
+
+
+
+                    placeholder="Your designation"
+
+
+
+                  />
+
+
+
+                </div>
+
+
+
+                {/* EMAIL */}
+
+
+
+                <div className="form-field">
+
+
+
+                  <label>
+
+
+
+                    EMAIL \*
+
+
+
+                  </label>
+
+
+
+                  <input
+
+
+
+                    type="text"
+
+
+
+                    name="email"
+
+
+
+                    value={formData.email}
+
+
+
+                    onChange={handleChange}
+
+
+
+                    placeholder="name@organization.com"
+
+
+
+                    required
+
+
+
+                    className={
+
+
+
+                      errors.email
+
+
+
+                        ? "input-error"
+
+
+
+                        : ""
+
+
+
+                    }
+
+
+
+                  />
+
+
+
+                  {errors.email && (
+
+
+
+                    <span className="field-error">
+
+
+
+                      {errors.email}
+
+
+
+                    </span>
+
+
+
+                  )}
+
+
+
+                </div>
+
+
+
+                {/* PHONE */}
+
+
+
+                <div className="form-field">
+
+
+
+                  <label>
+
+
+
+                    PHONE NUMBER \*
+
+
+
+                  </label>
+
+
+
+                  <input
+
+
+
+                    type="tel"
+
+
+
+                    name="phone"
+
+
+
+                    value={formData.phone}
+
+
+
+                    onChange={handleChange}
+
+
+
+                    placeholder="+91 XXXXX XXXXX"
+
+
+
+                    required
+
+
+
+                    className={
+
+
+
+                      errors.phone
+
+
+
+                        ? "input-error"
+
+
+
+                        : ""
+
+
+
+                    }
+
+
+
+                  />
+
+
+
+                  {errors.phone && (
+
+
+
+                    <span className="field-error">
+
+
+
+                      {errors.phone}
+
+
+
+                    </span>
+
+
+
+                  )}
+
+
+
+                </div>
+
+
+
+              </div>
+
+
+
+            </div>
+
+
+
+            {/* =================================================
+
+
+
+                TRAINING REQUIREMENT
+
+
+
+            ================================================= */}
+
+
+
+            <div className="form-block">
+
+
+
+              <div className="form-block-header">
+
+
+
+                <span>
+
+
+
+                  02
+
+
+
+                </span>
+
+
+
+                <div>
+
+
+
+                  TRAINING REQUIREMENT
+
+
+
+                </div>
+
+
+
+              </div>
+
+
+
+              <div className="form-grid">
+
+
+
+                {/* TRAINING AREA */}
+
+
+
+                <div className="form-field">
+
+
+
+                  <label>
+
+
+
+                    TRAINING AREA \*
+
+
+
+                  </label>
+
+
+
+                  <select
+
+
+
+                    name="trainingArea"
+
+
+
+                    value={formData.trainingArea}
+
+
+
+                    onChange={handleChange}
+
+
+
+                    required
+
+
+
+                  >
+
+
+
+                    <option value="">
+
+
+
+                      Select training area
+
+
+
+                    </option>
+
+
+
+                    <option value="Cyber Investigation">
+
+
+
+                      Cyber Investigation
+
+
+
+                    </option>
+
+
+
+                    <option value="Forensic Analysis">
+
+
+
+                      Forensic Analysis
+
+
+
+                    </option>
+
+
+
+                    <option value="Scenario Simulation">
+
+
+
+                      Scenario Simulation
+
+
+
+                    </option>
+
+
+
+                    <option value="Interview Skills">
+
+
+
+                      Interview Skills
+
+
+
+                    </option>
+
+
+
+                    <option value="Multiple Areas">
+
+
+
+                      Multiple Training Areas
+
+
+
+                    </option>
+
+
+
+                  </select>
+
+
+
+                </div>
+
+
+
+                {/* PARTICIPANTS */}
+
+
+
+                <div className="form-field">
+
+
+
+                  <label>
+
+
+
+                    PARTICIPANTS \*
+
+
+
+                  </label>
+
+
+
+                  <input
+
+
+
+                    type="number"
+
+
+
+                    name="participants"
+
+
+
+                    value={formData.participants}
+
+
+
+                    onChange={handleChange}
+
+
+
+                    placeholder="Number of participants"
+
+
+
+                    min="1"
+
+
+
+                    required
+
+
+
+                  />
+
+
+
+                </div>
+
+
+
+                {/* PREFERRED DATE */}
+
+
+
+                <div className="form-field">
+
+
+
+                  <label>
+
+
+
+                    PREFERRED DATE
+
+
+
+                  </label>
+
+
+
+                  <input
+
+
+
+                    type="date"
+
+
+
+                    name="preferredDate"
+
+
+
+                    value={formData.preferredDate}
+
+
+
+                    onChange={handleChange}
+
+
+
+                  />
+
+
+
+                </div>
+
+
+
+                {/* TRAINING MODE */}
+
+
+
+                <div className="form-field">
+
+
+
+                  <label>
+
+
+
+                    TRAINING MODE
+
+
+
+                  </label>
+
+
+
+                  <select
+
+
+
+                    name="mode"
+
+
+
+                    value={formData.mode}
+
+
+
+                    onChange={handleChange}
+
+
+
+                  >
+
+
+
+                    <option value="">
+
+
+
+                      Select mode
+
+
+
+                    </option>
+
+
+
+                    <option value="On-site">
+
+
+
+                      On-site
+
+
+
+                    </option>
+
+
+
+                    <option value="Online">
+
+
+
+                      Online
+
+
+
+                    </option>
+
+
+
+                    <option value="Hybrid">
+
+
+
+                      Hybrid
+
+
+
+                    </option>
+
+
+
+                  </select>
+
+
+
+                </div>
+
+
+
+              </div>
+
+
+
+            </div>
+
+
+
+            {/* =================================================
+
+
+
+                REQUIREMENTS
+
+
+
+            ================================================= */}
+
+
+
+            <div className="form-block">
+
+
+
+              <div className="form-block-header">
+
+
+
+                <span>
+
+
+
+                  03
+
+
+
+                </span>
+
+
+
+                <div>
+
+
+
+                  ADDITIONAL REQUIREMENTS
+
+
+
+                </div>
+
+
+
+              </div>
+
+
+
+              <div className="form-field">
+
+
+
+                <label>
+
+
+
+                  TELL US ABOUT YOUR REQUIREMENT
+
+
+
+                </label>
+
+
+
+                <textarea
+
+
+
+                  name="message"
+
+
+
+                  value={formData.message}
+
+
+
+                  onChange={handleChange}
+
+
+
+                  placeholder="Tell us about your team, objectives, preferred topics or any specific requirements..."
+
+
+
+                  rows="7"
+
+
+
+                ></textarea>
+
+
+
+              </div>
+
+
+
+            </div>
+
+
+
+            {/* =================================================
+
+
+
+                SUBMIT
+
+
+
+            ================================================= */}
+
+
+
+            <div className="request-submit-area">
+
+
+
+              <div className="request-submit-info">
+
+
+
+                <span className="request-submit-dot"></span>
+
+
+
+                <div>
+
+
+
+                  <strong>
+
+
+
+                    READY TO BEGIN
+
+
+
+                  </strong>
+
+
+
+                  <small>
+
+
+
+                    Your request will be saved securely
+
+
+
+                    to the Gryphon Cyber training records.
+
+
+
+                  </small>
+
+
+
+                </div>
+
+
+
+              </div>
+
+
+
+              <button
+
+
+
+                type="submit"
+
+
+
+                className="request-submit-button"
+
+
+
+              >
+
+
+
+                {submitted
+
+
+
+                  ? "REQUEST SAVED"
+
+
+
+                  : "SUBMIT TRAINING REQUEST"
+
+
+
+                }
+
+
+
+                <span>
+
+
+
+                  →
+
+
+
+                </span>
+
+
+
+              </button>
+
+
+
+            </div>
+
+
+
+          </form>
+
+
+
+        </section>
+
+
+
+        {/* =====================================================
+
+
+
+            PROCESS
+
+
+
+        ===================================================== */}
+
+
+
+        <section className="request-process">
+
+
+
+          <div className="request-process-header">
+
+
+
+            <div className="request-section-label">
+
+
+
+              02 — WHAT HAPPENS NEXT
+
+
+
+            </div>
+
+
+
+            <h2>
+
+
+
+              From request
+
+
+
+              <span>
+
+
+
+                to training.
+
+
+
+              </span>
+
+
+
+            </h2>
+
+
+
+          </div>
+
+
+
+          <div className="request-process-flow">
+
+
+
+            {/* 01 */}
+
+
+
+            <div className="request-process-card">
+
+
+
+              <span>
+
+
+
+                01
+
+
+
+              </span>
+
+
+
+              <div className="request-process-icon">
+
+
+
+                ◇
+
+
+
+              </div>
+
+
+
+              <h3>
+
+
+
+                Request
+
+
+
+              </h3>
+
+
+
+              <p>
+
+
+
+                Share your team's training requirements
+
+
+
+                with Gryphon Cyber.
+
+
+
+              </p>
+
+
+
+            </div>
+
+
+
+            <div className="request-process-connector"></div>
+
+
+
+            {/* 02 */}
+
+
+
+            <div className="request-process-card">
+
+
+
+              <span>
+
+
+
+                02
+
+
+
+              </span>
+
+
+
+              <div className="request-process-icon">
+
+
+
+                ◎
+
+
+
+              </div>
+
+
+
+              <h3>
+
+
+
+                Discuss
+
+
+
+              </h3>
+
+
+
+              <p>
+
+
+
+                Discuss objectives, participants and
+
+
+
+                training requirements.
+
+
+
+              </p>
+
+
+
+            </div>
+
+
+
+            <div className="request-process-connector"></div>
+
+
+
+            {/* 03 */}
+
+
+
+            <div className="request-process-card">
+
+
+
+              <span>
+
+
+
+                03
+
+
+
+              </span>
+
+
+
+              <div className="request-process-icon">
+
+
+
+                +
+
+
+
+              </div>
+
+
+
+              <h3>
+
+
+
+                Structure
+
+
+
+              </h3>
+
+
+
+              <p>
+
+
+
+                Structure the training around the
+
+
+
+                identified requirements.
+
+
+
+              </p>
+
+
+
+            </div>
+
+
+
+            <div className="request-process-connector"></div>
+
+
+
+            {/* 04 */}
+
+
+
+            <div className="request-process-card">
+
+
+
+              <span>
+
+
+
+                04
+
+
+
+              </span>
+
+
+
+              <div className="request-process-icon">
+
+
+
+                →
+
+
+
+              </div>
+
+
+
+              <h3>
+
+
+
+                Execute
+
+
+
+              </h3>
+
+
+
+              <p>
+
+
+
+                Deliver practical training focused on
+
+
+
+                investigative capability.
+
+
+
+              </p>
+
+
+
+            </div>
+
+
+
+          </div>
+
+
+
+        </section>
+
+
+
+        {/* =====================================================
+
+
+
+            CTA
+
+
+
+        ===================================================== */}
+
+
+
+        <section className="request-bottom-cta">
+
+
+
+          <div className="request-bottom-glow"></div>
+
+
+
+          <div>
+
+
+
+            <div className="request-section-label">
+
+
+
+              GRYPHON CYBER
+
+
+
+            </div>
+
+
+
+            <h2>
+
+
+
+              Ready to build
+
+
+
+              <span>
+
+
+
+                capability?
+
+
+
+              </span>
+
+
+
+            </h2>
+
+
+
+            <Link
+
+
+
+              to="/training"
+
+
+
+              className="request-back-button"
+
+
+
+            >
+
+
+
+              Back to Training
+
+
+
+              <span>
+
+
+
+                ←
+
+
+
+              </span>
+
+
+
+            </Link>
+
+
+
+          </div>
+
+
+
+        </section>
+
+
+
+      </main>
+
+
+
+      {/* =====================================================
+
+
+
+          FOOTER
+
+
+
+      ===================================================== */}
+
+
+
+      <Footer />
+
+
+
+    </div>
+
+
+
+  );
+
+
 
 }
+
+
 
 export default RequestTraining;
